@@ -1,0 +1,155 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    width: 100vw;
+    max-width: 1440px;
+    min-height: 100vh;
+    height: fit-content;
+}
+
+.studentRegForm-ul{
+    width: fit-content;
+    height: fit-content;
+    min-height: 150vh;
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.studentRegForm-li{
+    list-style: none;
+    display: flex;
+    width: 30vw;
+    // justify-content: space-around;
+    align-items: center;
+    position: relative;
+
+        label{
+            width: 8vw;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 0.9rem;
+        }
+
+}
+
+.green{
+    color: green;
+    position: absolute;
+    right: 0;
+    font-size: 0.8rem;
+}
+.red{
+    color: red;
+    position: absolute;
+    right: 0;
+    font-size: 0.8rem;
+}
+
+.studentRegForm-li input{
+    width: 22vw;
+    height: 2.5rem;
+    border-radius: 7px;
+    border: 0.1px solid #777;
+    padding-left: 1.5rem;
+}
+
+.studentRegForm-li input:focus{
+    outline: none;
+}
+
+.male, .female{
+    justify-content:space-around;
+    display: flex;
+    width: 10vw;
+    // width: fit-content;
+    align-items: center;
+}
+
+select{
+    width: 20vw;
+    height: 7vh;
+    border-radius: 7px;
+    padding-left: 1rem;
+    background-color: rgba(240, 240, 240, 0.221);
+    // color: rgb(255, 0, 43);
+    font-size: 1.2rem;
+    font-family: 'Times New Roman', Times, serif; 
+    font-weight: bold;
+    display: block;
+    cursor: pointer;
+}
+.schTypeOption{
+    color: white;
+    // background: rgb(255, 0, 81);
+    border-radius: 7px;
+    font-family: 'Times New Roman', Times, serif; 
+    font-weight: bold;
+    cursor: pointer;
+}
+// .schTypeOption:hover{
+//     color: rgb(255, 0, 81);
+//     background: white;
+//     display: block;
+// }
+
+.studentRegForm-year{
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    width: 20vw;
+    height: 15vh;
+    justify-content: space-around;
+}
+.student-year-container{
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: fit-content;
+    // justify-content: space-around;
+}
+
+.academic-title{
+    font-weight: bold;
+}
+
+.initial-academic-Session,
+.end-academic-Session{
+    display: flex;
+    align-items: center;
+    width: 14vw;
+
+    label{
+        font-weight: bold;
+    }
+}
+.to{
+    margin-left: 0.5rem;
+}
+
+.initial-academic-Session input,
+.end-academic-Session input{
+    width: 7vw;
+    height: 2.5rem;
+    border-radius: 7px;
+    border: 0.1px solid #777;
+    padding-left: 1rem;
+    margin-left: 0.5rem;
+}
+
+.year{
+    margin-left: 1rem;
+}
+
+.studentbtn{
+    width: 12vw;
+    height: 8vh;
+    border-radius: 7px;
+    border: 1px solid #777;
+    border-width: thin;
+    cursor: pointer;
+}

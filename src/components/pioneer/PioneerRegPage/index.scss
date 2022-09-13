@@ -1,0 +1,60 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    width: 100vw;
+    height: 100vh;
+}
+
+.pioneerRegForm-ul{
+    width: 30vw;
+    height: fit-content;
+    min-height: 50vh;
+    margin: 5rem auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.pioneerRegForm-li{
+    list-style: none;
+    display: flex;
+    width: 30vw;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+
+        label{
+            width: 8vw;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 0.9rem;
+        }
+
+        .green{
+            color: green;
+            position: absolute;
+            right: 0;
+            font-size: 0.8rem;
+        }
+        .red{
+            color: red;
+            position: absolute;
+            right: 0;
+            font-size: 0.8rem;
+        }
+}
+
+.pioneerRegForm-li input{
+    width: 22vw;
+    height: 2.5rem;
+    border-radius: 7px;
+    border: 0.1px solid #777;
+    padding-left: 1.5rem;
+}
+
+.pioneerRegForm-li input:focus{
+    outline: none;
+}

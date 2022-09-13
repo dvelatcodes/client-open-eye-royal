@@ -1,0 +1,299 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    overflow-x: hidden;
+}
+
+.home-container{
+    width: 100vw;
+    max-width: 1440px;
+    height: fit-content;
+    min-height: 120vh;
+    overflow-x: hidden;
+
+    .first-header-img{
+        background-image: url("../../Assets/Images/janko-ferlic-black\ and\ white.jpg");
+        background-size: contain;
+        width: 100vw;
+        height: 100vh;
+        position: relative;
+    } 
+    .header-color-img{
+        background-image: url("../../Assets/Images/janko-ferlic-sfL_QOnmy00-unsplash.jpg");
+        background-size: contain;
+        width: 100vw;
+        height: 100vh;
+        position: relative;
+    }
+
+    .initial-explore{
+        opacity: 0;
+    }
+
+    .explore{
+        position: absolute;
+        left: -2rem;
+        right: 0;
+        background-image: url("../../Assets/Images/save.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 25vw;
+        height: 50vh;
+        margin: 2.5rem auto;
+        opacity: 1;
+        transition: all 3s ease-in-out;
+    }
+
+    .header-group{
+        position: absolute;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        width: 100vw;
+        max-width: 1440px;
+        height: 50vh;
+
+            .header-up-container{
+                position: relative;
+                width: 100vw;
+                height: 24vh;
+                
+                    .header-up{
+                        position: absolute;
+                        left: 0;
+                        right: 0;
+                        bottom: -1rem;
+                        display: flex;
+                        width: fit-content;
+                        margin: auto;
+                        h1{
+                            color: white;
+                            display: inline-block;
+                            font-size: 15vh;
+                        }
+                        img{
+                            width: 60px;
+                            height: 90px;
+                        }
+        
+                    }
+            }
+
+            .header-down{
+                width: 100vw;
+                max-width: 1440px;
+                height: 26vh;
+                position: relative;
+                cursor: pointer;
+
+                .header-down-color{
+                    width: 100vw;
+                    max-width: 1440px;
+                    height: 26vh;
+                    background: black;
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    top: 0;
+                    bottom: 0;
+                }
+
+                .auto-words{
+                    width: 55vw;
+                    height: 17vh;
+                    display: flex;
+                    justify-content: space-around;
+                    margin: auto;
+                    align-items: center;
+                }
+                h4{
+                    // color: white;
+                    font-size: 1.7rem;
+                    position: relative;
+                    z-index: 100;
+                    width: fit-content;
+                    font-style: italic;
+                }
+                .auto-1st{
+                    color: white;
+                    opacity: 1;
+                    transition: color 4s ease-in-out;
+                }
+                .auto-2nd{
+                    color: white;
+                    opacity: 1;
+                    transition: color 6s ease-in-out;
+                }
+                .auto-3rd{
+                    color: white;
+                    opacity: 1;
+                    transition: color 8s ease-in-out;
+                }
+                .auto-4th{
+                    color: white;
+                    opacity: 1;
+                    transition: color 9s ease-in-out;
+                }
+                .auto-5th{
+                    color: white;
+                    opacity: 1;
+                    transition: color 11s ease-in-out;
+                }
+                .auto-6th{
+                    color: white;
+                    opacity: 1;
+                    transition: color 13s ease-in-out;
+                }
+                .auto-7th{
+                    color: white;
+                    opacity: 1;
+                    transition: color 15s ease-in-out;
+                }
+
+                .view-community{
+                    z-index: 100;
+                    background-color: black;
+                    width: 15vw;
+                    height: 12vh;
+                    position: absolute;
+                    left: 5rem;
+                    top: 3.6rem;
+                    opacity: 1;
+                    animation: view 2s infinite ease-in-out;
+                }
+
+                @keyframes view {
+                    from{
+                        opacity: 0.3;
+                    }
+                    to{
+                        opacity: 1;
+                    }
+                } 
+                .view-community *{
+                    height: 8vh;
+                    width: 3vw;
+                }
+                .view-btn{
+                    color: white;
+                    font-size: 1rem;
+                    width: 8vw;
+                    height: 8vh;
+                    text-decoration: none;
+                }
+               
+            }
+         
+           
+    }
+
+    .home-showbiz{
+        display: flex;
+        width: 100vw;
+        max-width: 1440px;
+        min-height: 100vh;
+        height: fit-content;
+
+            .show1st{
+                background-image: url("../../Assets/Images/students-black.jpg");
+                width: 20vw;
+                height: 100vh;
+                background-repeat: no-repeat;
+                background-size: cover;
+                transition: all 1s ease-in-out;
+
+                    .show1stbtn *{
+                        color: white;
+                        width: 5vw;
+                        height: 7vh;
+                        cursor: pointer;
+                    }
+            }
+
+            .changeshow1st{
+                background-image: url("../../Assets/Images/students-change.jpg");
+                width: 60vw;
+                height: 100vh;
+                background-repeat: no-repeat;
+                background-size: cover;
+                transition: all 1s ease-in-out;
+
+                .show1stbtn *{
+                    color: white;
+                    width: 5vw;
+                    height: 7vh;
+                    cursor: pointer;
+                }
+            }
+            
+            .show2nd{
+                background-image: url("../../Assets/Images/pexels-sound-on-3761263.jpg");
+                width: 60vw;
+                height: 100vh;
+                background-repeat: no-repeat;
+                background-size: cover;
+                transition: all 1s ease-in-out;
+
+                .show2ndbtn *{
+                    color: white;
+                    width: 5vw;
+                    height: 7vh;
+                    cursor: pointer;
+                }
+            }
+
+            .changeshow2nd{
+                background-image: url("../../Assets/Images/pexels-sound2.jpg");
+                width: 20vw;
+                height: 100vh;
+                background-repeat: no-repeat;
+                background-size: cover;
+                transition: all 1s ease-in-out;
+
+                .show2ndbtn *{
+                    color: white;
+                    width: 5vw;
+                    height: 7vh;
+                    cursor: pointer;
+                }
+            }
+
+            .show3rd{
+                background-image: url("../../Assets/Images/pexels-katerin.jpg");
+                width: 20vw;
+                height: 100vh;
+                background-repeat: no-repeat;
+                background-size: cover;
+                transition: all 1s ease-in-out;
+
+                .show3rdbtn *{
+                    color: white;
+                    width: 5vw;
+                    height: 7vh;
+                    cursor: pointer;
+                }
+            }
+
+            .changeshow3rd{
+                background-image: url("../../Assets/Images/teacher-ini.jpg");
+                width: 60vw;
+                height: 100vh;
+                background-repeat: no-repeat;
+                background-size: cover;
+                transition: all 1s ease-in-out;
+
+                .show3rdbtn *{
+                    color: white;
+                    width: 5vw;
+                    height: 7vh;
+                    cursor: pointer;
+                }
+            }
+    }
+
+}
+

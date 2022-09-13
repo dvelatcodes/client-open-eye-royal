@@ -1,0 +1,9 @@
+export { default as SetupClass } from "./SetupClass";
+export { default as SetTeachers } from "./SetTeachers";
+export { default as Kanban } from "./Kanban";
+export { default as AllClasses } from "./AllClasses";
+export { default as EditTeachers } from "./EditTeachers";
+export { default as Editor } from "./Editor";
+export { default as Customers } from "./Customers";
+export { default as ColorPicker } from "./ColorPicker";
+export { default as Calendar } from "./Calendar";

@@ -1,0 +1,19 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.schTypeOption{
+    color: white;
+    background: rgb(255, 0, 81);
+    border-radius: 7px;
+    font-family: 'Times New Roman', Times, serif; 
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.schTypeOption:hover{
+    color: rgb(255, 0, 81);
+    background: white;
+}

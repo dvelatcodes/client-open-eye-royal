@@ -1,0 +1,117 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.schoolSetupContainer{
+    width : 100vw;
+    height: 100vh;
+    min-height: fit-content;
+    position: relative;
+}
+
+.schoolsetupimage{
+    background-image: url("../../Assets/Images/jaredd-craig-HH4WBGNyltc-unsplash.jpg");
+    background-size: contain;
+    width : 100%;
+    position: fixed;
+    left: 0;
+    right: 0;
+    height: 100%;
+}
+.schSetupImgBg{
+    width : 100%;
+    height: 100%;
+    background-color: black;
+    position: fixed;
+    opacity: 0.5;
+}
+
+.schoolRegForm-ul{
+    width: 50vw;
+    min-height: 70vh;
+    height: fit-content;
+    margin: auto;
+    transform: translateY(10vh);
+    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 40vw;
+}
+
+    
+
+.schoolRegForm-li{
+    list-style: none;
+    // margin-top: 1vh;
+   
+
+    select{
+        width: 20vw;
+        height: 7vh;
+        border-radius: 7px;
+        padding-left: 1rem;
+        background-color: rgba(240, 240, 240, 0.221);
+        color: rgb(255, 241, 218);
+        font-size: 1.2rem;
+        font-family:Arial, Helvetica, sans-serif; 
+        // font-weight: bold;
+        display: block;
+        cursor: pointer;
+        padding-left: 2rem;
+    }
+    .schTypeOption{
+        color: rgb(255, 241, 218);
+        background: rgb(255, 0, 81);
+        background: rgb(51,55,62);
+        opacity: 0;
+        position: relative;
+        border-radius: 7px;
+        font-family: 'Times New Roman', Times, serif; 
+        font-weight: bold;
+        cursor: pointer;
+    }
+    .schTypeOption:hover{
+        color: rgb(255, 0, 81);
+        background: white;
+        display: block;
+    }
+
+    input{
+        width: 20vw;
+        height: 7vh;
+        border-radius: 7px;
+        padding-left: 1rem;
+        background-color: rgba(240, 240, 240, 0.221);
+        color: rgb(255, 241, 218);
+        font-size: 1.2rem;
+        font-family: 'Times New Roman', Times, serif;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    input::placeholder{
+        color: rgb(255, 241, 218);
+    }
+
+    textarea{
+        width: 30vw;
+        height: 30vh;
+        border-radius: 7px; 
+        padding: 0.7rem 0 0 1rem;
+        background-color: rgba(240, 240, 240, 0.221);
+        color: rgb(255, 241, 218);
+        font-size: 1.2rem;
+        font-family:'Times New Roman', Times, serif;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    textarea::placeholder{
+        color: rgb(255, 241, 218);
+    }
+}
+
