@@ -75,7 +75,10 @@ const SetupClass = () => {
     // set mode
     retrieveCurrentMode && setCurrentMode(retrieveCurrentMode);
     // set className
-    newClasses.className = parsedClassName;
+    parsedClassName
+      ? (newClasses.className = parsedClassName)
+      : (newClasses.className = className);
+    // newClasses.className = parsedClassName;
     // set classType
     parsedClassType &&
       setNewClasses({ ...newClasses, classType: parsedClassType });
@@ -279,14 +282,16 @@ const SetupClass = () => {
                       }}
                     />
                     <button
-                      className="text-white font-bold w-1/5 ml-4 mt-4 dark:bg-white dark:text-black"
+                      style={{
+                        background:
+                          (hoverAdd && currentColor) ||
+                          (currentMode === "Light" ? "black" : "white"),
+                        // color: hoverAdd ? "black" : "white",
+                      }}
+                      className={`font-bold w-1/5 ml-4 mt-4 dark:text-black hover:text-white dark:hover:text-white text-white`}
                       type="button"
                       id="addButton"
                       onClick={handleAdd}
-                      style={{
-                        background: hoverAdd ? currentColor : "black",
-                        // color: hover ? "black" : "white",
-                      }}
                       onMouseEnter={handleMouseEnter}
                       onMouseLeave={handleMouseLeave}
                     >
