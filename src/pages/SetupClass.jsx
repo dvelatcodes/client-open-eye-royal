@@ -24,6 +24,14 @@ const SetupClass = () => {
     currentMode,
     setCurrentMode,
   } = useStateContext();
+  const [stChecker, setStChecker] = useState({
+    stEleven: false,
+  });
+  const [stDisplay, setStDisplay] = useState({
+    display11: "none",
+  });
+  const { display11 } = stDisplay;
+  const { stEleven } = stChecker;
   // initialize my states
   // initialize my states
   const dispatch = useDispatch();
@@ -48,10 +56,43 @@ const SetupClass = () => {
   const [newClasses, setNewClasses] = useState({
     className: "Select Class",
     classType: "Class Type",
+    startOfAcademicYear: "",
+    endOfAcademicYear: "",
   });
   // class destructuring
   // class destructuring
-  const { className, classType } = newClasses;
+  const { className, classType, startOfAcademicYear, endOfAcademicYear } =
+    newClasses;
+  // onchange
+  // onchange
+  const onChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setNewClasses((prevState) => ({ ...prevState, [name]: value }));
+  };
+  const changeAll = (e) => {
+    const all = e.target.getAttribute("data-id");
+    switch (all) {
+      case "startyear":
+        setStChecker({
+          ...stChecker,
+          stEleven: startOfAcademicYear && endOfAcademicYear ? true : false,
+        });
+      case "endyear":
+        setStChecker({
+          ...stChecker,
+          stEleven: startOfAcademicYear < endOfAcademicYear ? true : false,
+        });
+        setStDisplay({
+          ...stDisplay,
+          display11:
+            startOfAcademicYear && endOfAcademicYear ? "block" : "block",
+        });
+        break;
+      default:
+        break;
+    }
+  };
   // retrieve subjects to local Storage
   // retrieve subjects to local Storage
   useEffect(() => {
@@ -229,6 +270,45 @@ const SetupClass = () => {
                 Create New Class
               </div>
               <div className="bg-white m-auto relative top-16 dark:bg-secondary-dark-bg rounded-2xl h-fit w-3/4">
+                <p className="w-fit m-auto font-bold">
+                  Current Academic Session
+                </p>
+                <div className="student-year-container w-fit m-auto">
+                  <p className="initial-academic-Session">
+                    <label htmlFor="academic-Session">From</label>
+                    <input
+                      type="number"
+                      min="2022"
+                      max="2040"
+                      name="startOfAcademicYear"
+                      value={startOfAcademicYear}
+                      onChange={onChange}
+                      onClick={changeAll}
+                      data-id="startyear"
+                    />
+                  </p>
+                  <p className="end-academic-Session">
+                    <label htmlFor="end-academic-Session" className="to">
+                      To
+                    </label>
+                    <input
+                      type="number"
+                      min="2022"
+                      max="2040"
+                      name="endOfAcademicYear"
+                      value={endOfAcademicYear}
+                      onChange={onChange}
+                      onClick={changeAll}
+                      data-id="endyear"
+                    />
+                  </p>
+                  <span
+                    className={stEleven ? "green" : "red"}
+                    style={{ display: display11 }}
+                  >
+                    {stEleven ? "valid" : "invalid"}
+                  </span>
+                </div>
                 <SelectClass
                   name={className}
                   value={className}
@@ -311,7 +391,7 @@ const SetupClass = () => {
                         <input
                           type="text"
                           onChange={(e) => setEditingText(e.target.value)}
-                          value={editingText}
+                          value={editingText || subject.subName}
                           className={`focus:outline-none dark:border-color-white`}
                           style={{
                             border: `1px solid ${currentColor}`,

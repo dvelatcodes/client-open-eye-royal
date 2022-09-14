@@ -82,15 +82,12 @@ const PioneerSchool = () => {
             <Navbar />
           </div>
           <div>
-            <div className="mt-12 md:w-800 sm:w-760 lg:w-full">
+            <div className="mt-12 w-screen md:w-800 sm:w-760">
               <div className="flex w-full flex-wrap lg:flex-nowrap justify-center">
                 <div className="w-full">
-                  <div className="flex m-1 w-full flex-wrap gap-1 justify-around items-center">
+                  <div className="flex m-1 w-full flex-wrap gap-1 justify-around items-center gap-y-4">
                     {schoolData.map((item) => (
-                      <div
-                        className="lg:w-3/12 mt-2 md:w-full sm:w-full"
-                        key={item.name}
-                      >
+                      <div className="w-fit" key={item.name}>
                         <div className="bg-white dark:text-gray-200 w-full dark:bg-secondary-dark-bg md:w-56 p-4 pt-9 rounded-2xl flex justify-around flex-wrap">
                           <div className="w-3/6">
                             <button
