@@ -11,6 +11,7 @@ import { Button } from "../components";
 import { useStateContext } from "../contexts/ContextProvider";
 import { DashboardFraction1 } from "../Dashboard";
 import { SelectClass } from "../components/student/StudentRegPage";
+import "../components/student/StudentRegPage/index.scss";
 
 const SetupClass = () => {
   // my contexts
@@ -266,16 +267,24 @@ const SetupClass = () => {
               className="min-h-screen h-fit w-2/3 translate-x-1/4 bg-white dark:bg-secondary-dark-bg rounded-2xl relative block pb-20"
               // style={{ Height: "fit-content" }}
             >
-              <div className="m-auto top-9 text-xs relative font-extrabold tracking-tight dark:text-white text-slate-900 w-fit">
+              <div
+                className="m-auto top-9 text-3xl relative tracking-tight dark:text-white text-slate-900 w-fit"
+                style={{ color: currentColor, fontFamily: "fantasy" }}
+              >
                 Create New Class
               </div>
-              <div className="bg-white m-auto relative top-16 dark:bg-secondary-dark-bg rounded-2xl h-fit w-3/4">
-                <p className="w-fit m-auto font-bold">
+              <div className="bg-white m-auto relative top-12 dark:bg-secondary-dark-bg rounded-2xl h-fit w-3/4">
+                <p
+                  className="academic-title w-fit m-auto font-medium"
+                  style={{ color: currentMode === "Dark" ? "white" : "black" }}
+                >
                   Current Academic Session
                 </p>
-                <div className="student-year-container w-fit m-auto">
-                  <p className="initial-academic-Session">
-                    <label htmlFor="academic-Session">From</label>
+                <div className="student-year-container bg-main-bg w-fit m-auto top-2 shadow-md rounded-lg">
+                  <p className="initial-academic-Session w-2/4">
+                    <label htmlFor="academic-Session" className="to">
+                      From
+                    </label>
                     <input
                       type="number"
                       min="2022"
@@ -285,6 +294,7 @@ const SetupClass = () => {
                       onChange={onChange}
                       onClick={changeAll}
                       data-id="startyear"
+                      className="yearinput"
                     />
                   </p>
                   <p className="end-academic-Session">
@@ -300,6 +310,7 @@ const SetupClass = () => {
                       onChange={onChange}
                       onClick={changeAll}
                       data-id="endyear"
+                      className="yearinput"
                     />
                   </p>
                   <span
@@ -315,7 +326,7 @@ const SetupClass = () => {
                   onChange={() => {}}
                   style={{ background: currentColor, color: "white" }}
                   data-id="select-class"
-                  className="w-full h-20 dark:bg-main-dark-bg bg-main-bg lg:pl-40 sm:pl-0 shadow-md focus:outline-none block relative"
+                  className="w-full h-20 dark:bg-main-dark-bg bg-main-bg lg:pl-40 sm:pl-0 shadow-md focus:outline-none block relative top-9"
                   onClick={(e) => {
                     setNewClasses({ ...newClasses, className: e.target.value });
                     // console.log(className);
@@ -324,7 +335,7 @@ const SetupClass = () => {
                 <select
                   name={classType}
                   data-id="class-type"
-                  className="w-full h-20 dark:bg-main-dark-bg mt-5 bg-main-bg lg:pl-40 sm:pl-0 shadow-md focus:outline-none"
+                  className="w-full h-20 dark:bg-main-dark-bg  bg-main-bg lg:pl-40 sm:pl-0 shadow-md focus:outline-none mt-14"
                   onClick={(e) => {
                     setNewClasses({ ...newClasses, classType: e.target.value });
                   }}

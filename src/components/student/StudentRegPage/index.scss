@@ -109,40 +109,46 @@ select{
     display: flex;
     align-items: center;
     position: relative;
+    padding: 1.1rem;
     width: fit-content;
     // justify-content: space-around;
 }
 
 .academic-title{
-    font-weight: bold;
+    font-weight:bold;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.2rem;
 }
 
 .initial-academic-Session,
 .end-academic-Session{
     display: flex;
     align-items: center;
-    width: 14vw;
+    width: 10.2vw;
 
     label{
         font-weight: bold;
     }
 }
 .to{
-    margin-left: 0.5rem;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 .initial-academic-Session input,
 .end-academic-Session input{
-    width: 7vw;
-    height: 2.5rem;
+    width: 6vw;
+    height: 2rem;
     border-radius: 7px;
     border: 0.1px solid #777;
-    padding-left: 1rem;
-    margin-left: 0.5rem;
+    padding-left: 1.1rem;
+    margin-left: 0.2rem;
+    font-size : 1rem;
+    font-family: 'Times New Roman', Times, serif;
 }
 
-.year{
-    margin-left: 1rem;
+.initial-academic-Session input:focus,
+.end-academic-Session input:focus{
+    outline: none;
 }
 
 .studentbtn{
