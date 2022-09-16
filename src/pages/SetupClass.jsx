@@ -71,6 +71,7 @@ const SetupClass = () => {
     const value = e.target.value;
     setNewClasses((prevState) => ({ ...prevState, [name]: value }));
   };
+
   const changeAll = (e) => {
     const all = e.target.getAttribute("data-id");
     switch (all) {
@@ -223,13 +224,21 @@ const SetupClass = () => {
   }, [reset, isError, isSuccess, newClass, message, navigate, dispatch]);
   // submitClass
   // submitClass
+  const bothYear = startOfAcademicYear + "/" + endOfAcademicYear;
+  // console.log(bothYear);
   const submitClass = () => {
-    const user = JSON.parse(localStorage.getItem("user"));
+    // const user = JSON.parse(localStorage.getItem("user"));
+    const calenderYear = "none";
+    const pioneerId = "none";
+    const schoolName = "none";
     const myClass = {
       className,
       classType,
       subjects,
-      pioneerId: user._id,
+      calenderYear,
+      pioneerId,
+      schoolName,
+      // pioneerId: user._id,
     };
     // console.log(myClass);
 
@@ -353,6 +362,12 @@ const SetupClass = () => {
                     style={{ background: currentColor, color: "white" }}
                   >
                     Art Class
+                  </option>
+                  <option
+                    value="Commercial Class"
+                    style={{ background: currentColor, color: "white" }}
+                  >
+                    Commercial Class
                   </option>
                 </select>
                 <div
