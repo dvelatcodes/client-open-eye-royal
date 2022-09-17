@@ -5,7 +5,7 @@ import { MdOutlineCancel } from "react-icons/md";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 import { links } from "../data/dummy";
 import { useStateContext } from "../contexts/ContextProvider";
-const Sidebar = () => {
+const Sidebar = ({ sideBarTitle }) => {
   const { activeMenu, setActiveMenu, screenSize, currentColor } =
     useStateContext();
   const handleCloseSideBar = () => {
@@ -28,7 +28,7 @@ const Sidebar = () => {
               className="items-center gap-3 ml-3 mt-4 gap-3 flex text-xl font-extrabold tracking-tight dark:text-white text-slate-900"
             >
               <IoIosSchool />
-              <span>Pioneer</span>
+              <span>{sideBarTitle}</span>
             </Link>
             <TooltipComponent content="Menu" position="BottomCenter">
               <button

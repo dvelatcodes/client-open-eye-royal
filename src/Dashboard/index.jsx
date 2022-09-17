@@ -18,7 +18,7 @@ const Dashboard = () => {
   );
 };
 
-export const DashboardFraction1 = ({ activeMenu, onClick }) => {
+export const DashboardFraction1 = ({ activeMenu, onClick, sideBarTitle }) => {
   const { currentColor } = useStateContext();
   return (
     <>
@@ -38,11 +38,11 @@ export const DashboardFraction1 = ({ activeMenu, onClick }) => {
       </div>
       {activeMenu ? (
         <div className="relative w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white">
-          <Sidebar />
+          <Sidebar sideBarTitle={"Pioneer"} />
         </div>
       ) : (
         <div className="w-0 dark:bg-secondary-dark-bg">
-          <Sidebar />
+          <Sidebar sideBarTitle={"Pioneer"} />
         </div>
       )}
     </>
