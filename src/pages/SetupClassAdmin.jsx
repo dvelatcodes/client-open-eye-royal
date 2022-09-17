@@ -13,7 +13,7 @@ import { DashboardFraction1 } from "../Dashboard";
 import { SelectClass } from "../components/student/StudentRegPage";
 import "../components/student/StudentRegPage/index.scss";
 
-const SetupClass = () => {
+const SetupClassAdmin = () => {
   // my contexts
   // my contexts
   const {
@@ -485,4 +485,4 @@ const SetupClass = () => {
   );
 };
 
-export default SetupClass;
+export default SetupClassAdmin;

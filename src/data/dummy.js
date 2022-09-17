@@ -534,7 +534,7 @@ export const links = [
       {
         name: "set-classes",
         icon: <SiGoogleclassroom />,
-        link: "setup-class",
+        link: "setup-adminclass",
       },
     ],
   },

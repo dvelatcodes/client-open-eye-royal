@@ -3,11 +3,69 @@ import { Link, NavLink } from "react-router-dom";
 import { IoIosSchool } from "react-icons/io";
 import { MdOutlineCancel } from "react-icons/md";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
-import { links } from "../data/dummy";
+import { FiShoppingBag, FiEdit } from "react-icons/fi";
+import { IoMdContacts } from "react-icons/io";
+import { SiGoogleclassroom } from "react-icons/si";
+import { AiOutlineCalendar } from "react-icons/ai";
+import { BsKanban } from "react-icons/bs";
+import { BiColorFill } from "react-icons/bi";
 import { useStateContext } from "../contexts/ContextProvider";
-const Sidebar = ({ sideBarTitle }) => {
+const SidebarPioneer = ({ sideBarTitle }) => {
   const { activeMenu, setActiveMenu, screenSize, currentColor } =
     useStateContext();
+  const linksPioneer = [
+    {
+      title: "Dashboard",
+      links: [
+        {
+          name: "school",
+          icon: <FiShoppingBag />,
+          link: "schoolpioneer",
+        },
+      ],
+    },
+
+    {
+      title: "Pages",
+      links: [
+        {
+          name: "set-teachers",
+          icon: <IoMdContacts />,
+          link: "set-teacherspioneer",
+        },
+        {
+          name: "set-classes",
+          icon: <SiGoogleclassroom />,
+          link: "setup-adminclasspioneer",
+        },
+      ],
+    },
+    {
+      title: "Apps",
+      links: [
+        {
+          name: "calendar",
+          icon: <AiOutlineCalendar />,
+          link: "calendarpioneer",
+        },
+        {
+          name: "kanban",
+          icon: <BsKanban />,
+          link: "kanbanpioneer",
+        },
+        {
+          name: "editor",
+          icon: <FiEdit />,
+          link: "editorpioneer",
+        },
+        {
+          name: "color-picker",
+          icon: <BiColorFill />,
+          link: "color-pickerpioneer",
+        },
+      ],
+    },
+  ];
   const handleCloseSideBar = () => {
     if (activeMenu && screenSize <= 900) {
       setActiveMenu(false);
@@ -23,7 +81,7 @@ const Sidebar = ({ sideBarTitle }) => {
         <>
           <div className="flex justify-between items-center">
             <Link
-              to="/school"
+              to="/schoolPioneer"
               onClick={handleCloseSideBar}
               className="items-center gap-3 ml-3 mt-4 gap-3 flex text-xl font-extrabold tracking-tight dark:text-white text-slate-900"
             >
@@ -41,7 +99,7 @@ const Sidebar = ({ sideBarTitle }) => {
             </TooltipComponent>
           </div>
           <div className="mt-10">
-            {links.map((item) => (
+            {linksPioneer.map((item) => (
               <div key={item.title}>
                 <p className="text-gray-400 m-3 m-4 uppercase">{item.title}</p>
                 {item.links.map((link) => (
@@ -70,4 +128,4 @@ const Sidebar = ({ sideBarTitle }) => {
   );
 };
 
-export default Sidebar;
+export default SidebarPioneer;

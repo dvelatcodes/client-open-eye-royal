@@ -1,4 +1,5 @@
-export { default as SetupClass } from "./SetupClass";
+export { default as SetupClassAdmin } from "./SetupClassAdmin";
+export { default as SetupClassPioneer } from "./SetupClassPioneer";
 export { default as SetTeachers } from "./SetTeachers";
 export { default as Kanban } from "./Kanban";
 export { default as AllClasses } from "./AllClasses";

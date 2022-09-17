@@ -9,7 +9,8 @@ import SchoolSetup from "./components/SchoolSetup";
 import {
   Calendar,
   EditTeachers,
-  SetupClass,
+  SetupClassAdmin,
+  SetupClassPioneer,
   SetTeachers,
   Customers,
   Kanban,
@@ -42,7 +43,8 @@ function App() {
           <Route path="/allclasses" element={<AllClasses />} />
           <Route path="/edit-teachers" element={<EditTeachers />} />
           <Route path="/edit-students" element={<Customers />} />
-          <Route path="/setup-class" element={<SetupClass />} />
+          <Route path="/setup-adminclass" element={<SetupClassAdmin />} />
+          <Route path="/setup-classPioneer" element={<SetupClassPioneer />} />
           <Route path="/set-teachers" element={<SetTeachers />} />
           {/* apps */}
           <Route path="/kanban" element={<Kanban />} />
