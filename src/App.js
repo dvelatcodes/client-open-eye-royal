@@ -15,8 +15,10 @@ import {
   Customers,
   Kanban,
   ColorPicker,
-  AllClasses,
+  AllClassesPioneer,
+  AllClassesAdmin,
   Editor,
+  AdminSchools,
 } from "./pages";
 import { PioneerSchool } from "./components/pioneer/index";
 import "./app.css";
@@ -38,9 +40,11 @@ function App() {
           <Route path="/pioneerReg" exact element={<PioneerRegPage />} />
           {/* pioneer dashboard */}
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/school" element={<PioneerSchool />} />
+          <Route path="/adminschools" element={<AdminSchools />} />
+          <Route path="/pioneerschool" element={<PioneerSchool />} />
           {/* pioneer pages */}
-          <Route path="/allclasses" element={<AllClasses />} />
+          <Route path="/allclassespioneer" element={<AllClassesPioneer />} />
+          <Route path="/allclassesadmin" element={<AllClassesAdmin />} />
           <Route path="/edit-teachers" element={<EditTeachers />} />
           <Route path="/edit-students" element={<Customers />} />
           <Route path="/setup-adminclass" element={<SetupClassAdmin />} />

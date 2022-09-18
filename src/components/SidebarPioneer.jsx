@@ -20,7 +20,7 @@ const SidebarPioneer = ({ sideBarTitle }) => {
         {
           name: "school",
           icon: <FiShoppingBag />,
-          link: "schoolpioneer",
+          link: "pioneerschool",
         },
       ],
     },
@@ -36,7 +36,7 @@ const SidebarPioneer = ({ sideBarTitle }) => {
         {
           name: "set-classes",
           icon: <SiGoogleclassroom />,
-          link: "setup-adminclasspioneer",
+          link: "setup-pioneerclass",
         },
       ],
     },
@@ -81,7 +81,7 @@ const SidebarPioneer = ({ sideBarTitle }) => {
         <>
           <div className="flex justify-between items-center">
             <Link
-              to="/schoolPioneer"
+              to="/pioneerschool"
               onClick={handleCloseSideBar}
               className="items-center gap-3 ml-3 mt-4 gap-3 flex text-xl font-extrabold tracking-tight dark:text-white text-slate-900"
             >

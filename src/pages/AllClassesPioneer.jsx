@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Navbar, ThemeSettings } from "../components";
 import { Link } from "react-router-dom";
 import { useStateContext } from "../contexts/ContextProvider";
-import { DashboardFraction1 } from "../Dashboard";
+import { DashboardFractionPioneer } from "../Dashboard";
 
-const AllClasses = () => {
+const AllClassesPioneer = () => {
   const {
     activeMenu,
     currentColor,
@@ -21,7 +21,7 @@ const AllClasses = () => {
   return (
     <div className={currentMode === "Dark" ? "dark" : ""}>
       <div className="flex  bg-neutral-700 relative  dark:bg-main-dark-bg">
-        <DashboardFraction1
+        <DashboardFractionPioneer
           activeMenu={activeMenu}
           onClick={() => setThemeSettings(true)}
         />
@@ -45,4 +45,4 @@ const AllClasses = () => {
   );
 };
 
-export default AllClasses;
+export default AllClassesPioneer;

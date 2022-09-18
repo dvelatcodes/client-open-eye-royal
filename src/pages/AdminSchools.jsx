@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { Navbar, ThemeSettings } from "../../components";
+import { Navbar, ThemeSettings } from "../components";
 import { Link } from "react-router-dom";
-import { useStateContext } from "../../contexts/ContextProvider";
-import { DashboardFractionPioneer } from "../../Dashboard";
+import { useStateContext } from "../contexts/ContextProvider";
+import { DashboardFraction1 } from "../Dashboard";
 import { SiGoogleclassroom } from "react-icons/si";
 import { GiTeacher, GiSchoolBag } from "react-icons/gi";
 import { ImBooks } from "react-icons/im";
 import { FaArrowAltCircleRight } from "react-icons/fa";
 
-const PioneerSchool = () => {
+const AdminSchools = () => {
   const {
     activeMenu,
     currentColor,
@@ -31,7 +31,7 @@ const PioneerSchool = () => {
       view: "View",
       iconColor: "rgb(255, 244, 229)",
       iconBg: "#5798EE",
-      link: "/allclassespioneer",
+      link: "/allClasses",
     },
     {
       name: "Teachers",
@@ -68,7 +68,7 @@ const PioneerSchool = () => {
   return (
     <div className={currentMode === "Dark" ? "dark" : ""}>
       <div className="flex  bg-neutral-700 relative  dark:bg-main-dark-bg">
-        <DashboardFractionPioneer
+        <DashboardFraction1
           activeMenu={activeMenu}
           onClick={() => setThemeSettings(true)}
         />
@@ -139,4 +139,4 @@ const PioneerSchool = () => {
   );
 };
 
-export default PioneerSchool;
+export default AdminSchools;
