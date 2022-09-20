@@ -21,11 +21,20 @@ const registerPioneer = async (pioneer) => {
 // register class
 const regClass = async (userData) => {
   const response = await API.post("/regnigerianclass", userData);
-  // console.log(userData);
   if (response) {
     localStorage.setItem("nigerianclasses", JSON.stringify(response.data));
   }
   return response.data;
+};
+// get default classes
+// get default classes
+const getDefaultClasses = async () => {
+  const response = await API.get("/defaultclasses");
+  console.log(response);
+  if (response) {
+    localStorage.setItem("defaultclasses", JSON.stringify(response.data));
+  }
+  return response;
 };
 // Register Student
 // Register Student
@@ -46,6 +55,7 @@ const logout = async () => {
 const authService = {
   registerPioneer,
   regClass,
+  getDefaultClasses,
   regStudent,
   logout,
 };

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { getDefaultClasses } from "../features/classSlice";
 import { reset, regClass } from "../features/classSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -31,6 +32,20 @@ const SetupClassAdmin = () => {
     (state) => state.class
   );
 
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+    if (isSuccess) {
+      navigate("/pioneerschool");
+    }
+    dispatch(reset());
+  }, [dispatch, reset, navigate, isSuccess, isError, isLoading, message]);
+  // get default classes
+  // get default classes
+  useEffect(() => {
+    dispatch(getDefaultClasses());
+  }, []);
   return (
     <div
       className={currentMode === "Dark" ? "dark" : ""}

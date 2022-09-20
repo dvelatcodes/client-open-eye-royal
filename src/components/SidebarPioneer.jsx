@@ -36,7 +36,7 @@ const SidebarPioneer = ({ sideBarTitle }) => {
         {
           name: "set-classes",
           icon: <SiGoogleclassroom />,
-          link: "setup-pioneerclass",
+          link: "setup-classPioneer",
         },
       ],
     },
