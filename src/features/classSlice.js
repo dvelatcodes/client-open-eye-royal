@@ -5,8 +5,8 @@ const newClass = JSON.parse(localStorage.getItem("nigerianclasses"));
 const defaultClasses = JSON.parse(localStorage.getItem("defaultclasses"));
 // initial class state
 const initialState = {
-  newClass: newClass || null,
-  defaultClasses: defaultClasses || null,
+  newClass: newClass || {},
+  defaultClasses: defaultClasses || {},
   isSuccess: false,
   isLoading: false,
   isError: false,
@@ -36,7 +36,7 @@ export const regClass = createAsyncThunk(
 // get default classes
 // get default classes
 export const getDefaultClasses = createAsyncThunk(
-  "class/getdefaultclasses",
+  "class/getDefaultClasses",
   async (data, thunkAPI) => {
     try {
       return await authService.getDefaultClasses();
@@ -91,9 +91,9 @@ export const classReducer = createSlice({
       })
       .addCase(getDefaultClasses.rejected, (state, action) => {
         state.isLoading = false;
-        state.isSuccess = false;
         state.isError = true;
         state.message = action.payload;
+        state.defaultClasses = {};
       });
   },
 });

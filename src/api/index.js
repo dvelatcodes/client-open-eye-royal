@@ -29,12 +29,11 @@ const regClass = async (userData) => {
 // get default classes
 // get default classes
 const getDefaultClasses = async () => {
-  const response = await API.get("/defaultclasses");
-  console.log(response);
-  if (response) {
-    localStorage.setItem("defaultclasses", JSON.stringify(response.data));
+  const { data } = await API.get("/defaultclasses");
+  if (data) {
+    localStorage.setItem("defaultclasses", JSON.stringify(data));
   }
-  return response;
+  return data;
 };
 // Register Student
 // Register Student

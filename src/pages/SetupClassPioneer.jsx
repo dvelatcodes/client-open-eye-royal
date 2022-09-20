@@ -44,7 +44,9 @@ const SetupClassAdmin = () => {
   // get default classes
   // get default classes
   useEffect(() => {
-    dispatch(getDefaultClasses());
+    const defaultClasses = JSON.parse(localStorage.getItem("defaultclasses"));
+    // console.log(defaultClasses);
+    defaultClasses || dispatch(getDefaultClasses());
   }, []);
   return (
     <div
@@ -72,7 +74,7 @@ const SetupClassAdmin = () => {
             className="mt-9 md:w-800 sm:w-760 lg:w-full min-h-screen h-fit relative"
             // style={{ minHeight: "100vh" }}
           >
-            Hello Pioneer
+            <div></div>
           </div>
         </div>
       </div>
