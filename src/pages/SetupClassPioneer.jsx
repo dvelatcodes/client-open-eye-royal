@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { GrEdit } from "react-icons/gr";
+import { SiGoogleclassroom } from "react-icons/si";
 import { Navbar, ThemeSettings } from "../components";
 import { Button } from "../components";
 import { useStateContext } from "../contexts/ContextProvider";
@@ -75,10 +76,87 @@ const SetupClassAdmin = () => {
             <Navbar />
           </div>
           <div
-            className="mt-9 md:w-800 sm:w-760 lg:w-full min-h-screen h-fit relative"
+            className="md:w-800 sm:w-760 lg:w-full min-h-screen h-fit relative flex justify-around flex-wrap content-around"
             // style={{ minHeight: "100vh" }}
           >
-            <div></div>
+            <div className="min-h-fit h-40 w-1/4 bg-white rounded-xl dark:bg-gray-50 ml-5 shadow-xl">
+              <div className="w-full flex justify-around h-3/5 items-center">
+                <SiGoogleclassroom className="hover:drop-shadow-xl text-2xl h-9 w-fit p-2 rounded-md bg-black dark:bg-black text-white" />
+                <p style={{ fontFamily: "cursive" }}>JSS 1</p>
+              </div>
+              <hr />
+              <p
+                className="m-auto w-fit h-fit pl-5 pr-4 pt-2 pb-2 rounded-xl bg-gray-50 cursor-pointer relative top-3 hover:drop-shadow-xl dark:shadow-md"
+                style={{ fontFamily: "serif" }}
+              >
+                Edit <GrEdit className="inline-block" />
+              </p>
+            </div>
+            <div className="min-h-fit h-40 w-1/4 bg-white rounded-xl dark:bg-gray-50 shadow-xl">
+              <div className="w-full flex justify-around h-3/5 items-center">
+                <SiGoogleclassroom className="hover:drop-shadow-xl text-2xl h-9 w-fit p-2 rounded-md bg-black dark:bg-black text-white" />
+                <p style={{ fontFamily: "cursive" }}>JSS 2</p>
+              </div>
+              <hr />
+              <p
+                className="m-auto w-fit h-fit pl-5 pr-4 pt-2 pb-2 rounded-xl bg-gray-50 cursor-pointer relative top-3 hover:drop-shadow-xl dark:shadow-md"
+                style={{ fontFamily: "serif" }}
+              >
+                Edit <GrEdit className="inline-block" />
+              </p>
+            </div>
+            <div className="min-h-fit h-40 w-1/4 bg-white rounded-xl dark:bg-gray-50 shadow-xl">
+              <div className="w-full flex justify-around h-3/5 items-center">
+                <SiGoogleclassroom className="hover:drop-shadow-xl text-2xl h-9 w-fit p-2 rounded-md bg-black dark:bg-black text-white" />
+                <p style={{ fontFamily: "cursive" }}>JSS 3</p>
+              </div>
+              <hr />
+              <p
+                className="m-auto w-fit h-fit pl-5 pr-4 pt-2 pb-2 rounded-xl bg-gray-50 cursor-pointer relative top-3 hover:drop-shadow-xl dark:shadow-md"
+                style={{ fontFamily: "serif" }}
+              >
+                Edit <GrEdit className="inline-block" />
+              </p>
+            </div>
+            <div className="min-h-fit h-40 w-1/4 bg-white rounded-xl dark:bg-gray-50 shadow-xl">
+              <div className="w-full flex justify-around h-3/5 items-center">
+                <SiGoogleclassroom className="hover:drop-shadow-xl text-2xl h-9 w-fit p-2 rounded-md bg-black dark:bg-black text-white" />
+                <p style={{ fontFamily: "cursive" }}>SSS 1</p>
+              </div>
+              <hr />
+              <p
+                className="m-auto w-fit h-fit pl-5 pr-4 pt-2 pb-2 rounded-xl bg-gray-50 cursor-pointer relative top-3 hover:drop-shadow-xl dark:shadow-md"
+                style={{ fontFamily: "serif" }}
+              >
+                Edit <GrEdit className="inline-block" />
+              </p>
+            </div>
+            <div className="min-h-fit h-40 w-1/4 bg-white rounded-xl dark:bg-gray-50 shadow-xl">
+              <div className="w-full flex justify-around h-3/5 items-center">
+                <SiGoogleclassroom className="hover:drop-shadow-xl text-2xl h-9 w-fit p-2 rounded-md bg-black dark:bg-black text-white" />
+                <p style={{ fontFamily: "cursive" }}>SSS 2</p>
+              </div>
+              <hr />
+              <p
+                className="m-auto w-fit h-fit pl-5 pr-4 pt-2 pb-2 rounded-xl bg-gray-50 cursor-pointer relative top-3 hover:drop-shadow-xl dark:shadow-md"
+                style={{ fontFamily: "serif" }}
+              >
+                Edit <GrEdit className="inline-block" />
+              </p>
+            </div>
+            <div className="min-h-fit h-40 w-1/4 bg-white rounded-xl dark:bg-gray-50 shadow-xl">
+              <div className="w-full flex justify-around h-3/5 items-center">
+                <SiGoogleclassroom className="hover:drop-shadow-xl text-2xl h-9 w-fit p-2 rounded-md bg-black dark:bg-black text-white" />
+                <p style={{ fontFamily: "cursive" }}>SSS 3</p>
+              </div>
+              <hr />
+              <p
+                className="m-auto w-fit h-fit pl-5 pr-4 pt-2 pb-2 rounded-xl bg-gray-50 cursor-pointer relative top-3 hover:drop-shadow-xl dark:shadow-md"
+                style={{ fontFamily: "serif" }}
+              >
+                Edit <GrEdit className="inline-block" />
+              </p>
+            </div>
           </div>
         </div>
       </div>
