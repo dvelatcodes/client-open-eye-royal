@@ -48,11 +48,11 @@ const SetupClassAdmin = () => {
   // get default classes
   useEffect(() => {
     const defaultClasses = JSON.parse(localStorage.getItem("defaultclasses"));
-    console.log(defaultClasses.filter((data) => data.className.match(/JSS 1/)));
+    // console.log(defaultClasses.filter((data) => data.className.match(/JSS 1/)));
     const checks = defaultClasses.filter((data) =>
       data.className.match(/JSS 1/)
     );
-    console.log(checks.length);
+    // console.log(checks.length);
     defaultClasses || dispatch(getDefaultClasses());
   }, []);
   const [classData, setClassData] = useState([
@@ -104,8 +104,8 @@ const SetupClassAdmin = () => {
             <Navbar />
           </div>
           <div
-            className="md:w-800 sm:w-760 lg:w-full min-h-screen h-fit relative flex justify-around flex-wrap content-around"
-            // style={{ minHeight: "100vh" }}
+            className="md:w-800 md:mt-7 sm:mt-7 sm:w-760 lg:w-full relative flex justify-around flex-wrap content-around"
+            style={{ minHeight: "70vh" }}
           >
             {classData.map((data, index) => (
               <div
