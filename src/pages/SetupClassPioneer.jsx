@@ -45,7 +45,11 @@ const SetupClassAdmin = () => {
   // get default classes
   useEffect(() => {
     const defaultClasses = JSON.parse(localStorage.getItem("defaultclasses"));
-    console.log(defaultClasses.find((data) => data.className === "JSS 1A"));
+    console.log(defaultClasses.filter((data) => data.className.match(/JSS 1/)));
+    const checks = defaultClasses.filter((data) =>
+      data.className.match(/JSS 1/)
+    );
+    console.log(checks.length);
     defaultClasses || dispatch(getDefaultClasses());
   }, []);
   return (
