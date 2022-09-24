@@ -11,6 +11,7 @@ import {
   EditTeachers,
   SetupClassAdmin,
   SetupClassPioneer,
+  PioneerGeneralClassSetup,
   SetTeachers,
   Customers,
   Kanban,
@@ -49,6 +50,10 @@ function App() {
           <Route path="/edit-students" element={<Customers />} />
           <Route path="/setup-adminclass" element={<SetupClassAdmin />} />
           <Route path="/setup-classPioneer" element={<SetupClassPioneer />} />
+          <Route
+            path="generalclass/:id"
+            element={<PioneerGeneralClassSetup />}
+          />
           <Route path="/set-teachers" element={<SetTeachers />} />
           {/* apps */}
           <Route path="/kanban" element={<Kanban />} />

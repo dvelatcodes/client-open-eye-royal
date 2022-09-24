@@ -14,7 +14,7 @@ import { Button } from "../components";
 import { useStateContext } from "../contexts/ContextProvider";
 import { DashboardFractionPioneer } from "../Dashboard";
 
-const SetupClassAdmin = () => {
+const SetupClassPioneer = () => {
   // my contexts
   // my contexts
   const {
@@ -59,26 +59,32 @@ const SetupClassAdmin = () => {
     {
       name: "JSS 1",
       edit: "Edit",
+      link: "/",
     },
     {
       name: "JSS 2",
       edit: "Edit",
+      link: "/",
     },
     {
       name: "JSS 3",
       edit: "Edit",
+      link: "/",
     },
     {
       name: "SSS 1",
       edit: "Edit",
+      link: "/",
     },
     {
       name: "SSS 2",
       edit: "Edit",
+      link: "/",
     },
     {
       name: "SSS 3",
       edit: "Edit",
+      link: "/",
     },
   ]);
   return (
@@ -117,12 +123,13 @@ const SetupClassAdmin = () => {
                   <p style={{ fontFamily: "cursive" }}>{data.name}</p>
                 </div>
                 <hr />
-                <p
-                  className="m-auto w-fit h-fit pl-5 pr-4 pt-2 pb-2 rounded-xl bg-gray-50 cursor-pointer relative top-3 hover:drop-shadow-xl dark:shadow-md"
+                <Link
+                  to={data.link}
+                  className="m-auto w-fit h-fit pl-5 pr-4 pt-2 pb-2 rounded-xl bg-gray-50 cursor-pointer relative top-3 hover:drop-shadow-xl dark:shadow-md block"
                   style={{ fontFamily: "serif" }}
                 >
                   {data.edit} <GrEdit className="inline-block" />
-                </p>
+                </Link>
               </div>
             ))}
           </div>
@@ -132,4 +139,4 @@ const SetupClassAdmin = () => {
   );
 };
 
-export default SetupClassAdmin;
+export default SetupClassPioneer;
