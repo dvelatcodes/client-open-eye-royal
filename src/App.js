@@ -51,7 +51,7 @@ function App() {
           <Route path="/setup-adminclass" element={<SetupClassAdmin />} />
           <Route path="/setup-classPioneer" element={<SetupClassPioneer />} />
           <Route
-            path="generalclass/:id"
+            path="/setup-classPioneer/generalclass/:id"
             element={<PioneerGeneralClassSetup />}
           />
           <Route path="/set-teachers" element={<SetTeachers />} />

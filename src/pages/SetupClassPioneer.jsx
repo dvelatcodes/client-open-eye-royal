@@ -1,17 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-// import { cryptoRandomStringAsync } from "crypto-random-string";
-import { getDefaultClasses } from "../features/classSlice";
-import { reset, regClass } from "../features/classSlice";
-import { useNavigate } from "react-router-dom";
+import { useStateContext } from "../contexts/ContextProvider";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
-import { RiDeleteBin6Line } from "react-icons/ri";
 import { GrEdit } from "react-icons/gr";
 import { SiGoogleclassroom } from "react-icons/si";
 import { Navbar, ThemeSettings } from "../components";
-import { Button } from "../components";
-import { useStateContext } from "../contexts/ContextProvider";
 import { DashboardFractionPioneer } from "../Dashboard";
 
 const SetupClassPioneer = () => {
@@ -25,66 +17,41 @@ const SetupClassPioneer = () => {
     setThemeSettings,
     currentMode,
     setCurrentMode,
+    preClass,
+    setPreClass,
   } = useStateContext();
-
-  // initialize my states
-  // initialize my states
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { isSuccess, isError, isLoading, message, newClass } = useSelector(
-    (state) => state.class
-  );
-
-  useEffect(() => {
-    if (isError) {
-      toast.error(message);
-    }
-    if (isSuccess) {
-      navigate("/pioneerschool");
-    }
-    dispatch(reset());
-  }, [dispatch, reset, navigate, isSuccess, isError, isLoading, message]);
-  // get default classes
-  // get default classes
-  useEffect(() => {
-    const defaultClasses = JSON.parse(localStorage.getItem("defaultclasses"));
-    // console.log(defaultClasses.filter((data) => data.className.match(/JSS 1/)));
-    const checks = defaultClasses.filter((data) =>
-      data.className.match(/JSS 1/)
-    );
-    // console.log(checks.length);
-    defaultClasses || dispatch(getDefaultClasses());
-  }, []);
+  // class data
+  // class data
   const [classData, setClassData] = useState([
     {
       name: "JSS 1",
       edit: "Edit",
-      link: "/",
+      link: "/setup-classPioneer/generalclass/jss1",
     },
     {
       name: "JSS 2",
       edit: "Edit",
-      link: "/",
+      link: "/setup-classPioneer/generalclass/jss2",
     },
     {
       name: "JSS 3",
       edit: "Edit",
-      link: "/",
+      link: "/generalclass/jss3",
     },
     {
       name: "SSS 1",
       edit: "Edit",
-      link: "/",
+      link: "/setup-classPioneer/generalclass/sss1",
     },
     {
       name: "SSS 2",
       edit: "Edit",
-      link: "/",
+      link: "/setup-classPioneer/generalclass/sss2",
     },
     {
       name: "SSS 3",
       edit: "Edit",
-      link: "/",
+      link: "/setup-classPioneer/generalclass/sss3",
     },
   ]);
   return (
@@ -92,10 +59,7 @@ const SetupClassPioneer = () => {
       className={currentMode === "Dark" ? "dark" : ""}
       style={{ height: "max-content", minHeight: "100vh" }}
     >
-      <div
-        className="flex min-h-screen h-fit  bg-neutral-700 relative  dark:bg-main-dark-bg"
-        // style={{ height: "150vh" }}
-      >
+      <div className="flex min-h-screen h-fit  bg-neutral-700 relative  dark:bg-main-dark-bg">
         <DashboardFractionPioneer
           activeMenu={activeMenu}
           onClick={() => setThemeSettings(true)}
@@ -127,6 +91,7 @@ const SetupClassPioneer = () => {
                   to={data.link}
                   className="m-auto w-fit h-fit pl-5 pr-4 pt-2 pb-2 rounded-xl bg-gray-50 cursor-pointer relative top-3 hover:drop-shadow-xl dark:shadow-md block"
                   style={{ fontFamily: "serif" }}
+                  onClick={() => setPreClass(data.name)}
                 >
                   {data.edit} <GrEdit className="inline-block" />
                 </Link>
