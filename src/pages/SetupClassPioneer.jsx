@@ -36,7 +36,7 @@ const SetupClassPioneer = () => {
     {
       name: "JSS 3",
       edit: "Edit",
-      link: "/generalclass/jss3",
+      link: "/setup-classPioneer/generalclass/jss3",
     },
     {
       name: "SSS 1",

@@ -8,10 +8,12 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { GrEdit } from "react-icons/gr";
+import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { SiGoogleclassroom } from "react-icons/si";
 import { Navbar, ThemeSettings } from "../components";
 import { Button } from "../components";
 import { DashboardFractionPioneer } from "../Dashboard";
+import { icons } from "react-icons/lib";
 
 const PioneerGeneralClassSetup = () => {
   // my contexts
@@ -79,20 +81,43 @@ const PioneerGeneralClassSetup = () => {
             <Navbar />
           </div>
           <div
-            className="md:w-800 md:mt-7 sm:mt-7 sm:w-760 lg:w-full relative flex justify-around flex-wrap content-around"
-            style={{ minHeight: "70vh" }}
+            className="md:w-800 md:mt-7 sm:mt-7 sm:w-760 lg:w-full relative flex justify-around flex-wrap content-around h-fit"
+            style={{ minHeight: "80vh" }}
           >
             {classData.map((data, index) => (
               <div
-                className="h-fit pt-7 w-1/4 bg-white rounded-xl dark:bg-gray-50 ml-5 shadow-xl"
+                className="h-fit pt-7 pb-2 w-1/4 bg-white rounded-xl dark:bg-gray-50 ml-5 shadow-xl"
                 key={index}
                 style={{ minHeight: "10rem" }}
               >
-                <div className="w-full flex justify-around h-3/5 items-center">
+                <div className="w-full flex flex-wrap justify-around h-3/5 items-center">
                   <SiGoogleclassroom className="hover:drop-shadow-xl text-2xl h-9 w-fit p-2 rounded-md bg-black dark:bg-black text-white" />
                   <p style={{ fontFamily: "cursive" }}>{data.className}</p>
                 </div>
-                <hr />
+                <div className="w-full pt-5 pl-4 flex flex-wrap justify-around h-3/5 items-center cursor-pointer">
+                  <GrEdit className="text-2xl h-5 w-fit hover:h-6" />
+                  <p style={{ fontFamily: "cursive" }}>{data.classType}</p>
+                </div>
+                <div className="w-full pt-5 pl-1 flex flex-wrap justify-around h-3/5 items-center ">
+                  <FaEye className="text-2xl h-5 w-fit hover:h-6 cursor-pointer" />
+                  <p style={{ fontFamily: "cursive" }}>Subjects</p>
+                </div>
+
+                <hr className="mt-2" />
+                <div className="w-full pt-2 pl-1 flex flex-wrap justify-around h-3/5 items-center ">
+                  <button
+                    className="w-fit pt-1 pb-1 pl-4 pr-4 hover:pr-5 hover:pl-5 rounded-xl drop-shadow-2xl text-white hover:drop-shadow-lg"
+                    style={{ fontFamily: "cursive", background: currentColor }}
+                  >
+                    Save
+                  </button>
+                  <button
+                    className="w-fit pt-1 pb-1 pl-3 pr-3 hover:pr-4 hover:pl-4 rounded-xl drop-shadow-2xl text-white bg-red-600 hover:drop-shadow-xl"
+                    style={{ fontFamily: "cursive" }}
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             ))}
           </div>
