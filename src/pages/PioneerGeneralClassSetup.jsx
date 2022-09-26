@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { GrEdit } from "react-icons/gr";
+import { GiCheckMark } from "react-icons/gi";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { SiGoogleclassroom } from "react-icons/si";
 import { Navbar, ThemeSettings } from "../components";
@@ -57,7 +58,34 @@ const PioneerGeneralClassSetup = () => {
     );
     defaultClasses || dispatch(getDefaultClasses());
   }, []);
-  //   console.log(classData);
+  // classType editing
+  // classType editing
+  const [classType, setClassType] = useState(null);
+  const [classTypeInput, setClassTypeInput] = useState("");
+  // const editClassType = (id) => {
+  //   setClassType(id);
+  // };
+  // const changeClassTypeInput = (e) => {
+  //   setClassTypeInput(e.target.value);
+  // };
+  // save class Type
+  // save class Type
+  const saveClassType = (id) => {
+    const newClassType = classData.map((cData) => {
+      if (cData._id === id) {
+        if (
+          classTypeInput === "" ||
+          classTypeInput.match(/[!-\/]|[:-\?]|[\[-`]|[\{-~]/)
+        )
+          return cData;
+        cData.classType = classTypeInput;
+      }
+      return cData;
+    });
+    setClassData(newClassType);
+    setClassType(null);
+    setClassTypeInput("");
+  };
   return (
     <div
       className={currentMode === "Dark" ? "dark" : ""}
@@ -95,8 +123,37 @@ const PioneerGeneralClassSetup = () => {
                   <p style={{ fontFamily: "cursive" }}>{data.className}</p>
                 </div>
                 <div className="w-full pt-5 pl-4 flex flex-wrap justify-around h-3/5 items-center cursor-pointer">
-                  <GrEdit className="text-2xl h-5 w-fit hover:h-6" />
-                  <p style={{ fontFamily: "cursive" }}>{data.classType}</p>
+                  {classType === data._id ? (
+                    <GiCheckMark
+                      className="text-2xl h-5 w-fit hover:h-6"
+                      onClick={() => saveClassType(data._id)}
+                    />
+                  ) : (
+                    <GrEdit
+                      className="text-2xl h-5 w-fit hover:h-6"
+                      onClick={() => {
+                        setClassType(data._id);
+                      }}
+                    />
+                  )}
+
+                  {classType === data._id ? (
+                    <input
+                      type="text"
+                      value={classTypeInput}
+                      placeholder={data.classType}
+                      onChange={(e) => setClassTypeInput(e.target.value)}
+                      style={{
+                        fontFamily: "cursive",
+                        borderWidth: "thin",
+                        borderColor: "#777",
+                        borderRadius: "7px",
+                      }}
+                      className="bg-main-bg w-2/3 pl-2"
+                    />
+                  ) : (
+                    <p style={{ fontFamily: "cursive" }}>{data.classType}</p>
+                  )}
                 </div>
                 <div className="w-full pt-5 pl-1 flex flex-wrap justify-around h-3/5 items-center ">
                   <FaEye className="text-2xl h-5 w-fit hover:h-6 cursor-pointer" />
