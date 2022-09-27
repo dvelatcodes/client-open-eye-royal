@@ -55,11 +55,13 @@ const PioneerGeneralClassSetup = () => {
   const [classData, setClassData] = useState([]);
   useEffect(() => {
     const defaultClasses = JSON.parse(localStorage.getItem("defaultclasses"));
-    const getClass = JSON.parse(localStorage.getItem("classdata"));
-    setClassData(
-      defaultClasses.filter((data) => data.className.match(preClass))
-    );
+
     defaultClasses || dispatch(getDefaultClasses());
+    if (defaultClasses) {
+      setClassData(
+        defaultClasses.filter((data) => data.className.match(preClass))
+      );
+    }
   }, []);
   // reset class data to local storage
   // reset class data to local storage
@@ -116,19 +118,11 @@ const PioneerGeneralClassSetup = () => {
   // delete subject
   // delete subject
   const deleteSub = (id) => {
-    const deleted = classData.filter((data) => {
-      data.subjects.filter((subject) => {
-        if (id !== subject.id) {
-          console.log(subject);
-          return subject.id;
-        }
-      });
-      // console.log(data.subjects.filter((subject) => id !== subject.id));
-      console.log(data);
+    const deleted = classData.map((data) => {
+      data.subjects = data.subjects.filter((subject) => id !== subject.id);
       return data;
     });
-    // console.log(deleted);
-    // setClassData(deleted);
+    setClassData(deleted);
   };
 
   return (
