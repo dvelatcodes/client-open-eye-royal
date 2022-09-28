@@ -3,18 +3,20 @@ import authService from "../api/index";
 
 const newClass = JSON.parse(localStorage.getItem("nigerianclasses"));
 const defaultClasses = JSON.parse(localStorage.getItem("defaultclasses"));
+const pioneerNigerClass = JSON.parse(localStorage.getItem("pioneerNigerClass"));
 // initial class state
 const initialState = {
   newClass: newClass || {},
   defaultClasses: defaultClasses || {},
+  pioneerNigerClass: pioneerNigerClass || {},
   isSuccess: false,
   isLoading: false,
   isError: false,
   message: "",
 };
 
-// reg new class
-// reg new class
+// reg new class Post method
+// reg new class Post method
 export const regClass = createAsyncThunk(
   "class/regClass",
   async (classData, thunkAPI) => {
@@ -29,6 +31,22 @@ export const regClass = createAsyncThunk(
         error.message ||
         error.toString();
       console.log(error);
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+// regPioneerNigerClass Post Method
+// regPioneerNigerClass Post Method
+const registerPioneerNClass = createAsyncThunk(
+  "registerPioneerNClass/class",
+  async (data, thunkAPI) => {
+    try {
+      return await authService.regPioneerNigerClass(data);
+    } catch (err) {
+      const message =
+        (err.response && err.response.data && err.response.data.message) ||
+        err.message ||
+        err.toString();
       return thunkAPI.rejectWithValue(message);
     }
   }
@@ -94,6 +112,21 @@ export const classReducer = createSlice({
         state.isError = true;
         state.message = action.payload;
         state.defaultClasses = {};
+      })
+      .addCase(registerPioneerNClass.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(registerPioneerNClass.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.pioneerNigerClass = action.payload;
+      })
+      .addCase(registerPioneerNClass.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        state.message = action.payload;
+        state.pioneerNigerClass = {};
       });
   },
 });

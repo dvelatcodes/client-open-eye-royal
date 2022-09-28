@@ -8,8 +8,8 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
-// Register Pioneer
-// Register Pioneer
+// Register Pioneer Post Method
+// Register Pioneer Post Method
 const registerPioneer = async (pioneer) => {
   const response = await API.post("/regpioneer", pioneer);
   if (response.data) {
@@ -17,8 +17,8 @@ const registerPioneer = async (pioneer) => {
   }
   return response.data;
 };
-// register class
-// register class
+// register class Post Method
+// register class Post Method
 const regClass = async (userData) => {
   const response = await API.post("/regnigerianclass", userData);
   if (response) {
@@ -26,8 +26,21 @@ const regClass = async (userData) => {
   }
   return response.data;
 };
-// get default classes
-// get default classes
+// regPioneerNigerClass Post Method
+// regPioneerNigerClass Post Method
+const regPioneerNigerClass = async (data) => {
+  try {
+    const response = await API.post("/regPioneerNigerClass", data);
+    if (response) {
+      localStorage.setItem("pioneerNigerClass", JSON.stringify(response.data));
+    }
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+// get default classes Get Method
+// get default classes Get Method
 const getDefaultClasses = async () => {
   const { data } = await API.get("/defaultclasses");
   if (data) {
@@ -35,8 +48,8 @@ const getDefaultClasses = async () => {
   }
   return data;
 };
-// Register Student
-// Register Student
+// Register Student Post Method
+// Register Student Post Method
 const regStudent = async (student) => {
   const response = await API.post("/regstudent", student);
   console.log(response);
@@ -55,6 +68,7 @@ const authService = {
   registerPioneer,
   regClass,
   getDefaultClasses,
+  regPioneerNigerClass,
   regStudent,
   logout,
 };

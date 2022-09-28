@@ -238,9 +238,7 @@ const SetupClassAdmin = () => {
       calenderYear,
       pioneerId,
       schoolName,
-      // pioneerId: user._id,
     };
-    // console.log(myClass);
 
     dispatch(regClass(myClass));
   };

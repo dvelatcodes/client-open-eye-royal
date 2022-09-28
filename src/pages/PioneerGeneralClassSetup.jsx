@@ -32,7 +32,76 @@ const PioneerGeneralClassSetup = () => {
     preClass,
     setPreClass,
   } = useStateContext();
-
+  // calender year variables
+  // calender year variables
+  const [year, setYear] = useState({
+    startOfAcademicYear: "",
+    endOfAcademicYear: "",
+  });
+  const [stChecker, setStChecker] = useState({
+    stEleven: false,
+  });
+  const [stDisplay, setStDisplay] = useState({
+    display11: "none",
+  });
+  const { display11 } = stDisplay;
+  const { stEleven } = stChecker;
+  // class destructuring
+  // class destructuring
+  const { startOfAcademicYear, endOfAcademicYear } = year;
+  // get from local storage
+  // get from local storage
+  useEffect(() => {
+    const start = JSON.parse(localStorage.getItem("startOfAcademicYear"));
+    const end = JSON.parse(localStorage.getItem("endOfAcademicYear"));
+    if (start && end) {
+      setYear({ ...year, startOfAcademicYear: start, endOfAcademicYear: end });
+    }
+  }, []);
+  // store on local storage
+  // store on local storage
+  useEffect(() => {
+    if (stEleven) {
+      localStorage.setItem(
+        "startOfAcademicYear",
+        JSON.stringify(startOfAcademicYear)
+      );
+      localStorage.setItem(
+        "endOfAcademicYear",
+        JSON.stringify(endOfAcademicYear)
+      );
+    }
+  }, [stEleven]);
+  // onchange
+  // onchange
+  const onChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setYear((prevState) => ({ ...prevState, [name]: value }));
+  };
+  const changeAll = (e) => {
+    const all = e.target.getAttribute("data-id");
+    switch (all) {
+      case "startyear":
+        setStChecker({
+          ...stChecker,
+          stEleven: startOfAcademicYear && endOfAcademicYear ? true : false,
+        });
+      case "endyear":
+        setStChecker({
+          ...stChecker,
+          stEleven: startOfAcademicYear < endOfAcademicYear ? true : false,
+        });
+        setStDisplay({
+          ...stDisplay,
+          display11:
+            startOfAcademicYear && endOfAcademicYear ? "block" : "block",
+        });
+        break;
+      default:
+        break;
+    }
+  };
   // initialize my states
   // initialize my states
   const dispatch = useDispatch();
@@ -63,11 +132,7 @@ const PioneerGeneralClassSetup = () => {
       );
     }
   }, []);
-  // reset class data to local storage
-  // reset class data to local storage
-  // useEffect(()=>{
-  //   localStorage.setItem("classdata", JSON.stringify(classData));
-  // },[classData])
+
   // classType editing
   // classType editing
   const [classType, setClassType] = useState(null);
@@ -125,6 +190,25 @@ const PioneerGeneralClassSetup = () => {
     setClassData(deleted);
   };
 
+  // delete arm
+  // delete arm
+  const deleteArm = (id) => {
+    const deletedArm = classData.filter((data) => data._id !== id);
+    setClassData(deletedArm);
+  };
+  // save/post class
+  // save/post class
+  const saveClass = (id) => {
+    const known = classData.filter((data) => data._id === id);
+    const totalData = known[0];
+    const { className, classType, subjects } = totalData;
+    const { _id, schoolName } = JSON.parse(localStorage.getItem("user"));
+    if (startOfAcademicYear < endOfAcademicYear) {
+      console.log(startOfAcademicYear + "/" + endOfAcademicYear);
+    }
+    // console.log(startOfAcademicYear + "/" + endOfAcademicYear);
+  };
+
   return (
     <div
       className={currentMode === "Dark" ? "dark" : ""}
@@ -146,6 +230,57 @@ const PioneerGeneralClassSetup = () => {
         >
           <div className="fixed md:static inline-block bg-main-dark dark:bg-main-dark-bg navbar w-full">
             <Navbar />
+          </div>
+          <p
+            className="academic-title w-fit m-auto font-medium"
+            style={{ color: currentMode === "Dark" ? "white" : "black" }}
+          >
+            Current Academic Session
+          </p>
+          <div className="student-year-container bg-main-bg w-fit m-auto top-2 shadow-md rounded-lg">
+            <p className="initial-academic-Session w-2/4 flex justify-around">
+              <label htmlFor="academic-Session" className="to mr-1">
+                From
+              </label>
+              <input
+                type="number"
+                min="2022"
+                max="2040"
+                name="startOfAcademicYear"
+                value={startOfAcademicYear}
+                onChange={onChange}
+                onClick={changeAll}
+                data-id="startyear"
+                className="w-fit"
+                style={{ paddingLeft: "0.5rem", minWidth: "4rem" }}
+              />
+            </p>
+            <p className="end-academic-Session mr-7 flex justify-around">
+              <label
+                htmlFor="end-academic-Session"
+                className="to ml-3 mr-2 md:ml-6 sm:ml-9 inline-block"
+              >
+                To
+              </label>
+              <input
+                type="number"
+                min="2022"
+                max="2040"
+                name="endOfAcademicYear"
+                value={endOfAcademicYear}
+                onChange={onChange}
+                onClick={changeAll}
+                data-id="endyear"
+                className="yearinput w-fit"
+                style={{ paddingLeft: "0.5rem", minWidth: "4rem" }}
+              />
+            </p>
+            <span
+              className={stEleven ? "green" : "red"}
+              style={{ display: display11, marginLeft: "5rem" }}
+            >
+              {stEleven ? "valid" : "invalid"}
+            </span>
           </div>
           <div
             className="md:w-800 md:mt-7 sm:mt-7 sm:w-760 lg:w-full relative flex justify-around flex-wrap content-around h-fit"
@@ -297,12 +432,18 @@ const PioneerGeneralClassSetup = () => {
                   <button
                     className="w-fit pt-1 pb-1 pl-4 pr-4 hover:pr-5 hover:pl-5 rounded-xl drop-shadow-2xl text-white hover:drop-shadow-lg"
                     style={{ fontFamily: "cursive", background: currentColor }}
+                    onClick={() => {
+                      saveClass(data._id);
+                    }}
                   >
                     Save
                   </button>
                   <button
                     className="w-fit pt-1 pb-1 pl-3 pr-3 hover:pr-4 hover:pl-4 rounded-xl drop-shadow-2xl text-white bg-red-600 hover:drop-shadow-xl"
                     style={{ fontFamily: "cursive" }}
+                    onClick={() => {
+                      deleteArm(data._id);
+                    }}
                   >
                     Delete
                   </button>
