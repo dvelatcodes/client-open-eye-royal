@@ -116,9 +116,11 @@ const PioneerGeneralClassSetup = () => {
   useEffect(() => {
     if (isError) {
       toast.error(message);
+      console.log("error");
     }
     if (isSuccess) {
       navigate("/pioneerschool");
+      console.log("success");
     }
     dispatch(reset());
   }, [dispatch, reset, navigate, isSuccess, isError, isLoading, message]);

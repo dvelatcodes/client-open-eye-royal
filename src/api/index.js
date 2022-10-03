@@ -34,6 +34,7 @@ const regPioneerNigerClass = async (data) => {
     if (response) {
       localStorage.setItem("pioneerNigerClass", JSON.stringify(response.data));
     }
+    console.log(response.data);
     return response.data;
   } catch (err) {
     console.log(err);
