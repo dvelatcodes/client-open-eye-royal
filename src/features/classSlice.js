@@ -37,7 +37,7 @@ export const regClass = createAsyncThunk(
 );
 // regPioneerNigerClass Post Method
 // regPioneerNigerClass Post Method
-const registerPioneerNClass = createAsyncThunk(
+export const registerPioneerNClass = createAsyncThunk(
   "registerPioneerNClass/class",
   async (data, thunkAPI) => {
     try {

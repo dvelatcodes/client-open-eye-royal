@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useStateContext } from "../contexts/ContextProvider";
-import { getDefaultClasses } from "../features/classSlice";
+import {
+  getDefaultClasses,
+  registerPioneerNClass,
+} from "../features/classSlice";
 import { reset, regClass } from "../features/classSlice";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -204,7 +207,16 @@ const PioneerGeneralClassSetup = () => {
     const { className, classType, subjects } = totalData;
     const { _id, schoolName } = JSON.parse(localStorage.getItem("user"));
     if (startOfAcademicYear < endOfAcademicYear) {
-      console.log(startOfAcademicYear + "/" + endOfAcademicYear);
+      // console.log(startOfAcademicYear + "/" + endOfAcademicYear);
+      const info = {
+        className: className,
+        classType: classType,
+        subjects: subjects,
+        calenderYear: startOfAcademicYear + "/" + endOfAcademicYear,
+        pioneerId: _id,
+        schoolName: schoolName,
+      };
+      dispatch(registerPioneerNClass(info));
     }
     // console.log(startOfAcademicYear + "/" + endOfAcademicYear);
   };
