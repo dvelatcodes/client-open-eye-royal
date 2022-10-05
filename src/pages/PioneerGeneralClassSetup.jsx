@@ -211,12 +211,12 @@ const PioneerGeneralClassSetup = () => {
     if (startOfAcademicYear < endOfAcademicYear) {
       // console.log(startOfAcademicYear + "/" + endOfAcademicYear);
       const info = {
-        className: className,
-        classType: classType,
-        subjects: subjects,
-        calenderYear: startOfAcademicYear + "/" + endOfAcademicYear,
-        pioneerId: _id,
-        schoolName: schoolName,
+        classNaming: className,
+        classCategory: classType,
+        courses: subjects,
+        calenderSection: startOfAcademicYear + "/" + endOfAcademicYear,
+        pioneerIdNum: _id,
+        schoolNaming: schoolName,
       };
       dispatch(registerPioneerNClass(info));
     }
