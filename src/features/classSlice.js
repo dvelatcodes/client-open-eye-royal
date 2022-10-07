@@ -4,11 +4,13 @@ import authService from "../api/index";
 const newClass = JSON.parse(localStorage.getItem("nigerianclasses"));
 const defaultClasses = JSON.parse(localStorage.getItem("defaultclasses"));
 const pioneerNigerClass = JSON.parse(localStorage.getItem("pioneerNigerClass"));
+const pioneerClass = JSON.parse(localStorage.getItem("pioneerNigerClass"));
 // initial class state
 const initialState = {
   newClass: newClass || {},
   defaultClasses: defaultClasses || {},
   pioneerNigerClass: pioneerNigerClass || {},
+  pioneerClass: pioneerClass || {},
   isSuccess: false,
   isLoading: false,
   isError: false,
@@ -35,13 +37,31 @@ export const regClass = createAsyncThunk(
     }
   }
 );
-// regPioneerNigerClass Post Method
+// regPioneerNigerClass Post Method9
 // regPioneerNigerClass Post Method
 export const registerPioneerNClass = createAsyncThunk(
   "registerPioneerNClass/class",
   async (data, thunkAPI) => {
     try {
       return await authService.regPioneerNigerClass(data);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+// getPioneerNigerClass
+// getPioneerNigerClass
+export const getPioneerNigerClass = createAsyncThunk(
+  "getPioneerNigerClass",
+  async (pioneerId, schSection, thunkAPI) => {
+    try {
+      return await authService.getPioneerNigerClass(pioneerId, schSection);
     } catch (error) {
       const message =
         (error.response &&
@@ -129,6 +149,21 @@ export const classReducer = createSlice({
         state.isError = true;
         state.message = action.payload;
         state.pioneerNigerClass = {};
+      })
+      .addCase(getPioneerNigerClass.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getPioneerNigerClass.isSuccess, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.pioneerClass = action.payload;
+      })
+      .addCase(getPioneerNigerClass.isSuccess, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        state.pioneerClass = {};
+        state.message = action.payload;
       });
   },
 });

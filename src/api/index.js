@@ -36,6 +36,17 @@ const regPioneerNigerClass = async (data) => {
   console.log(response);
   return response.data;
 };
+// get PioneerNigerClass classes Get Method
+// get PioneerNigerClass classes Get Method
+const getPioneerNigerClass = async (pioneerId, schSection) => {
+  const response = await API.get(
+    `/getPioneerNigerClass?pioneerId=${pioneerId}&schSection=${schSection}`
+  );
+  if (response) {
+    localStorage.setItem("pioneerNigerClass", JSON.stringify(response.data));
+  }
+  return response.data;
+};
 // get default classes Get Method
 // get default classes Get Method
 const getDefaultClasses = async () => {
@@ -66,6 +77,7 @@ const authService = {
   regClass,
   getDefaultClasses,
   regPioneerNigerClass,
+  getPioneerNigerClass,
   regStudent,
   logout,
 };
