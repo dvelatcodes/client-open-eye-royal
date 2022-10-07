@@ -42,11 +42,13 @@ export const registerPioneerNClass = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       return await authService.regPioneerNigerClass(data);
-    } catch (err) {
+    } catch (error) {
       const message =
-        (err.response && err.response.data && err.response.data.message) ||
-        err.message ||
-        err.toString();
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
       return thunkAPI.rejectWithValue(message);
     }
   }

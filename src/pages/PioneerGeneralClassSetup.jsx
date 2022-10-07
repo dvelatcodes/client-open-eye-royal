@@ -120,7 +120,7 @@ const PioneerGeneralClassSetup = () => {
     }
     if (isSuccess) {
       navigate("/pioneerschool");
-      console.log("success");
+      // console.log("success");
     }
     dispatch(reset());
   }, [dispatch, reset, navigate, isSuccess, isError, isLoading, message]);

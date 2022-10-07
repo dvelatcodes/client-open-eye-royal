@@ -29,16 +29,12 @@ const regClass = async (userData) => {
 // regPioneerNigerClass Post Method
 // regPioneerNigerClass Post Method
 const regPioneerNigerClass = async (data) => {
-  try {
-    const response = await API.post("/regPioneerNigerClass", data);
-    if (response) {
-      localStorage.setItem("pioneerNigerClass", JSON.stringify(response.data));
-    }
-    console.log(response.data);
-    return response.data;
-  } catch (err) {
-    console.log(err);
+  const response = await API.post("/regPioneerNigerClass", data);
+  if (response.data) {
+    localStorage.setItem("pioneerNigerClass", JSON.stringify(response.data));
   }
+  console.log(response);
+  return response.data;
 };
 // get default classes Get Method
 // get default classes Get Method
