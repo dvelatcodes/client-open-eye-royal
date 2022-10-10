@@ -38,9 +38,9 @@ const regPioneerNigerClass = async (data) => {
 };
 // get PioneerNigerClass classes Get Method
 // get PioneerNigerClass classes Get Method
-const getPioneerNigerClass = async (pioneerId, schSection) => {
+const getPioneerNigerClass = async ({ _id, schSection }) => {
   const response = await API.get(
-    `/getPioneerNigerClass?pioneerId=${pioneerId}&schSection=${schSection}`
+    `/getPioneerNigerClass?pioneerId=${_id}&schSection=${schSection}`
   );
   if (response) {
     localStorage.setItem("pioneerNigerClass", JSON.stringify(response.data));

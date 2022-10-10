@@ -4,8 +4,9 @@ import { useStateContext } from "../contexts/ContextProvider";
 import {
   getDefaultClasses,
   registerPioneerNClass,
+  reset,
+  regClass,
 } from "../features/classSlice";
-import { reset, regClass } from "../features/classSlice";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { ImPencil2 } from "react-icons/im";

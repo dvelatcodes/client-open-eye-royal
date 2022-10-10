@@ -59,9 +59,9 @@ export const registerPioneerNClass = createAsyncThunk(
 // getPioneerNigerClass
 export const getPioneerNigerClass = createAsyncThunk(
   "getPioneerNigerClass",
-  async (pioneerId, schSection, thunkAPI) => {
+  async (_id, schSection, thunkAPI) => {
     try {
-      return await authService.getPioneerNigerClass(pioneerId, schSection);
+      return await authService.getPioneerNigerClass(_id, schSection);
     } catch (error) {
       const message =
         (error.response &&
@@ -153,12 +153,12 @@ export const classReducer = createSlice({
       .addCase(getPioneerNigerClass.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getPioneerNigerClass.isSuccess, (state, action) => {
+      .addCase(getPioneerNigerClass.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.pioneerClass = action.payload;
       })
-      .addCase(getPioneerNigerClass.isSuccess, (state, action) => {
+      .addCase(getPioneerNigerClass.rejected, (state, action) => {
         state.isLoading = false;
         state.isSuccess = false;
         state.isError = true;
