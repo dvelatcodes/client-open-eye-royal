@@ -17,6 +17,7 @@ export const ContextProvider = ({ children }) => {
   const [currentMode, setCurrentMode] = useState("Light");
   const [themeSettings, setThemeSettings] = useState(false);
   const [preClass, setPreClass] = useState("nothing");
+  const [classes, setClasses] = useState("");
   const setMode = (e) => {
     setCurrentMode(e.target.value);
     localStorage.setItem("themeMode", e.target.value);
@@ -51,6 +52,8 @@ export const ContextProvider = ({ children }) => {
         setColor,
         preClass,
         setPreClass,
+        classes,
+        setClasses,
       }}
     >
       {children}
