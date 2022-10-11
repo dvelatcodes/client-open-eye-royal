@@ -29,7 +29,7 @@ const AllClassesPioneer = () => {
   // useEffect for states
   useEffect(() => {
     if (isSuccess) {
-      alert("you have classes");
+      // alert("you have classes");
     }
     if (isError) {
       toast.error(message);
@@ -43,10 +43,7 @@ const AllClassesPioneer = () => {
   // fetching pioneer class data from db and local storage
   // fetching pioneer class data from db and local storage
   useEffect(() => {
-    const pioneerClass = JSON.parse(localStorage.getItem("pioneerNigerClass"));
-    const { arr } = pioneerClass;
-    console.log(arr);
-    pioneerClass.pioneerClass && setClassData(arr);
+    // console.log(arr);
     const user = JSON.parse(localStorage.getItem("user"));
     const { _id } = user;
     const year1 = JSON.parse(localStorage.getItem("startOfAcademicYear"));
@@ -54,8 +51,11 @@ const AllClassesPioneer = () => {
     const schSection = year1 + "/" + year2;
     // console.log(typeof schSection, schSection);
     dispatch(getPioneerNigerClass({ _id, schSection }));
+    const pioneerClass = JSON.parse(localStorage.getItem("pioneerNigerClass"));
+    const { arr } = pioneerClass;
+    pioneerClass.pioneerClass && setClassData(arr);
   }, []);
-
+  // console.log(classData);
   return (
     <div className={currentMode === "Dark" ? "dark" : ""}>
       <div className="flex  bg-neutral-700 relative  dark:bg-main-dark-bg">
@@ -88,10 +88,13 @@ const AllClassesPioneer = () => {
                   </div>
                   <hr />
                   <Link
-                    to={""}
+                    to={`/allclassespioneer/${data}`}
                     className="m-auto w-fit h-fit pl-5 pr-4 pt-2 pb-2 rounded-xl bg-gray-50 cursor-pointer relative top-3 hover:drop-shadow-xl dark:shadow-md block"
                     style={{ fontFamily: "serif" }}
-                    onClick={() => setClasses(data.classNaming)}
+                    onClick={() => {
+                      setClasses(data);
+                      // console.log(classes);
+                    }}
                   >
                     View <FaEye className="inline-block" />
                   </Link>

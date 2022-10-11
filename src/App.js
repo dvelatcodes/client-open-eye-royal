@@ -20,6 +20,7 @@ import {
   AllClassesAdmin,
   Editor,
   AdminSchools,
+  PioneerSingleArm,
 } from "./pages";
 import { PioneerSchool } from "./components/pioneer/index";
 import "./app.css";
@@ -54,6 +55,7 @@ function App() {
             path="/setup-classPioneer/generalclass/:id"
             element={<PioneerGeneralClassSetup />}
           />
+          <Route path="/allclassespioneer/:id" element={<PioneerSingleArm />} />
           <Route path="/set-teachers" element={<SetTeachers />} />
           {/* apps */}
           <Route path="/kanban" element={<Kanban />} />
