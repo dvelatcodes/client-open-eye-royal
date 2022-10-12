@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useStateContext } from "../contexts/ContextProvider";
 import { reset, getPioneerNigerClass } from "../features/classSlice";
+import { IoIosPeople } from "react-icons/io";
+import { GiBookshelf } from "react-icons/gi";
+import { BiNotepad } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { ImPencil2 } from "react-icons/im";
@@ -51,6 +54,11 @@ const PioneerSingleArm = () => {
   // get default classes
   // get default classes
   const [classNum, setClassNum] = useState(null);
+  const [year, setYear] = useState({
+    startYear: "",
+    endYear: "",
+  });
+  const { startYear, endYear } = year;
   // fetching pioneer class data from db and local storage
   // fetching pioneer class data from db and local storage
   useEffect(() => {
@@ -62,6 +70,7 @@ const PioneerSingleArm = () => {
     const { _id } = user;
     const year1 = JSON.parse(localStorage.getItem("startOfAcademicYear"));
     const year2 = JSON.parse(localStorage.getItem("endOfAcademicYear"));
+    setYear((prev) => ({ ...prev, startYear: year1, endYear: year2 }));
     const schSection = year1 + "/" + year2;
     pioneerClass || dispatch(getPioneerNigerClass({ _id, schSection }));
     pioneerClass &&
@@ -100,8 +109,65 @@ const PioneerSingleArm = () => {
             Current Academic Session
           </p>
           <div className="student-year-container bg-main-bg w-fit m-auto top-2 shadow-md rounded-lg">
-            <p></p>
-            <p></p>
+            <p style={{ fontFamily: "serif" }}>{startYear}</p>
+            <p className="ml-7" style={{ fontFamily: "serif" }}>
+              {endYear}
+            </p>
+          </div>
+          <div
+            className="md:w-800 md:mt-2 sm:mt-2 sm:w-760 lg:w-full relative flex justify-around flex-wrap content-around h-fit"
+            style={{ minHeight: "90vh" }}
+          >
+            {classNum &&
+              classNum.map((num) => (
+                <div
+                  className="h-fit pt-7 pb-2 w-1/4 bg-white rounded-2xl dark:bg-gray-50 ml-5 shadow-xl"
+                  key={num._id}
+                  style={{ minHeight: "10rem" }}
+                >
+                  <div className="w-full flex flex-wrap justify-around h-3/5 items-center">
+                    <SiGoogleclassroom
+                      className="hover:drop-shadow-xl text-2xl h-9 w-fit p-2 rounded-md bg-black dark:bg-black text-white"
+                      style={{ background: currentColor }}
+                    />
+
+                    <p style={{ fontFamily: "cursive" }}>{num.classNaming}</p>
+                  </div>
+                  <div className="w-full flex mt-2 flex-wrap justify-around h-3/5 items-center">
+                    <Link to="">
+                      <IoIosPeople
+                        className="hover:drop-shadow-xl text-2xl w-fit p-2 rounded-md text-black h-11 hover:h-12"
+                        // style={{ height: "2.9rem" }}
+                      />
+                    </Link>
+                    <Link to="">
+                      <p style={{ fontFamily: "cursive" }}>Students</p>
+                    </Link>
+                  </div>
+                  <div className="w-full flex mt-2 flex-wrap justify-around h-3/5 items-center">
+                    <Link to="">
+                      <GiBookshelf
+                        className="hover:drop-shadow-xl text-2xl w-fit p-2 rounded-md h-11 hover:h-12"
+                        style={{ color: "3176DE" }}
+                      />
+                    </Link>
+                    <Link to="">
+                      <p style={{ fontFamily: "cursive" }}>Subjects</p>
+                    </Link>
+                  </div>
+                  <div className="w-full flex mt-2 flex-wrap justify-around h-3/5 items-center">
+                    <Link to="">
+                      <BiNotepad
+                        className="hover:drop-shadow-xl text-2xl w-fit p-2 rounded-md text-black h-12 hover:h-14"
+                        style={{ color: "FD4462" }}
+                      />
+                    </Link>
+                    <Link to="">
+                      <p style={{ fontFamily: "cursive" }}>Timetable</p>
+                    </Link>
+                  </div>
+                </div>
+              ))}
           </div>
         </div>
       </div>

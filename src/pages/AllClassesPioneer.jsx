@@ -88,7 +88,7 @@ const AllClassesPioneer = () => {
                   </div>
                   <hr />
                   <Link
-                    to={`/allclassespioneer/${data}`}
+                    to={`/pioneerschool/allclassespioneer/${data}`}
                     className="m-auto w-fit h-fit pl-5 pr-4 pt-2 pb-2 rounded-xl bg-gray-50 cursor-pointer relative top-3 hover:drop-shadow-xl dark:shadow-md block"
                     style={{ fontFamily: "serif" }}
                     onClick={() => {

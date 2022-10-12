@@ -7,6 +7,10 @@ import { SiGoogleclassroom } from "react-icons/si";
 import { GiTeacher, GiSchoolBag } from "react-icons/gi";
 import { ImBooks } from "react-icons/im";
 import { FaArrowAltCircleRight } from "react-icons/fa";
+import { reset, getPioneerNigerClass } from "../../features/classSlice";
+import { useSelector, useDispatch } from "react-redux";
+
+import { useEffect } from "react";
 
 const PioneerSchool = () => {
   const {
@@ -22,16 +26,35 @@ const PioneerSchool = () => {
   const [teacherNum, setTeacherNum] = useState(0);
   const [studentNum, setStudentNum] = useState(0);
   const [examResultNum, setExamResultNum] = useState(0);
+  // state initialization
+  // state initialization
+  const { isSuccess, isError, isLoading, message } = useSelector(
+    (state) => state.class
+  );
+  const dispatch = useDispatch();
+  // useEffect for states
+  // useEffect for states
+  useEffect(() => {
+    if (isSuccess) {
+      alert("you have classes");
+    }
+    if (isError) {
+      console.log("error");
+    }
+    dispatch(reset());
+  }, [isSuccess, isError, isLoading, message, dispatch, reset]);
+  // school data
+  // school data
   const [schoolData, setSchoolData] = useState([
     {
       name: "Classes",
       icon: <SiGoogleclassroom />,
       arrow: <FaArrowAltCircleRight />,
-      num: classNum,
+      num: "none",
       view: "View",
       iconColor: "rgb(255, 244, 229)",
       iconBg: "#5798EE",
-      link: "/allclassespioneer",
+      link: "/pioneerschool/allclassespioneer",
     },
     {
       name: "Teachers",
@@ -64,6 +87,24 @@ const PioneerSchool = () => {
       link: "",
     },
   ]);
+  // get default classes
+  // get default classes
+  useEffect(() => {
+    const pioneerClasses = JSON.parse(
+      localStorage.getItem("pioneerNigerClass")
+    );
+    const { pioneerClass } = pioneerClasses;
+    pioneerClass || dispatch(getPioneerNigerClass());
+    if (pioneerClass) {
+      setClassNum(pioneerClass.length);
+    }
+    schoolData.map((data) => {
+      if (data.num === "none") {
+        data.num = pioneerClass.length;
+      }
+      return data;
+    });
+  }, []);
 
   return (
     <div className={currentMode === "Dark" ? "dark" : ""}>

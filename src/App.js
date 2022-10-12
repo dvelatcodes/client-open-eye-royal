@@ -45,7 +45,10 @@ function App() {
           <Route path="/adminschools" element={<AdminSchools />} />
           <Route path="/pioneerschool" element={<PioneerSchool />} />
           {/* pioneer pages */}
-          <Route path="/allclassespioneer" element={<AllClassesPioneer />} />
+          <Route
+            path="/pioneerschool/allclassespioneer"
+            element={<AllClassesPioneer />}
+          />
           <Route path="/allclassesadmin" element={<AllClassesAdmin />} />
           <Route path="/edit-teachers" element={<EditTeachers />} />
           <Route path="/edit-students" element={<Customers />} />
@@ -55,7 +58,10 @@ function App() {
             path="/setup-classPioneer/generalclass/:id"
             element={<PioneerGeneralClassSetup />}
           />
-          <Route path="/allclassespioneer/:id" element={<PioneerSingleArm />} />
+          <Route
+            path="/pioneerschool/allclassespioneer/:id"
+            element={<PioneerSingleArm />}
+          />
           <Route path="/set-teachers" element={<SetTeachers />} />
           {/* apps */}
           <Route path="/kanban" element={<Kanban />} />
