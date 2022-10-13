@@ -93,17 +93,20 @@ const PioneerSchool = () => {
     const pioneerClasses = JSON.parse(
       localStorage.getItem("pioneerNigerClass")
     );
-    const { pioneerClass } = pioneerClasses;
-    pioneerClass || dispatch(getPioneerNigerClass());
-    if (pioneerClass) {
-      setClassNum(pioneerClass.length);
-    }
-    schoolData.map((data) => {
-      if (data.num === "none") {
-        data.num = pioneerClass.length;
+    if (pioneerClasses) {
+      const { pioneerClass } = pioneerClasses;
+      pioneerClass || dispatch(getPioneerNigerClass());
+      if (pioneerClass) {
+        setClassNum(pioneerClass.length);
       }
-      return data;
-    });
+      pioneerClass &&
+        schoolData.map((data) => {
+          if (data.num === "none") {
+            data.num = pioneerClass.length;
+          }
+          return data;
+        });
+    }
   }, []);
 
   return (

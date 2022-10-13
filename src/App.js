@@ -21,6 +21,7 @@ import {
   Editor,
   AdminSchools,
   PioneerSingleArm,
+  pioneerTimetable,
 } from "./pages";
 import { PioneerSchool } from "./components/pioneer/index";
 import "./app.css";
@@ -62,6 +63,7 @@ function App() {
             path="/pioneerschool/allclassespioneer/:id"
             element={<PioneerSingleArm />}
           />
+          <Route path="" element={<pioneerTimetable />} />
           <Route path="/set-teachers" element={<SetTeachers />} />
           {/* apps */}
           <Route path="/kanban" element={<Kanban />} />

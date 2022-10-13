@@ -54,6 +54,8 @@ const PioneerSingleArm = () => {
   // get default classes
   // get default classes
   const [classNum, setClassNum] = useState(null);
+  const [tests, setTests] = useState(null);
+  const [timetable, setTimetable] = useState([]);
   const [year, setYear] = useState({
     startYear: "",
     endYear: "",
@@ -65,20 +67,42 @@ const PioneerSingleArm = () => {
     const pioneerClasses = JSON.parse(
       localStorage.getItem("pioneerNigerClass")
     );
-    const { pioneerClass } = pioneerClasses;
-    const user = JSON.parse(localStorage.getItem("user"));
-    const { _id } = user;
-    const year1 = JSON.parse(localStorage.getItem("startOfAcademicYear"));
-    const year2 = JSON.parse(localStorage.getItem("endOfAcademicYear"));
-    setYear((prev) => ({ ...prev, startYear: year1, endYear: year2 }));
-    const schSection = year1 + "/" + year2;
-    pioneerClass || dispatch(getPioneerNigerClass({ _id, schSection }));
-    pioneerClass &&
-      setClassNum(
-        pioneerClass.filter((data) => data.classNaming.match(classes))
-      );
+    if (pioneerClasses) {
+      const { pioneerClass } = pioneerClasses;
+      const user = JSON.parse(localStorage.getItem("user"));
+      const { _id } = user;
+      const year1 = JSON.parse(localStorage.getItem("startOfAcademicYear"));
+      const year2 = JSON.parse(localStorage.getItem("endOfAcademicYear"));
+      setYear((prev) => ({ ...prev, startYear: year1, endYear: year2 }));
+      const schSection = year1 + "/" + year2;
+      pioneerClass || dispatch(getPioneerNigerClass({ _id, schSection }));
+      pioneerClass &&
+        setClassNum(
+          pioneerClass.filter((data) => data.classNaming.match(classes))
+        );
+      const tests = pioneerClass;
+      pioneerClass &&
+        setTests(
+          pioneerClass.filter(
+            (all) =>
+              all.classNaming.match("JSS 1") ||
+              all.classNaming.match("JSS 2") ||
+              all.classNaming.match("JSS 3")
+          )
+        );
+      // tests.map(all=>{
+
+      // })
+      tests &&
+        tests.map((all) => {
+          const rrr = all.courses.map((sing) => Math.random(sing));
+          console.log(rrr);
+          return all;
+        });
+    }
   }, []);
   //   console.log(classNum);
+  // console.log(tests);
 
   return (
     <div
@@ -160,6 +184,7 @@ const PioneerSingleArm = () => {
                       <BiNotepad
                         className="hover:drop-shadow-xl text-2xl w-fit p-2 rounded-md text-black h-12 hover:h-14"
                         style={{ color: "FD4462" }}
+                        onClick={() => {}}
                       />
                     </Link>
                     <Link to="">
