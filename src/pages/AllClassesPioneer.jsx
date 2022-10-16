@@ -93,6 +93,10 @@ const AllClassesPioneer = () => {
                     style={{ fontFamily: "serif" }}
                     onClick={() => {
                       setClasses(data);
+                      localStorage.setItem(
+                        "pSingleClass",
+                        JSON.stringify(data)
+                      );
                       // console.log(classes);
                     }}
                   >
