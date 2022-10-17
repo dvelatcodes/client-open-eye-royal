@@ -87,7 +87,6 @@ const PioneerSingleArm = () => {
   // fetching pioneer class data from db and local storage
   useEffect(() => {
     setClasses(localStorage.getItem("pSingleClass"));
-    console.log(classes);
     const getSeeMode = localStorage.getItem("themeMode");
     getSeeMode && setCurrentMode(getSeeMode);
     const pioneerClasses = JSON.parse(
@@ -181,7 +180,6 @@ const PioneerSingleArm = () => {
                     if (mon.length === 16) {
                       mon.splice(11, 5);
                     }
-                    // console.log(mon);
                   }
                   const iniTue = Math.random();
                   const finalTue = Math.floor(iniTue * all.courses.length);
@@ -206,7 +204,6 @@ const PioneerSingleArm = () => {
                     if (tue.length === 16) {
                       tue.splice(11, 5);
                     }
-                    // console.log(mon);
                   }
                   const iniWed = Math.random();
                   const finalWed = Math.floor(iniWed * all.courses.length);
@@ -231,7 +228,6 @@ const PioneerSingleArm = () => {
                     if (wed.length === 16) {
                       wed.splice(11, 5);
                     }
-                    // console.log(mon);
                   }
                   const iniThur = Math.random();
                   const finalThur = Math.floor(iniThur * all.courses.length);
@@ -256,7 +252,6 @@ const PioneerSingleArm = () => {
                     if (thur.length === 16) {
                       thur.splice(11, 5);
                     }
-                    // console.log(mon);
                   }
                   const iniFri = Math.random();
                   const finalFri = Math.floor(iniFri * all.courses.length);
@@ -281,7 +276,6 @@ const PioneerSingleArm = () => {
                     if (fri.length === 16) {
                       fri.splice(11, 5);
                     }
-                    // console.log(mon);
                   }
                 }) && (
                   <div
@@ -476,7 +470,6 @@ const PioneerSingleArm = () => {
                             style={{ color: "FD4462" }}
                             onClick={() => {
                               setShowTimetable(classes);
-                              console.log(classes);
                               // window.location.reload();
                             }}
                           />
