@@ -36,6 +36,20 @@ const regPioneerNigerClass = async (data) => {
   console.log(response);
   return response.data;
 };
+// create timetable
+// create timetable
+const createTimetable = async (data) => {
+  try {
+    const response = await API.post("/saveNigerTimetable", data);
+    if (response) {
+      localStorage.setItem("timetable", JSON.stringify(response.data));
+    }
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
 // get PioneerNigerClass classes Get Method
 // get PioneerNigerClass classes Get Method
 const getPioneerNigerClass = async ({ _id, schSection }) => {
@@ -77,6 +91,7 @@ const authService = {
   regClass,
   getDefaultClasses,
   regPioneerNigerClass,
+  createTimetable,
   getPioneerNigerClass,
   regStudent,
   logout,

@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Navbar, ThemeSettings } from "../components";
-import { reset, getPioneerNigerClass } from "../features/classSlice";
+import {
+  reset,
+  getPioneerNigerClass,
+  createTimetable,
+} from "../features/classSlice";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
@@ -234,7 +238,7 @@ const AllClassesPioneer = () => {
   const [tests, setTests] = useState(null);
   // state initialization
   // state initialization
-  const { isSuccess, isError, isLoading, message } = useSelector(
+  const { isSuccess, isError, isLoading, message, timetable } = useSelector(
     (state) => state.class
   );
   const dispatch = useDispatch();
@@ -324,6 +328,392 @@ const AllClassesPioneer = () => {
     localStorage.setItem("themeMode", currentMode);
   }, [currentMode]);
   // console.log(artClass);
+  const saveChanges = () => {
+    if (js1aMon && js1aTue && js1aWed && js1aThur && js1aFri) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const { _id } = user;
+      const info = {
+        className: "JSS 1A",
+        monday: js1aMon,
+        tuesday: js1aTue,
+        wednesday: js1aWed,
+        thursday: js1aThur,
+        friday: js1aFri,
+        classType: tests,
+        time: defaultTime,
+        pioneerId: _id,
+      };
+      dispatch(createTimetable(info));
+    }
+    if (js1bMon && js1bTue && js1bWed && js1bThur && js1bFri) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const { _id } = user;
+      const info = {
+        className: "JSS 1B",
+        monday: js1bMon,
+        tuesday: js1bTue,
+        wednesday: js1bWed,
+        thursday: js1bThur,
+        friday: js1bFri,
+        classType: tests,
+        time: defaultTime,
+        pioneerId: _id,
+      };
+      dispatch(createTimetable(info));
+    }
+    if (js1cMon && js1cTue && js1cWed && js1cThur && js1cFri) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const { _id } = user;
+      const info = {
+        className: "JSS 1C",
+        monday: js1cMon,
+        tuesday: js1cTue,
+        wednesday: js1cWed,
+        thursday: js1cThur,
+        friday: js1cFri,
+        classType: tests,
+        time: defaultTime,
+        pioneerId: _id,
+      };
+      dispatch(createTimetable(info));
+    }
+    if (js1dMon && js1dTue && js1dWed && js1dThur && js1dFri) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const { _id } = user;
+      const info = {
+        className: "JSS 1D",
+        monday: js1dMon,
+        tuesday: js1dTue,
+        wednesday: js1dWed,
+        thursday: js1dThur,
+        friday: js1dFri,
+        classType: tests,
+        time: defaultTime,
+        pioneerId: _id,
+      };
+      dispatch(createTimetable(info));
+    }
+    if (js2aMon && js2aTue && js2aWed && js2aThur && js2aFri) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const { _id } = user;
+      const info = {
+        className: "JSS 2A",
+        monday: js2aMon,
+        tuesday: js2aTue,
+        wednesday: js2aWed,
+        thursday: js2aThur,
+        friday: js2aFri,
+        classType: tests,
+        time: defaultTime,
+        pioneerId: _id,
+      };
+      dispatch(createTimetable(info));
+    }
+    if (js2bMon && js2bTue && js2bWed && js2bThur && js2bFri) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const { _id } = user;
+      const info = {
+        className: "JSS 2B",
+        monday: js2bMon,
+        tuesday: js2bTue,
+        wednesday: js2bWed,
+        thursday: js2bThur,
+        friday: js2bFri,
+        classType: tests,
+        time: defaultTime,
+        pioneerId: _id,
+      };
+      dispatch(createTimetable(info));
+    }
+    if (js2cMon && js2cTue && js2cWed && js2cThur && js2cFri) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const { _id } = user;
+      const info = {
+        className: "JSS 2C",
+        monday: js2cMon,
+        tuesday: js2cTue,
+        wednesday: js2cWed,
+        thursday: js2cThur,
+        friday: js2cFri,
+        classType: tests,
+        time: defaultTime,
+        pioneerId: _id,
+      };
+      dispatch(createTimetable(info));
+    }
+    if (js2dMon && js2dTue && js2dWed && js2dThur && js2dFri) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const { _id } = user;
+      const info = {
+        className: "JSS 2D",
+        monday: js2dMon,
+        tuesday: js2dTue,
+        wednesday: js2dWed,
+        thursday: js2dThur,
+        friday: js2dFri,
+        classType: tests,
+        time: defaultTime,
+        pioneerId: _id,
+      };
+      dispatch(createTimetable(info));
+    }
+    if (js3aMon && js3aTue && js3aWed && js3aThur && js3aFri) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const { _id } = user;
+      const info = {
+        className: "JSS 3A",
+        monday: js3aMon,
+        tuesday: js3aTue,
+        wednesday: js3aWed,
+        thursday: js3aThur,
+        friday: js3aFri,
+        classType: tests,
+        time: defaultTime,
+        pioneerId: _id,
+      };
+      dispatch(createTimetable(info));
+    }
+    if (js3bMon && js3bTue && js3bWed && js3bThur && js3bFri) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const { _id } = user;
+      const info = {
+        className: "JSS 3B",
+        monday: js3bMon,
+        tuesday: js3bTue,
+        wednesday: js3bWed,
+        thursday: js3bThur,
+        friday: js3bFri,
+        classType: tests,
+        time: defaultTime,
+        pioneerId: _id,
+      };
+      dispatch(createTimetable(info));
+    }
+    if (js3cMon && js3cTue && js3cWed && js3cThur && js3cFri) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const { _id } = user;
+      const info = {
+        className: "JSS 3C",
+        monday: js3cMon,
+        tuesday: js3cTue,
+        wednesday: js3cWed,
+        thursday: js3cThur,
+        friday: js3cFri,
+        classType: tests,
+        time: defaultTime,
+        pioneerId: _id,
+      };
+      dispatch(createTimetable(info));
+    }
+    if (js3dMon && js3dTue && js3dWed && js3dThur && js3dFri) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const { _id } = user;
+      const info = {
+        className: "JSS 3D",
+        monday: js3dMon,
+        tuesday: js3dTue,
+        wednesday: js3dWed,
+        thursday: js3dThur,
+        friday: js3dFri,
+        classType: tests,
+        time: defaultTime,
+        pioneerId: _id,
+      };
+      dispatch(createTimetable(info));
+    }
+    if (ss1aMon && ss1aTue && ss1aWed && ss1aThur && ss1aFri) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const { _id } = user;
+      const info = {
+        className: "SSS 1A",
+        monday: ss1aMon,
+        tuesday: ss1aTue,
+        wednesday: ss1aWed,
+        thursday: ss1aThur,
+        friday: ss1aFri,
+        classType: scienceClass,
+        time: scienceTime,
+        pioneerId: _id,
+      };
+      dispatch(createTimetable(info));
+    }
+    if (ss1bMon && ss1bTue && ss1bWed && ss1bThur && ss1bFri) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const { _id } = user;
+      const info = {
+        className: "SSS 1B",
+        monday: ss1bMon,
+        tuesday: ss1bTue,
+        wednesday: ss1bWed,
+        thursday: ss1bThur,
+        friday: ss1bFri,
+        classType: scienceClass,
+        time: scienceTime,
+        pioneerId: _id,
+      };
+      dispatch(createTimetable(info));
+    }
+    if (ss1cMon && ss1cTue && ss1cWed && ss1cThur && ss1cFri) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const { _id } = user;
+      const info = {
+        className: "SSS 1C",
+        monday: ss1cMon,
+        tuesday: ss1cTue,
+        wednesday: ss1cWed,
+        thursday: ss1cThur,
+        friday: ss1cFri,
+        classType: artClass,
+        time: defaultTime,
+        pioneerId: _id,
+      };
+      dispatch(createTimetable(info));
+    }
+    if (ss1dMon && ss1dTue && ss1dWed && ss1dThur && ss1dFri) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const { _id } = user;
+      const info = {
+        className: "SSS 1D",
+        monday: ss1dMon,
+        tuesday: ss1dTue,
+        wednesday: ss1dWed,
+        thursday: ss1dThur,
+        friday: ss1dFri,
+        classType: commercialClass,
+        time: scienceTime,
+        pioneerId: _id,
+      };
+      dispatch(createTimetable(info));
+    }
+    if (ss2aMon && ss2aTue && ss2aWed && ss2aThur && ss2aFri) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const { _id } = user;
+      const info = {
+        className: "SSS 2A",
+        monday: ss2aMon,
+        tuesday: ss2aTue,
+        wednesday: ss2aWed,
+        thursday: ss2aThur,
+        friday: ss2aFri,
+        classType: scienceClass,
+        time: scienceTime,
+        pioneerId: _id,
+      };
+      dispatch(createTimetable(info));
+    }
+    if (ss2bMon && ss2bTue && ss2bWed && ss2bThur && ss2bFri) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const { _id } = user;
+      const info = {
+        className: "SSS 2B",
+        monday: ss2bMon,
+        tuesday: ss2bTue,
+        wednesday: ss2bWed,
+        thursday: ss2bThur,
+        friday: ss2bFri,
+        classType: scienceClass,
+        time: scienceTime,
+        pioneerId: _id,
+      };
+      dispatch(createTimetable(info));
+    }
+    if (ss2cMon && ss2cTue && ss2cWed && ss2cThur && ss2cFri) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const { _id } = user;
+      const info = {
+        className: "SSS 2C",
+        monday: ss2cMon,
+        tuesday: ss2cTue,
+        wednesday: ss2cWed,
+        thursday: ss2cThur,
+        friday: ss2cFri,
+        classType: artClass,
+        time: defaultTime,
+        pioneerId: _id,
+      };
+      dispatch(createTimetable(info));
+    }
+    if (ss2dMon && ss2dTue && ss2dWed && ss2dThur && ss2dFri) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const { _id } = user;
+      const info = {
+        className: "SSS 2D",
+        monday: ss2dMon,
+        tuesday: ss2dTue,
+        wednesday: ss2dWed,
+        thursday: ss2dThur,
+        friday: ss2dFri,
+        classType: commercialClass,
+        time: scienceTime,
+        pioneerId: _id,
+      };
+      dispatch(createTimetable(info));
+    }
+    if (ss3aMon && ss3aTue && ss3aWed && ss3aThur && ss3aFri) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const { _id } = user;
+      const info = {
+        className: "SSS 3A",
+        monday: ss3aMon,
+        tuesday: ss3aTue,
+        wednesday: ss3aWed,
+        thursday: ss3aThur,
+        friday: ss3aFri,
+        classType: scienceClass,
+        time: scienceTime,
+        pioneerId: _id,
+      };
+      dispatch(createTimetable(info));
+    }
+    if (ss3bMon && ss3bTue && ss3bWed && ss3bThur && ss3bFri) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const { _id } = user;
+      const info = {
+        className: "SSS 3B",
+        monday: ss3bMon,
+        tuesday: ss3bTue,
+        wednesday: ss3bWed,
+        thursday: ss3bThur,
+        friday: ss3bFri,
+        classType: scienceClass,
+        time: scienceTime,
+        pioneerId: _id,
+      };
+      dispatch(createTimetable(info));
+    }
+    if (ss3cMon && ss3cTue && ss3cWed && ss3cThur && ss3cFri) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const { _id } = user;
+      const info = {
+        className: "SSS 3C",
+        monday: ss3cMon,
+        tuesday: ss3cTue,
+        wednesday: ss3cWed,
+        thursday: ss3cThur,
+        friday: ss3cFri,
+        classType: artClass,
+        time: defaultTime,
+        pioneerId: _id,
+      };
+      dispatch(createTimetable(info));
+    }
+    if (ss3dMon && ss3dTue && ss3dWed && ss3dThur && ss3dFri) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const { _id } = user;
+      const info = {
+        className: "SSS 3D",
+        monday: ss3dMon,
+        tuesday: ss3dTue,
+        wednesday: ss3dWed,
+        thursday: ss3dThur,
+        friday: ss3dFri,
+        classType: commercialClass,
+        time: scienceTime,
+        pioneerId: _id,
+      };
+      dispatch(createTimetable(info));
+    }
+  };
   return (
     <div className={currentMode === "Dark" ? "dark" : ""}>
       <div className="flex  bg-neutral-700 relative  dark:bg-main-dark-bg">
@@ -355,6 +745,9 @@ const AllClassesPioneer = () => {
                 <div
                   className="relative left-20 flex justify-around items-center h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl text-white font-semibold bg-green-500 hover:text-green-500 hover:bg-white"
                   style={{ fontFamily: "serif" }}
+                  onClick={() => {
+                    saveChanges();
+                  }}
                 >
                   Save Changes
                 </div>

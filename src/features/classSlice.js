@@ -5,9 +5,12 @@ const newClass = JSON.parse(localStorage.getItem("nigerianclasses"));
 const defaultClasses = JSON.parse(localStorage.getItem("defaultclasses"));
 const pioneerNigerClass = JSON.parse(localStorage.getItem("pioneerNigerClass"));
 const pioneerClass = JSON.parse(localStorage.getItem("pioneerNigerClass"));
+const timetable = JSON.parse(localStorage.getItem("/timetable"));
+// initial class state
 // initial class state
 const initialState = {
   newClass: newClass || {},
+  timetable: timetable || {},
   defaultClasses: defaultClasses || {},
   pioneerNigerClass: pioneerNigerClass || {},
   pioneerClass: pioneerClass || {},
@@ -44,6 +47,24 @@ export const registerPioneerNClass = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       return await authService.regPioneerNigerClass(data);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+// create timetable
+// create timetable
+export const createTimetable = createAsyncThunk(
+  "createTimetable",
+  async (data, thunkAPI) => {
+    try {
+      return await authService.createTimetable(data);
     } catch (error) {
       const message =
         (error.response &&
@@ -163,6 +184,21 @@ export const classReducer = createSlice({
         state.isSuccess = false;
         state.isError = true;
         state.pioneerClass = {};
+        state.message = action.payload;
+      })
+      .addCase(createTimetable.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(createTimetable.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.timetable = action.payload;
+      })
+      .addCase(createTimetable.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        state.timetable = {};
         state.message = action.payload;
       });
   },
