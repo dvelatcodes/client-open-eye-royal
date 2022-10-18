@@ -50,6 +50,24 @@ const createTimetable = async (data) => {
     console.log(error);
   }
 };
+// get timetable
+// get timetable
+const getTimetable = async ({ _id, showTimetable }) => {
+  try {
+    const response = await API.get(
+      `/getTimetable?_id=${_id}&showTimetable=${showTimetable}`
+    );
+    if (response.data) {
+      localStorage.setItem(
+        "singleClassTimetable",
+        JSON.stringify(response.data)
+      );
+    }
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
 // get PioneerNigerClass classes Get Method
 // get PioneerNigerClass classes Get Method
 const getPioneerNigerClass = async ({ _id, schSection }) => {
@@ -92,6 +110,7 @@ const authService = {
   getDefaultClasses,
   regPioneerNigerClass,
   createTimetable,
+  getTimetable,
   getPioneerNigerClass,
   regStudent,
   logout,

@@ -6,11 +6,15 @@ const defaultClasses = JSON.parse(localStorage.getItem("defaultclasses"));
 const pioneerNigerClass = JSON.parse(localStorage.getItem("pioneerNigerClass"));
 const pioneerClass = JSON.parse(localStorage.getItem("pioneerNigerClass"));
 const timetable = JSON.parse(localStorage.getItem("/timetable"));
+const singleClassTimetable = JSON.parse(
+  localStorage.getItem("singleClassTimetable")
+);
 // initial class state
 // initial class state
 const initialState = {
   newClass: newClass || {},
   timetable: timetable || {},
+  singleClassTimetable: singleClassTimetable || {},
   defaultClasses: defaultClasses || {},
   pioneerNigerClass: pioneerNigerClass || {},
   pioneerClass: pioneerClass || {},
@@ -65,6 +69,24 @@ export const createTimetable = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       return await authService.createTimetable(data);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+// get timetable
+// get timetable
+export const getTimetable = createAsyncThunk(
+  "getTimetable",
+  async (_id, showTimetable, thunkAPI) => {
+    try {
+      return await authService.getTimetable(_id, showTimetable);
     } catch (error) {
       const message =
         (error.response &&
@@ -199,6 +221,21 @@ export const classReducer = createSlice({
         state.isSuccess = false;
         state.isError = true;
         state.timetable = {};
+        state.message = action.payload;
+      })
+      .addCase(getTimetable.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getTimetable.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.singleClassTimetable = action.payload;
+      })
+      .addCase(getTimetable.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        state.singleClassTimetable = {};
         state.message = action.payload;
       });
   },

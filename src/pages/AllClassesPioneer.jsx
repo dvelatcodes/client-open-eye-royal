@@ -256,25 +256,30 @@ const AllClassesPioneer = () => {
   }, [isSuccess, isError, isLoading, message, dispatch, reset]);
   // pioneer class data
   // pioneer class data
-  const [classData, setClassData] = useState(["1", "2", "3"]);
+  const [classData, setClassData] = useState(null);
   // fetching pioneer class data from db and local storage
   // fetching pioneer class data from db and local storage
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
-    const { _id } = user;
-    const year1 = JSON.parse(localStorage.getItem("startOfAcademicYear"));
-    const year2 = JSON.parse(localStorage.getItem("endOfAcademicYear"));
-    const schSection = year1 + "/" + year2;
-    dispatch(getPioneerNigerClass({ _id, schSection }));
+    if (user) {
+      const { _id } = user;
+      const year1 = JSON.parse(localStorage.getItem("startOfAcademicYear"));
+      const year2 = JSON.parse(localStorage.getItem("endOfAcademicYear"));
+      if (year1 && year2) {
+        const schSection = year1 + "/" + year2;
+        dispatch(getPioneerNigerClass({ _id, schSection }));
+      }
+    }
     const pioneerClasses = JSON.parse(
       localStorage.getItem("pioneerNigerClass")
     );
-    const { arr } = pioneerClasses;
-    pioneerClasses.pioneerClass && setClassData(arr);
-    setClasses(localStorage.getItem("pSingleClass"));
-    const getSeeMode = localStorage.getItem("themeMode");
-    getSeeMode && setCurrentMode(getSeeMode);
     if (pioneerClasses) {
+      const { arr } = pioneerClasses;
+      pioneerClasses.pioneerClass && setClassData(arr);
+      const singleClass = localStorage.getItem("pSingleClass");
+      singleClass && setClasses(singleClass);
+      const getSeeMode = localStorage.getItem("themeMode");
+      getSeeMode && setCurrentMode(getSeeMode);
       const { pioneerClass } = pioneerClasses;
       pioneerClass && setClassNum(pioneerClass);
       pioneerClass &&
