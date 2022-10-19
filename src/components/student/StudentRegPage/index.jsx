@@ -569,7 +569,7 @@ const StudentRegPage = () => {
           </li>
           <li className="studentRegForm-li">
             <h4 className="male">
-              <p>Male</p>
+              <p className="text-white">Male</p>
               <input
                 type="radio"
                 data-id="male"
@@ -581,7 +581,7 @@ const StudentRegPage = () => {
               />
             </h4>
             <h4 className="female">
-              <p>Female</p>
+              <p className="text-white">Female</p>
               <input
                 type="radio"
                 data-id="female"
@@ -651,10 +651,14 @@ const StudentRegPage = () => {
             </p>
           </li>
           <li className="studentRegForm-year">
-            <p className="academic-title ">Current Academic Session</p>
+            <p className="academic-title text-white">
+              Current Academic Session
+            </p>
             <div className="student-year-container">
               <p className="initial-academic-Session">
-                <label htmlFor="academic-Session">From</label>
+                <label htmlFor="academic-Session" className="text-white">
+                  From
+                </label>
                 <input
                   type="number"
                   min="2022"
@@ -667,7 +671,7 @@ const StudentRegPage = () => {
                 />
               </p>
               <p className="end-academic-Session">
-                <label htmlFor="end-academic-Session" className="to">
+                <label htmlFor="end-academic-Session" className="to text-white">
                   To
                 </label>
                 <input
@@ -690,7 +694,11 @@ const StudentRegPage = () => {
             </div>
           </li>
 
-          <button type="button" className="studentbtn" onClick={submitStudent}>
+          <button
+            type="button"
+            className="studentbtn text-white font-extrabold"
+            onClick={submitStudent}
+          >
             Submit
           </button>
         </ul>

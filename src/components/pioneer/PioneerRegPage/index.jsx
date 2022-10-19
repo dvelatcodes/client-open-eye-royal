@@ -29,8 +29,8 @@ const PioneerRegPage = () => {
     if (isError) {
       toast.error(message);
     }
-    if (isSuccess || user) {
-      navigate("/");
+    if (isSuccess) {
+      navigate("/pioneerschool");
     }
     dispatch(reset());
   }, [user, isError, isSuccess, message, navigate, dispatch]);
@@ -216,7 +216,9 @@ const PioneerRegPage = () => {
       >
         <ul className="pioneerRegForm-ul">
           <li className="pioneerRegForm-li">
-            <label htmlFor="firstName">First-Name</label>
+            <label htmlFor="firstName" className="text-white">
+              First-Name
+            </label>
             <input
               type="text"
               name="firstName"
@@ -233,7 +235,9 @@ const PioneerRegPage = () => {
             </p>
           </li>
           <li className="pioneerRegForm-li">
-            <label htmlFor="lastName">Last-Name</label>
+            <label htmlFor="lastName" className="text-white">
+              Last-Name
+            </label>
             <input
               type="text"
               name="lastName"
@@ -250,7 +254,9 @@ const PioneerRegPage = () => {
             </p>
           </li>
           <li className="pioneerRegForm-li">
-            <label htmlFor="email">Gmail</label>
+            <label htmlFor="email" className="text-white">
+              Gmail
+            </label>
             <input
               type="email"
               name="email"
@@ -267,7 +273,9 @@ const PioneerRegPage = () => {
             </p>
           </li>
           <li className="pioneerRegForm-li">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password" className="text-white">
+              Password
+            </label>
             <input
               type="password"
               name="password"
@@ -292,7 +300,9 @@ const PioneerRegPage = () => {
             </p>
           </li>
           <li className="pioneerRegForm-li">
-            <label htmlFor="Phone Number">Phone Number</label>
+            <label htmlFor="Phone Number" className="text-white">
+              Phone Number
+            </label>
             <input
               type="tel"
               name="phoneNumber"
@@ -309,7 +319,9 @@ const PioneerRegPage = () => {
             </p>
           </li>
           <li className="pioneerRegForm-li">
-            <label htmlFor="schoolName">School-Name</label>
+            <label htmlFor="schoolName" className="text-white">
+              School-Name
+            </label>
             <input
               type="text"
               name="schoolName"
@@ -325,7 +337,11 @@ const PioneerRegPage = () => {
               {pSixth ? "valid" : "invalid"}
             </p>
           </li>
-          <button type="button" onClick={submitPioneer}>
+          <button
+            type="button"
+            className="text-white w-fit h-fit pt-10 pb-10 pl-7 pr-7 border-2 border-white font-bold"
+            onClick={submitPioneer}
+          >
             Submit
           </button>
         </ul>
