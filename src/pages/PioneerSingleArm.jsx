@@ -146,6 +146,8 @@ const PioneerSingleArm = () => {
       }
     }
   }, [showTimetable]);
+
+  // nameClass && console.log(classType);
   return (
     <div
       className={currentMode === "Dark" ? "dark" : ""}
@@ -196,7 +198,7 @@ const PioneerSingleArm = () => {
                   </div>
                   <div className="absolute -left-56 top-40 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold ">
                     {classType &&
-                      classType[0].courses.map((subject) => (
+                      classType.map((subject) => (
                         <p
                           key={subject.id}
                           style={{ fontFamily: "serif" }}
