@@ -188,9 +188,15 @@ const PioneerRegPage = () => {
     }
   };
 
+  // cursor isActive
+  // cursor isActive
+  const [cursorIsActive, setCursorIsActive] = useState(false);
+  // submit pioneer
+  // submit pioneer
   const submitPioneer = async () => {
     if (pFirst && pSecond && pThird && pFourth && pFifth && pSixth) {
       try {
+        setCursorIsActive(true);
         const userData = {
           firstName,
           lastName,
@@ -207,7 +213,7 @@ const PioneerRegPage = () => {
   };
 
   return (
-    <>
+    <div className="pioneerRegContainer">
       <form
         className="pioneerRegForm"
         onSubmit={(e) => {
@@ -215,13 +221,14 @@ const PioneerRegPage = () => {
         }}
       >
         <ul className="pioneerRegForm-ul">
-          <li className="pioneerRegForm-li">
-            <label htmlFor="firstName" className="text-white">
+          <li className="pioneerRegForm-li mb-3">
+            <label htmlFor="firstName" className="text-white font-bold">
               First-Name
             </label>
             <input
               type="text"
               name="firstName"
+              // className="border-2 border-white bor"
               placeholder="enter first name"
               value={firstName}
               onChange={onChange}
@@ -234,8 +241,8 @@ const PioneerRegPage = () => {
               {pFirst ? "valid" : "invalid"}
             </p>
           </li>
-          <li className="pioneerRegForm-li">
-            <label htmlFor="lastName" className="text-white">
+          <li className="pioneerRegForm-li mb-3">
+            <label htmlFor="lastName" className="text-white font-bold">
               Last-Name
             </label>
             <input
@@ -253,8 +260,8 @@ const PioneerRegPage = () => {
               {pSecond ? "valid" : "invalid"}
             </p>
           </li>
-          <li className="pioneerRegForm-li">
-            <label htmlFor="email" className="text-white">
+          <li className="pioneerRegForm-li mb-3">
+            <label htmlFor="email" className="text-white font-bold">
               Gmail
             </label>
             <input
@@ -272,8 +279,8 @@ const PioneerRegPage = () => {
               {pThird ? "valid" : "invalid"}
             </p>
           </li>
-          <li className="pioneerRegForm-li">
-            <label htmlFor="password" className="text-white">
+          <li className="pioneerRegForm-li mb-3">
+            <label htmlFor="password" className="text-white font-bold">
               Password
             </label>
             <input
@@ -299,8 +306,8 @@ const PioneerRegPage = () => {
                 : "invalid"}
             </p>
           </li>
-          <li className="pioneerRegForm-li">
-            <label htmlFor="Phone Number" className="text-white">
+          <li className="pioneerRegForm-li mb-3">
+            <label htmlFor="Phone Number" className="text-white font-bold">
               Phone Number
             </label>
             <input
@@ -318,8 +325,8 @@ const PioneerRegPage = () => {
               {pFifth ? "valid" : "invalid"}
             </p>
           </li>
-          <li className="pioneerRegForm-li">
-            <label htmlFor="schoolName" className="text-white">
+          <li className="pioneerRegForm-li mb-3">
+            <label htmlFor="schoolName" className="text-white font-bold">
               School-Name
             </label>
             <input
@@ -339,14 +346,17 @@ const PioneerRegPage = () => {
           </li>
           <button
             type="button"
-            className="text-white w-fit h-fit pt-10 pb-10 pl-7 pr-7 border-2 border-white font-bold"
+            className="text-white w-fit h-fit pt-10 pb-10 pl-7 pr-7 border-2 border-white font-bold hover:text-green-400 hover:border-green-400"
+            style={{
+              cursor: cursorIsActive ? "not-allowed" : "pointer",
+            }}
             onClick={submitPioneer}
           >
             Submit
           </button>
         </ul>
       </form>
-    </>
+    </div>
   );
 };
 

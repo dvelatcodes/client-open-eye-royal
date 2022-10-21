@@ -5,6 +5,7 @@ import { GrEdit } from "react-icons/gr";
 import { SiGoogleclassroom } from "react-icons/si";
 import { Navbar, ThemeSettings } from "../components";
 import { DashboardFractionPioneer } from "../Dashboard";
+import { useNavigate } from "react-router-dom";
 
 const SetupClassPioneer = () => {
   // my contexts
@@ -20,6 +21,7 @@ const SetupClassPioneer = () => {
     preClass,
     setPreClass,
   } = useStateContext();
+  const navigate = useNavigate();
   // class data
   // class data
   const [classData, setClassData] = useState([
@@ -54,6 +56,17 @@ const SetupClassPioneer = () => {
       link: "/setup-classPioneer/generalclass/sss3",
     },
   ]);
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user.schoolName) {
+      alert("Unauthorized, Please SignUP/SignIn AS A Proprietor");
+      navigate("/");
+    }
+    if (!user) {
+      alert("Unauthorized, Please SignUP/SignIn AS A Proprietor");
+      navigate("/");
+    }
+  }, []);
   return (
     <div
       className={currentMode === "Dark" ? "dark" : ""}

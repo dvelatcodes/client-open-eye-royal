@@ -14,11 +14,11 @@ body{
 .studentRegForm-ul{
     width: fit-content;
     height: fit-content;
-    min-height: 150vh;
+    min-height: 100vh;
     margin: 2rem auto;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    // justify-content: space-around;
 }
 
 .studentRegForm-li{
@@ -38,16 +38,18 @@ body{
 }
 
 .green{
-    color: green;
+    color: rgb(48, 159, 48);
     position: absolute;
     right: 0;
-    font-size: 0.8rem;
+    font-size: 1rem;
+    font-weight: bold;
 }
 .red{
-    color: red;
+    color: rgb(249, 52, 52);
     position: absolute;
     right: 0;
     font-size: 0.8rem;
+    font-weight: bold;
 }
 
 .studentRegForm-li input{
@@ -55,11 +57,13 @@ body{
     height: 2.5rem;
     border-radius: 7px;
     border: 0.1px solid #777;
+    border: 2.5px solid rgb(57, 192, 255);
     padding-left: 1.5rem;
 }
 
 .studentRegForm-li input:focus{
     outline: none;
+    border-color: greenyellow;
 }
 
 .male, .female{
@@ -69,6 +73,7 @@ body{
     // width: fit-content;
     align-items: center;
 }
+
 
 select{
     width: 20vw;
@@ -91,71 +96,24 @@ select{
     font-weight: bold;
     cursor: pointer;
 }
-// .schTypeOption:hover{
-//     color: rgb(255, 0, 81);
-//     background: white;
-//     display: block;
-// }
-
-.studentRegForm-year{
-    flex-direction: column;
-    display: flex;
-    align-items: center;
-    width: 20vw;
-    height: 15vh;
-    justify-content: space-around;
-}
-.student-year-container{
-    display: flex;
-    align-items: center;
-    position: relative;
-    padding: 1.1rem;
-    width: fit-content;
-    // justify-content: space-around;
-}
-
-.academic-title{
-    font-weight:bold;
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 1.2rem;
-}
-
-.initial-academic-Session,
-.end-academic-Session{
-    display: flex;
-    align-items: center;
-    width: 10.2vw;
-
-    label{
-        font-weight: bold;
-    }
-}
-.to{
-    font-family: 'Times New Roman', Times, serif;
-}
-
-.initial-academic-Session input,
-.end-academic-Session input{
-    width: 6vw;
-    height: 2rem;
-    border-radius: 7px;
-    border: 0.1px solid #777;
-    padding-left: 1.1rem;
-    margin-left: 0.2rem;
-    font-size : 1rem;
-    font-family: 'Times New Roman', Times, serif;
-}
-
-.initial-academic-Session input:focus,
-.end-academic-Session input:focus{
-    outline: none;
-}
 
 .studentbtn{
     width: 12vw;
     height: 8vh;
-    border-radius: 7px;
-    border: 1px solid #777;
-    border-width: thin;
-    cursor: pointer;
+    border: 3px solid white;
+}
+.studentbtn:hover{
+border-color: rgb(169, 255, 39);
+color: rgb(169, 255, 39);
+}
+
+.studentbtn2{
+    width: 12vw;
+    height: 8vh;
+    border: 3px solid rgb(169, 255, 39);
+    color: rgb(169, 255, 39);
+}
+.studentbtn2:hover{
+border-color: white;
+color: white;
 }

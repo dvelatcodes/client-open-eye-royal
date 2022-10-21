@@ -2,6 +2,7 @@ export { default as Button } from "./Buttons";
 export { default as ThemeSettings } from "./ThemeSettings";
 export { default as Sidebar } from "./Sidebar";
 export { default as SidebarPioneer } from "./SidebarPioneer";
+export { default as SidebarStudent } from "./SidebarStudent";
 export { default as Navbar } from "./Navbar";
 export { default as Footer } from "./Footer";
 export { default as Cart } from "./Cart";

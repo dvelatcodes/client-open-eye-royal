@@ -7,6 +7,7 @@ import {
   Sidebar,
   ThemeSettings,
   SidebarPioneer,
+  SidebarStudent,
 } from "../components";
 import { useStateContext } from "../contexts/ContextProvider";
 
@@ -80,6 +81,37 @@ export const DashboardFractionPioneer = ({ activeMenu, onClick }) => {
       ) : (
         <div className="w-0 dark:bg-secondary-dark-bg">
           <SidebarPioneer sideBarTitle={"Pioneer"} />
+        </div>
+      )}
+    </>
+  );
+};
+
+export const DashboardFractionStudent = ({ activeMenu, onClick }) => {
+  const { currentColor } = useStateContext();
+  return (
+    <>
+      <div className="absolute right-28 bottom-4">
+        <div className="fixed bottom-4" style={{ zIndex: "1000" }}>
+          <TooltipComponent content="Settings" position="Top">
+            <button
+              type="button"
+              className="text-3xl p-3 hover:drop-shadow-xl hover:bg-light-gray text-white"
+              onClick={onClick}
+              style={{ background: currentColor, borderRadius: "50%" }}
+            >
+              <FiSettings />
+            </button>
+          </TooltipComponent>
+        </div>
+      </div>
+      {activeMenu ? (
+        <div className="relative w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white">
+          <SidebarStudent sideBarTitle={"Student"} />
+        </div>
+      ) : (
+        <div className="w-0 dark:bg-secondary-dark-bg">
+          <SidebarStudent sideBarTitle={"Student"} />
         </div>
       )}
     </>

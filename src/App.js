@@ -24,6 +24,7 @@ import {
   pioneerTimetable,
 } from "./pages";
 import { PioneerSchool } from "./components/pioneer/index";
+import { StudentDashboard } from "./components/student";
 import "./app.css";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
@@ -45,6 +46,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/adminschools" element={<AdminSchools />} />
           <Route path="/pioneerschool" element={<PioneerSchool />} />
+          <Route path="/studentdashboard" element={<StudentDashboard />} />
           {/* pioneer pages */}
           <Route
             path="/pioneerschool/allclassespioneer"

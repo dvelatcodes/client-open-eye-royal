@@ -129,6 +129,15 @@ const PioneerGeneralClassSetup = () => {
   // get default classes
   const [classData, setClassData] = useState([]);
   useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user.schoolName) {
+      alert("Unauthorized, Please SignIn/SignUp as a Proprietor");
+      navigate("/");
+    }
+    if (!user) {
+      alert("Unauthorized, Please SignUP/SignIn AS A Proprietor");
+      navigate("/");
+    }
     const defaultClasses = JSON.parse(localStorage.getItem("defaultclasses"));
 
     defaultClasses || dispatch(getDefaultClasses());
