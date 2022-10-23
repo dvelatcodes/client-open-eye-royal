@@ -1,22 +1,47 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "../api/index";
-
+// newClass
+// newClass
 const newClass = JSON.parse(localStorage.getItem("nigerianclasses"));
+// defaultClasses
+// defaultClasses
 const defaultClasses = JSON.parse(localStorage.getItem("defaultclasses"));
+// pioneerNigerClass
+// pioneerNigerClass
 const pioneerNigerClass = JSON.parse(localStorage.getItem("pioneerNigerClass"));
+// pioneerClass
+// pioneerClass
 const pioneerClass = JSON.parse(localStorage.getItem("pioneerNigerClass"));
+// timetable
+// timetable
 const timetable = JSON.parse(localStorage.getItem("/timetable"));
+// singleClassTimetable
+// singleClassTimetable
 const singleClassTimetable = JSON.parse(
   localStorage.getItem("singleClassTimetable")
 );
+// studentScreenPioneer
+// studentScreenPioneer
+const studentScreenPioneer = JSON.parse(
+  localStorage.getItem("studentScreenPioneer")
+);
+// admin questions
+// admin questions
+const adminQuestions = JSON.parse(localStorage.getItem("que"));
+// get admin questions
+// get admin questions
+const getQuestions = JSON.parse(localStorage.getItem("quee"));
 // initial class state
 // initial class state
 const initialState = {
   newClass: newClass || {},
   timetable: timetable || {},
+  adminQuestions: adminQuestions || {},
+  getQuestions: getQuestions || {},
   singleClassTimetable: singleClassTimetable || {},
   defaultClasses: defaultClasses || {},
   pioneerNigerClass: pioneerNigerClass || {},
+  studentScreenPioneer: studentScreenPioneer || {},
   pioneerClass: pioneerClass || {},
   isSuccess: false,
   isLoading: false,
@@ -32,6 +57,44 @@ export const regClass = createAsyncThunk(
     try {
       // console.log(classData);
       return await authService.regClass(classData);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      console.log(error);
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+// set saveAdminQuestions
+//  set saveAdminQuestions
+export const setAdminQuestions = createAsyncThunk(
+  "setAdminQuestions",
+  async (data, thunkAPI) => {
+    try {
+      return await authService.saveAdminQuestions(data);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      console.log(error);
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+// get AdminQuestions
+//  get AdminQuestions
+export const getAdminQuestions = createAsyncThunk(
+  "getAdminQuestions",
+  async (data, thunkAPI) => {
+    try {
+      return await authService.getAdminQuestions();
     } catch (error) {
       const message =
         (error.response &&
@@ -116,6 +179,24 @@ export const getPioneerNigerClass = createAsyncThunk(
     }
   }
 );
+// getStudentScreenPioneer
+// getStudentScreenPioneer
+export const getStudentScreenPioneer = createAsyncThunk(
+  "getStudentScreenPioneer",
+  async (schoolStudentSelected, thunkAPI) => {
+    try {
+      return await authService.getStudentScreenPioneer(schoolStudentSelected);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 // get default classes
 // get default classes
 export const getDefaultClasses = createAsyncThunk(
@@ -164,6 +245,36 @@ export const classReducer = createSlice({
         state.message = action.payload;
         state.newClass = null;
       })
+      .addCase(setAdminQuestions.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(setAdminQuestions.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.adminQuestions = action.payload;
+      })
+      .addCase(setAdminQuestions.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        state.message = action.payload;
+        state.adminQuestions = {};
+      })
+      .addCase(getAdminQuestions.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getAdminQuestions.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.getQuestions = action.payload;
+      })
+      .addCase(getAdminQuestions.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        state.message = action.payload;
+        state.getQuestions = {};
+      })
       .addCase(getDefaultClasses.pending, (state) => {
         state.isLoading = true;
       })
@@ -192,6 +303,21 @@ export const classReducer = createSlice({
         state.isError = true;
         state.message = action.payload;
         state.pioneerNigerClass = {};
+      })
+      .addCase(getStudentScreenPioneer.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getStudentScreenPioneer.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.studentScreenPioneer = action.payload;
+      })
+      .addCase(getStudentScreenPioneer.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        state.studentScreenPioneer = {};
+        state.message = action.payload;
       })
       .addCase(getPioneerNigerClass.pending, (state) => {
         state.isLoading = true;

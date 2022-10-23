@@ -18,6 +18,7 @@ export const ContextProvider = ({ children }) => {
   const [themeSettings, setThemeSettings] = useState(false);
   const [preClass, setPreClass] = useState("nothing");
   const [classes, setClasses] = useState("");
+  const [schoolStudentSelected, setSchoolStudentSelected] = useState(null);
   const setMode = (e) => {
     setCurrentMode(e.target.value);
     localStorage.setItem("themeMode", e.target.value);
@@ -54,6 +55,8 @@ export const ContextProvider = ({ children }) => {
         setPreClass,
         classes,
         setClasses,
+        schoolStudentSelected,
+        setSchoolStudentSelected,
       }}
     >
       {children}

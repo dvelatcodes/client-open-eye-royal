@@ -1,0 +1,509 @@
+import React, { useState } from "react";
+import { Navbar, ThemeSettings } from "../components";
+import { Link } from "react-router-dom";
+import { useStateContext } from "../contexts/ContextProvider";
+import { DashboardFractionStudent } from "../Dashboard";
+import { SiGoogleclassroom } from "react-icons/si";
+import { GrEdit } from "react-icons/gr";
+import { GiTeacher, GiSchoolBag } from "react-icons/gi";
+import { ImBooks } from "react-icons/im";
+import { useNavigate } from "react-router-dom";
+import { FaArrowAltCircleRight } from "react-icons/fa";
+import {
+  reset,
+  getStudentScreenPioneer,
+  getAdminQuestions,
+} from "../features/classSlice";
+import { useSelector, useDispatch } from "react-redux";
+
+import { useEffect } from "react";
+import { getAllPioneer } from "../features/auth/authSlice";
+
+const StudentAdmissionScreening = () => {
+  // show questions
+  // show questions
+  const [showQuestions, setShowQuestions] = useState(null);
+  //   questions
+  // questions
+  const [studentQuestions, setStudentQuestions] = useState([
+    {
+      question: "What is the largest animal living on land?",
+      options: [
+        { value: "Giraffe", checked: false },
+        { value: "Elephant", checked: false },
+        { value: "Monkey", checked: false },
+        { value: "Cheetah", checked: false },
+      ],
+    },
+    {
+      question: "Who is the best programmer on planet earth",
+      options: [
+        { value: "Love aka dvelat", checked: false },
+        { value: "Love aka dvelat", checked: false },
+        { value: "Love aka dvelat", checked: false },
+        { value: "Love aka dvelat", checked: false },
+      ],
+    },
+    {
+      question: "What is use for heating in the laboratory ",
+      options: [
+        { value: "fire wood", checked: false },
+        { value: "stove", checked: false },
+        { value: "Bunsen burnet", checked: false },
+        { value: "volcano", checked: false },
+      ],
+    },
+    {
+      question: "Running is an example of what event ",
+      options: [
+        { value: "field", checked: false },
+        { value: "track", checked: false },
+        { value: "sport", checked: false },
+        { value: "swimming", checked: false },
+      ],
+    },
+    {
+      question:
+        "Agricultural science deals with ______ and ____ for man and industrial use",
+      options: [
+        {
+          value: "production of copper and rearing of animals",
+          checked: false,
+        },
+        { value: "building and crop production ", checked: false },
+        { value: "production of crops and rearing of animals", checked: false },
+        { value: "food production and minerals", checked: false },
+      ],
+    },
+    {
+      question:
+        "A person who welcome and direct visitors to the right person in an organization is called a ____",
+      options: [
+        { value: "receptionist", checked: false },
+        { value: "staff", checked: false },
+        { value: "worker", checked: false },
+        { value: "ceo", checked: false },
+      ],
+    },
+    {
+      question: "_____ involves a change in the chemical composition of rock ",
+      options: [
+        { value: "chemical weathering", checked: false },
+        { value: "topography", checked: false },
+        { value: "geography", checked: false },
+        { value: "soil", checked: false },
+      ],
+    },
+    {
+      question: "____ is a substance that change the way the body works",
+      options: [
+        { value: "water", checked: false },
+        { value: "drug", checked: false },
+        { value: "perfume", checked: false },
+        { value: "none of the above", checked: false },
+      ],
+    },
+
+    {
+      question:
+        "___ is a method engaged by farmers in the cultivation of crops and rearing of animals ",
+      options: [
+        { value: "agriculture", checked: false },
+        { value: "farming system", checked: false },
+        { value: "mixed farming ", checked: false },
+        { value: "pastoral farming", checked: false },
+      ],
+    },
+    {
+      question:
+        "_____ are primary rocks formed from hot molten rock which has cooled and solidified ",
+      options: [
+        { value: "sedimentary rocks", checked: false },
+        { value: "metamorphic rocks", checked: false },
+        { value: "igneous rocks", checked: false },
+        { value: "physical weathering", checked: false },
+      ],
+    },
+    {
+      question:
+        "To find out the truth about things scientist makes guesses and then puts them to the lest, and these guesses is called __ ",
+      options: [
+        { value: "hypothesis", checked: false },
+        { value: "practical", checked: false },
+        { value: "conclusion", checked: false },
+        { value: "theory", checked: false },
+      ],
+    },
+    {
+      question: "One of these is what scientists use for experiment",
+      options: [
+        { value: "microscope", checked: false },
+        { value: "carpet", checked: false },
+        { value: "bed", checked: false },
+        { value: "dance", checked: false },
+      ],
+    },
+    {
+      question: "____ is used for measuring the mass of objects ",
+      options: [
+        { value: "thermometer", checked: false },
+        { value: "balance", checked: false },
+        { value: "computer", checked: false },
+        { value: "table", checked: false },
+      ],
+    },
+    {
+      question:
+        "With internet, you can send a message to someone in new York and get your reply within a very short period",
+      options: [
+        { value: "na lie", checked: false },
+        { value: "nor be magic na", checked: false },
+        { value: "very true", checked: false },
+        { value: "", checked: false },
+      ],
+    },
+    {
+      question: "Jumps which aim at achieving height are called ?",
+      options: [
+        { value: "horizontal jumps", checked: false },
+        { value: "vertical jumps", checked: false },
+        { value: "high jumps", checked: false },
+        { value: "long jumps", checked: false },
+      ],
+    },
+    {
+      question:
+        "_____ disease can be transmitted easily in over-crowded living conditions",
+      options: [
+        { value: "contagious", checked: false },
+        { value: "sexually transmitted", checked: false },
+        { value: "cholera", checked: false },
+        { value: "drinking", checked: false },
+      ],
+    },
+    {
+      question:
+        "_____ is defined as a place where business is done or service is provided",
+      options: [
+        { value: "class room", checked: false },
+        { value: "an office", checked: false },
+        { value: "bed room", checked: false },
+        { value: "kitchen", checked: false },
+      ],
+    },
+    {
+      question: "The first stage of soil formation is accomplished by ____ ",
+      options: [
+        { value: "waethring process", checked: false },
+        { value: ") weathering process", checked: false },
+        { value: "withering process", checked: false },
+        { value: "weuthering process", checked: false },
+      ],
+    },
+    {
+      question:
+        "Letters, memoranda and telegrams are examples of ___ information",
+      options: [
+        { value: "oral", checked: false },
+        { value: "written", checked: false },
+        { value: "thinking", checked: false },
+        { value: "shouting", checked: false },
+      ],
+    },
+    {
+      question: "When there's a will, there's a way. Do you concur?",
+      options: [
+        { value: "Yes, absolutely", checked: false },
+        { value: "no", checked: false },
+        { value: "na lie", checked: false },
+        { value: "on the fence", checked: false },
+      ],
+    },
+  ]);
+  const {
+    activeMenu,
+    currentColor,
+    themeSettings,
+    setThemeSettings,
+    currentMode,
+    schoolStudentSelected,
+    setSchoolStudentSelected,
+  } = useStateContext();
+  // schName
+  // schName
+  const [schName, setSchName] = useState(null);
+  // student selected Class
+  // student selected Class
+  //   correct Answers
+  //   correct Answers
+  const [correctAnswers, setCorrectAnswers] = useState(null);
+  const [studentPickedClass, setStudentPickedClass] = useState(null);
+  // state initialization
+  // state initialization
+  const {
+    isSuccess,
+    isError,
+    isLoading,
+    message,
+    studentScreenPioneer,
+    getQuestions,
+  } = useSelector((state) => state.class);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  // useEffect for states
+  // useEffect for states
+  useEffect(() => {
+    if (isSuccess && studentScreenPioneer) {
+      // alert("you have classes");
+      setSchName(studentScreenPioneer);
+    }
+    if (isSuccess && getQuestions) {
+      setCorrectAnswers(getQuestions);
+    }
+    if (isError) {
+      console.log("error");
+    }
+    dispatch(reset());
+  }, [
+    isSuccess,
+    isError,
+    isLoading,
+    message,
+    dispatch,
+    reset,
+    studentScreenPioneer,
+    getQuestions,
+  ]);
+
+  // get getStudentScreenPioneer
+  // get getStudentScreenPioneer
+  useEffect(() => {
+    const user=JSON.parse(localStorage.getItem("user"));
+    if(user.studentEmail){
+      dispatch(getAdminQuestions());
+      dispatch(getStudentScreenPioneer({ schoolStudentSelected }));
+    }
+    else{
+      alert("Unauthorized, Please Sign-up or Login")
+      navigate("/")
+    }
+  }, []);
+  const [runnerChecker, setRunnerChecker] = useState(0);
+  const [time, setTime] = useState(true);
+  var interval = null;
+  var timeInterval = null;
+  useEffect(() => {
+    if (showQuestions) {
+      interval = setInterval(() => {
+        setRunnerChecker((prev) => prev + 1);
+      }, 10000);
+    }
+    if (runnerChecker === 19) {
+      // console.log(studentQuestions);
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [showQuestions, runnerChecker]);
+
+  useEffect(() => {
+    if (showQuestions) {
+      timeInterval = setInterval(() => {
+        setTime((prev) => prev + 10);
+      }, 10);
+    }
+    if (runnerChecker === 19) {
+      clearInterval(timeInterval);
+    }
+    return () => clearInterval(timeInterval);
+  }, [showQuestions, runnerChecker]);
+  const [result, setResult] = useState([]);
+  const [ansQ, setAnsQ] = useState([]);
+  const [showResult, setShowResult] = useState(null);
+
+
+  // const checkAns=()=>{
+  // studentQuestions.map(arr=>
+  //      {if(arr.options.some(ans=>ans.checked===true)){
+  //       setAnsQ(prev=>[...prev,"checks"])}
+  //     }
+  //     );
+  // }
+  const submitAnswer = () => {
+    let i = 0
+    while (i<19) {
+      if (
+        (studentQuestions[i].options.filter((arr) => arr.checked === true))[0].value === (correctAnswers[i].options.filter((arr) => arr.checked === true))[0].value
+      ) {
+        setResult((prev) => [...prev, "valid"]);
+      }
+      i++
+    }
+  };
+  // useEffect(() => {
+  //   console.log(result);
+  // }, [result]);
+  //  things to save on data base
+  // studentPicked Class
+  const showTests = ()=>{
+    if(studentPickedClass !== "" && studentPickedClass !== null){
+      setShowQuestions(true);
+      alert("You only have 10 seconds to answer a question, best of luck")
+    }
+    else{
+      alert("Please Pick a Class before Writing the Test")
+    }
+  }
+  // determine wether to admit student
+  // determine wether to admit student
+useEffect(()=>{
+  const user=JSON.parse(localStorage.getItem("user"));
+  const getP = localStorage.getItem("user");
+  setSchoolStudentSelected(getP)
+  if(result.length>=9){
+    console.log(user._id, studentPickedClass, schoolStudentSelected)
+  }
+},[showResult])
+  return (
+    <div className={currentMode === "Dark" ? "dark" : ""}>
+      <div className="flex  bg-neutral-700 relative  dark:bg-main-dark-bg">
+        <DashboardFractionStudent
+          activeMenu={activeMenu}
+          onClick={() => setThemeSettings(true)}
+        />
+        {themeSettings && <ThemeSettings />}
+        <div
+          className={`dark:bg-main-dark-bg bg-main-bg w-full min-h-screen ${
+            activeMenu ? "md:ml-0" : "flex-2"
+          }`}
+        >
+          <div className="fixed md:static inline-block bg-main-dark dark:bg-main-dark-bg navbar w-full">
+            <Navbar />
+          </div>
+          {showQuestions ? (
+            <>
+              <div
+                className="md:w-800 md:mt-7 sm:mt-7 sm:w-760 lg:w-full relative flex justify-around flex-wrap content-around"
+                style={{ minHeight: "70vh" }}
+              >
+                {showResult ? <div className="m-auto top-0 relative w-fit h-fit">
+                  <p className="text-2xl font-bold">Your score is</p>
+                  <p className="text-2xl font-bold">{result.length} over 20</p>
+                  <p>{result.length >= 9? ("You Passed!, ....proceeding to school") : ("You failed!!!, you can rewrite test")}</p>
+                </div> : <div className="m-auto w-fit h-fit">
+                  <div className="w-fit m-auto h-fit pl-4 pr-4 pt-4 pb-4 rounded-lg shadow-2xl bg-white">
+                    <span
+                      className="font-bold text-2xl"
+                      style={{ fontFamily: "serif" }}
+                    >
+                      {("0" + Math.floor((time / 60000) % 60)).slice(-2)}
+                    </span>
+                    <span className="ml-2 mr-2">:</span>
+                    <span
+                      className="font-bold text-2xl"
+                      style={{ fontFamily: "serif" }}
+                    >
+                      {("0" + Math.floor((time / 1000) % 60)).slice(-2)}
+                    </span>
+                  </div>
+
+                  <div className="m-auto top-8 relative w-fit">
+                    {studentQuestions[runnerChecker].question}
+                    <ul>
+                      {studentQuestions[runnerChecker].options.map(
+                        (ans, index) => (
+                          <li
+                            key={index}
+                            className="font-bold text-2xl"
+                            style={{ fontFamily: "serif" }}
+                          >
+                            <input
+                              type="radio"
+                              name="clicker"
+                              className="mr-2"
+                              value={ans.checked}
+                              checked={ans.checked}
+                              onChange={(e) => {
+                                ans.checked = e.target.checked;
+                                e.target.checked = false;
+                              }}
+                            />
+                            {ans.value}
+                          </li>
+                        )
+                      )}
+                    </ul>
+                  </div>
+                  {runnerChecker === 19 && (
+                    <button
+                      className=" w-fit h-fit pl-8 pr-8 pt-4 pb-4 rounded-xl cursor-pointer relative top-10 -right-24 hover:drop-shadow-xl dark:shadow-md block font-extrabold"
+                      style={{ fontFamily: "serif", background: currentColor }}
+                      onClick={() => {
+                        setShowResult(true);
+                        submitAnswer();
+                      }}
+                    >
+                      Submit
+                      <GrEdit className="inline-block" />
+                    </button>
+                  )}
+                </div>}
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="w-fit m-auto relative top-3 font-bold text-2xl">
+                Pick desired Class and click Write test for{" "}
+                {schName && schName[0].schoolNaming} school
+              </div>
+              <div
+                className="md:w-800 md:mt-7 sm:mt-7 sm:w-760 lg:w-full relative flex justify-around flex-wrap content-around"
+                style={{ minHeight: "70vh" }}
+              >
+                {schName && (
+                  <div className="h-fit w-fit bg-white rounded-xl dark:bg-gray-50 ml-5 shadow-xl pt-8 pb-8 pl-8 pr-8">
+                    <div className="w-full flex justify-around h-3/5 items-center mb-4">
+                      <SiGoogleclassroom className="hover:drop-shadow-xl text-2xl h-9 w-fit p-2 rounded-md bg-black dark:bg-black text-white" />
+                      <p style={{ fontFamily: "cursive" }}>
+                        {schName[0].schoolNaming}
+                      </p>
+                    </div>
+                    <div className="w-full flex justify-around h-fit items-center mb-4">
+                      <p style={{ fontFamily: "cursive" }}>{schName.length}</p>
+                      <p style={{ fontFamily: "cursive" }}>Classes</p>
+                    </div>
+                    <select
+                      className="mb-4 hover:drop-shadow-xl dark:shadow-md"
+                      onChange={(e) => {
+                        setStudentPickedClass(e.target.value);
+                      }}
+                    >
+                      <option value="">Pick Class</option>
+                      {schName.map((arr) => (
+                        <option value={arr.classNaming} key={arr._id}>
+                          {arr.classNaming}
+                        </option>
+                      ))}
+                    </select>
+                    <hr />
+                    <button
+                      className="m-auto w-fit h-fit pl-5 pr-4 pt-2 pb-2 rounded-xl bg-gray-50 cursor-pointer relative top-3 hover:drop-shadow-xl dark:shadow-md block"
+                      style={{ fontFamily: "serif" }}
+                      onClick={() => {
+                        showTests()
+                      }}
+                    >
+                      Write Test
+                      <GrEdit className="inline-block" />
+                    </button>
+                  </div>
+                )}
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default StudentAdmissionScreening;

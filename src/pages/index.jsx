@@ -2,6 +2,8 @@ export { default as SetupClassAdmin } from "./SetupClassAdmin";
 export { default as SetupClassPioneer } from "./SetupClassPioneer";
 export { default as PioneerSingleArm } from "./PioneerSingleArm";
 export { default as pioneerTimetable } from "./pioneerTimetable";
+export { default as StudentAdmissionScreening } from "./StudentAdmissionScreening";
+export { default as AdminQuestions } from "./AdminQuestions";
 export { default as PioneerGeneralClassSetup } from "./PioneerGeneralClassSetup";
 export { default as AdminSchools } from "./AdminSchools";
 export { default as SetTeachers } from "./SetTeachers";

@@ -21,6 +21,8 @@ import {
   Editor,
   AdminSchools,
   PioneerSingleArm,
+  StudentAdmissionScreening,
+  AdminQuestions,
   pioneerTimetable,
 } from "./pages";
 import { PioneerSchool } from "./components/pioneer/index";
@@ -45,8 +47,13 @@ function App() {
           {/* pioneer dashboard */}
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/adminschools" element={<AdminSchools />} />
+          <Route path="/dvelatadminquestions" element={<AdminQuestions />} />
           <Route path="/pioneerschool" element={<PioneerSchool />} />
           <Route path="/studentdashboard" element={<StudentDashboard />} />
+          <Route
+            path="/studentdashboard/StudentAdmissionScreening"
+            element={<StudentAdmissionScreening />}
+          />
           {/* pioneer pages */}
           <Route
             path="/pioneerschool/allclassespioneer"

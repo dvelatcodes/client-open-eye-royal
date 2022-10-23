@@ -4,9 +4,10 @@ import Cookies from "js-cookie";
 
 // get user
 const user = JSON.parse(localStorage.getItem("user"));
-
+const pioneerSchools = JSON.parse(localStorage.getItem("AllPioneerSchools"));
 const initialState = {
   user: user ? user : null,
+  pioneerSchools: pioneerSchools || {},
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -48,14 +49,31 @@ export const registerPioneer = createAsyncThunk(
 // Register Student
 export const regStudent = createAsyncThunk(
   "auth/regStudent",
-  (student, thunkAPI) => {
+  async (student, thunkAPI) => {
     try {
-      return authService.regStudent(student);
+      return await authService.regStudent(student);
     } catch (error) {
       const message =
         (error.response &&
           error.response.data &&
           error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const getAllPioneer = createAsyncThunk(
+  "getAllPioneer",
+  async (data, thunkAPI) => {
+    try {
+      return await authService.getAllPioneer();
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.message &&
+          error.response.message.data) ||
         error.message ||
         error.toString();
       return thunkAPI.rejectWithValue(message);
@@ -115,6 +133,21 @@ export const authSlice = createSlice({
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
         Cookies.remove("auth_token");
+      })
+      .addCase(getAllPioneer.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getAllPioneer.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.pioneerSchools = action.payload;
+      })
+      .addCase(getAllPioneer.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.pioneerSchools = null;
+        state.message = action.payload;
       });
   },
 });

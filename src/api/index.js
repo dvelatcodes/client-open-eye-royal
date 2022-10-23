@@ -36,6 +36,35 @@ const regPioneerNigerClass = async (data) => {
   console.log(response);
   return response.data;
 };
+
+// saveAdminQuestions
+// saveAdminQuestions
+const saveAdminQuestions = async (data) => {
+  try {
+    const response = await API.post("/saveAdminQuestions", data);
+    if (response.data) {
+      localStorage.setItem("que", JSON.stringify(response.data));
+    }
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+// getAdminQuestions
+// getAdminQuestions
+const getAdminQuestions = async () => {
+  try {
+    const response = await API.get(
+      "/getAdminQuestions?questionId=635491e650cfd50244019ca9"
+    );
+    if (response.data) {
+      localStorage.setItem("quee", JSON.stringify(response.data));
+    }
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
 // create timetable
 // create timetable
 const createTimetable = async (data) => {
@@ -79,6 +108,19 @@ const getPioneerNigerClass = async ({ _id, schSection }) => {
   }
   return response.data;
 };
+
+// getStudentScreenPioneer
+// getStudentScreenPioneer
+const getStudentScreenPioneer = async ({ schoolStudentSelected }) => {
+  const response = await API.get(
+    `/getStudentScreenPioneer?schoolStudentSelected=${schoolStudentSelected}`
+  );
+  if (response.data) {
+    localStorage.setItem("studentScreenPioneer", JSON.stringify(response.data));
+  }
+  return response.data;
+};
+
 // get default classes Get Method
 // get default classes Get Method
 const getDefaultClasses = async () => {
@@ -88,6 +130,7 @@ const getDefaultClasses = async () => {
   }
   return data;
 };
+
 // Register Student Post Method
 // Register Student Post Method
 const regStudent = async (student) => {
@@ -98,6 +141,20 @@ const regStudent = async (student) => {
   }
   return student;
 };
+
+// getAll pioneer
+// getAll Pioneer
+const getAllPioneer = async () => {
+  try {
+    const response = await API.get(`/getAllPioneer`);
+    if (response.data)
+      localStorage.setItem("AllPioneerSchools", JSON.stringify(response.data));
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
 // Logout user
 // Logout user
 const logout = async () => {
@@ -112,7 +169,11 @@ const authService = {
   createTimetable,
   getTimetable,
   getPioneerNigerClass,
+  getAllPioneer,
   regStudent,
+  getStudentScreenPioneer,
+  saveAdminQuestions,
+  getAdminQuestions,
   logout,
 };
 
