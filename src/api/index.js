@@ -33,7 +33,6 @@ const regPioneerNigerClass = async (data) => {
   if (response.data) {
     localStorage.setItem("pioneerNigerClass", JSON.stringify(response.data));
   }
-  console.log(response);
   return response.data;
 };
 
@@ -134,14 +133,64 @@ const getDefaultClasses = async () => {
 // Register Student Post Method
 // Register Student Post Method
 const regStudent = async (student) => {
-  const response = await API.post("/regstudent", student);
-  console.log(response);
-  if (response.data) {
-    localStorage.setItem("user", JSON.stringify(response.data.student));
+  try {
+    const response = await API.post("/regstudent", student);
+    if (response.data) {
+      localStorage.setItem("student", JSON.stringify(response.data.cover));
+    }
+    return response.data.cover;
+  } catch (error) {
+    return error;
   }
-  return student;
 };
 
+// studentAdmittedClass post method
+//studentAdmittedClass post method
+const studentAdmittedClass = async (data) => {
+  try {
+    const response = await API.post("/studentAdmittedClass", data);
+    if (response.data) {
+      localStorage.setItem("student", JSON.stringify(response.data));
+    }
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+// get studentSpecificTimetable
+//  get studentSpecificTimetable
+const studentSpecificTimetable = async ({ pioneerId, studentClass }) => {
+  try {
+    const response = await API.get(
+      `/studentSpecificTimetable?pioneerId=${pioneerId}&studentClass=${studentClass}`
+    );
+    if (response.data) {
+      localStorage.setItem("studentTimetable", JSON.stringify(response.data));
+    }
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+// get studentSpecificClass
+// get studentSpecificClass
+const studentSpecificClass = async ({ pioneerId, studentClass }) => {
+  try {
+    const response = await API.get(
+      `/studentSpecificClass?pioneerId=${pioneerId}&studentClass=${studentClass}`
+    );
+    if (response.data) {
+      localStorage.setItem(
+        "studentSpecificClass",
+        JSON.stringify(response.data)
+      );
+    }
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
 // getAll pioneer
 // getAll Pioneer
 const getAllPioneer = async () => {
@@ -149,6 +198,38 @@ const getAllPioneer = async () => {
     const response = await API.get(`/getAllPioneer`);
     if (response.data)
       localStorage.setItem("AllPioneerSchools", JSON.stringify(response.data));
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+// loginPioneer
+// loginPioneer
+const loginPioneer = async ({ email, password }) => {
+  try {
+    const response = await API.get(
+      `/loginpioneer?email=${email}&password=${password}`
+    );
+    if (response.data) {
+      localStorage.setItem("user", JSON.stringify(response.data));
+    }
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+// loginStudent
+// loginStudent
+const loginStudent = async ({ studentEmail, studentPassword }) => {
+  try {
+    const response = await API.get(
+      `/loginpioneerstudent?email=${studentEmail}&password=${studentPassword}`
+    );
+    if (response.data) {
+      localStorage.setItem("student", JSON.stringify(response.data));
+    }
     return response.data;
   } catch (error) {
     return error;
@@ -171,9 +252,14 @@ const authService = {
   getPioneerNigerClass,
   getAllPioneer,
   regStudent,
+  studentAdmittedClass,
   getStudentScreenPioneer,
   saveAdminQuestions,
   getAdminQuestions,
+  studentSpecificTimetable,
+  studentSpecificClass,
+  loginPioneer,
+  loginStudent,
   logout,
 };
 

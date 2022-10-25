@@ -207,6 +207,8 @@ const AllClassesPioneer = () => {
   const [ss3dFri, setSs3dFri] = useState([]);
   // time
   // time
+  // setCursorIsActive
+  const [cursorIsActive, setCursorIsActive] = useState(false);
   const [defaultTime, setDefaultTime] = useState([
     "",
     "8am-8:40am",
@@ -916,10 +918,19 @@ const AllClassesPioneer = () => {
                 }}
               >
                 <div
-                  className="relative left-20 flex justify-around items-center h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl text-white font-semibold bg-green-500 hover:text-green-500 hover:bg-white"
-                  style={{ fontFamily: "serif" }}
+                  className="relative left-20 flex justify-around items-center h-14 w-40 border-1 rounded-xl shadow-2xl text-white font-semibold bg-green-500 hover:text-green-500 hover:bg-white"
+                  style={{
+                    fontFamily: "serif",
+                    cursor: cursorIsActive ? "not-allowed" : "pointer",
+                  }}
                   onClick={() => {
                     saveChanges();
+                    setCursorIsActive(true);
+                    setTimeout(() => {
+                      alert(
+                        "Timetable Successfully Generated, You Can Now View Timetable from Class"
+                      );
+                    }, 1000);
                   }}
                 >
                   Save Changes
@@ -6413,6 +6424,11 @@ const AllClassesPioneer = () => {
                     }}
                     onClick={() => {
                       setShowTimetable(true);
+                      setTimeout(() => {
+                        alert(
+                          `Click "Complete Timetable" Multiple times to complete subjects`
+                        );
+                      }, 1000);
                     }}
                   >
                     Generate <FaEye className="inline-block" />

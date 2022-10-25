@@ -58,26 +58,30 @@ const PioneerSingleArm = () => {
   // useEffect for states
   useEffect(() => {
     if (isSuccess && singleClassTimetable) {
-      setTimetable(singleClassTimetable[0]);
-      const useTable = singleClassTimetable[0];
-      const {
-        className,
-        monday,
-        tuesday,
-        wednesday,
-        thursday,
-        friday,
-        classType,
-        time,
-      } = useTable;
-      classType && setClassType(classType);
-      monday && setMonday(monday);
-      tuesday && setTuesday(tuesday);
-      wednesday && setWednesday(wednesday);
-      thursday && setThursday(thursday);
-      friday && setFriday(friday);
-      time && setTime(time);
-      className && setNameClass(className);
+      if (singleClassTimetable) {
+        setTimetable(singleClassTimetable[0]);
+        const useTable = singleClassTimetable[0];
+        if (useTable) {
+          const {
+            className,
+            monday,
+            tuesday,
+            wednesday,
+            thursday,
+            friday,
+            classType,
+            time,
+          } = useTable;
+          classType && setClassType(classType);
+          monday && setMonday(monday);
+          tuesday && setTuesday(tuesday);
+          wednesday && setWednesday(wednesday);
+          thursday && setThursday(thursday);
+          friday && setFriday(friday);
+          time && setTime(time);
+          className && setNameClass(className);
+        }
+      }
     }
     if (isError) {
       toast.error(message);
@@ -352,6 +356,9 @@ const PioneerSingleArm = () => {
                             style={{ color: "FD4462" }}
                             onClick={() => {
                               setShowTimetable(num.classNaming);
+                              alert(
+                                "Please Generate Timetable, if you have not"
+                              );
                             }}
                           />
                         </Link>

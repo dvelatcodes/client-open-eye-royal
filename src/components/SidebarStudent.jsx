@@ -31,12 +31,12 @@ const SidebarStudent = ({ sideBarTitle }) => {
         {
           name: "Class",
           icon: <IoMdContacts />,
-          link: "studentclass",
+          link: "mylovelyclass",
         },
         {
           name: "Subjects",
           icon: <SiGoogleclassroom />,
-          link: "studentsubjects",
+          link: "mysubjects",
         },
       ],
     },
@@ -46,7 +46,7 @@ const SidebarStudent = ({ sideBarTitle }) => {
         {
           name: "Timetable",
           icon: <AiOutlineCalendar />,
-          link: "studenttimetable",
+          link: "mytimetable",
         },
         {
           name: "kanban",

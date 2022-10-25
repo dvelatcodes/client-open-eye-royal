@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Navbar, ThemeSettings } from "../components";
 import { Link } from "react-router-dom";
 import { useStateContext } from "../contexts/ContextProvider";
@@ -15,9 +15,10 @@ import {
   getAdminQuestions,
 } from "../features/classSlice";
 import { useSelector, useDispatch } from "react-redux";
-
-import { useEffect } from "react";
-import { getAllPioneer } from "../features/auth/authSlice";
+import {
+  getAllPioneer,
+  studentAdmittedClass,
+} from "../features/auth/authSlice";
 
 const StudentAdmissionScreening = () => {
   // show questions
@@ -245,17 +246,27 @@ const StudentAdmissionScreening = () => {
     isError,
     isLoading,
     message,
+    student,
     studentScreenPioneer,
     getQuestions,
   } = useSelector((state) => state.class);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  // check all pioneer schools
+  // check all pioneer schools
+  useEffect(() => {
+    const allPioneerSchools = JSON.parse(
+      localStorage.getItem("studentScreenPioneer")
+    );
+    if (allPioneerSchools) {
+      setSchName(allPioneerSchools);
+    }
+  }, []);
   // useEffect for states
   // useEffect for states
   useEffect(() => {
-    if (isSuccess && studentScreenPioneer) {
-      // alert("you have classes");
-      setSchName(studentScreenPioneer);
+    if (student && isSuccess) {
+      navigate("/studentdashboard");
     }
     if (isSuccess && getQuestions) {
       setCorrectAnswers(getQuestions);
@@ -273,19 +284,20 @@ const StudentAdmissionScreening = () => {
     reset,
     studentScreenPioneer,
     getQuestions,
+    schName,
   ]);
 
   // get getStudentScreenPioneer
   // get getStudentScreenPioneer
   useEffect(() => {
-    const user=JSON.parse(localStorage.getItem("user"));
-    if(user.studentEmail){
+    const user = JSON.parse(localStorage.getItem("student"));
+    if (user) {
       dispatch(getAdminQuestions());
       dispatch(getStudentScreenPioneer({ schoolStudentSelected }));
     }
-    else{
-      alert("Unauthorized, Please Sign-up or Login")
-      navigate("/")
+    if (!user) {
+      alert("Unauthorized, Please Sign-up or Login");
+      navigate("/");
     }
   }, []);
   const [runnerChecker, setRunnerChecker] = useState(0);
@@ -320,7 +332,6 @@ const StudentAdmissionScreening = () => {
   const [ansQ, setAnsQ] = useState([]);
   const [showResult, setShowResult] = useState(null);
 
-
   // const checkAns=()=>{
   // studentQuestions.map(arr=>
   //      {if(arr.options.some(ans=>ans.checked===true)){
@@ -329,14 +340,16 @@ const StudentAdmissionScreening = () => {
   //     );
   // }
   const submitAnswer = () => {
-    let i = 0
-    while (i<19) {
+    var i = 0;
+    while (i < 19) {
       if (
-        (studentQuestions[i].options.filter((arr) => arr.checked === true))[0].value === (correctAnswers[i].options.filter((arr) => arr.checked === true))[0].value
+        studentQuestions[i].options.filter((arr) => arr.checked === true)[0]
+          .value ===
+        correctAnswers[i].options.filter((arr) => arr.checked === true)[0].value
       ) {
         setResult((prev) => [...prev, "valid"]);
       }
-      i++
+      i++;
     }
   };
   // useEffect(() => {
@@ -344,25 +357,34 @@ const StudentAdmissionScreening = () => {
   // }, [result]);
   //  things to save on data base
   // studentPicked Class
-  const showTests = ()=>{
-    if(studentPickedClass !== "" && studentPickedClass !== null){
+  const showTests = () => {
+    if (studentPickedClass !== "" && studentPickedClass !== null) {
       setShowQuestions(true);
-      alert("You only have 10 seconds to answer a question, best of luck")
+      alert("You only have 10 seconds to answer a question, best of luck");
+    } else {
+      alert("Please Pick a Class before Writing the Test");
     }
-    else{
-      alert("Please Pick a Class before Writing the Test")
-    }
-  }
+  };
   // determine wether to admit student
   // determine wether to admit student
-useEffect(()=>{
-  const user=JSON.parse(localStorage.getItem("user"));
-  const getP = localStorage.getItem("user");
-  setSchoolStudentSelected(getP)
-  if(result.length>=9){
-    console.log(user._id, studentPickedClass, schoolStudentSelected)
-  }
-},[showResult])
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("student"));
+    const getP = JSON.parse(localStorage.getItem("setSchoolStudentSelected"));
+    setSchoolStudentSelected(getP);
+    if (result.length >= 9 && showResult && user) {
+      setTimeout(() => {
+        const info = {
+          pioneerId: schoolStudentSelected,
+          studentId: user._id,
+          studentClass: studentPickedClass,
+        };
+        dispatch(studentAdmittedClass(info));
+      }, 5000);
+      setTimeout(() => {
+        navigate("/studentdashboard");
+      }, 8000);
+    }
+  }, [showResult]);
   return (
     <div className={currentMode === "Dark" ? "dark" : ""}>
       <div className="flex  bg-neutral-700 relative  dark:bg-main-dark-bg">
@@ -385,70 +407,85 @@ useEffect(()=>{
                 className="md:w-800 md:mt-7 sm:mt-7 sm:w-760 lg:w-full relative flex justify-around flex-wrap content-around"
                 style={{ minHeight: "70vh" }}
               >
-                {showResult ? <div className="m-auto top-0 relative w-fit h-fit">
-                  <p className="text-2xl font-bold">Your score is</p>
-                  <p className="text-2xl font-bold">{result.length} over 20</p>
-                  <p>{result.length >= 9? ("You Passed!, ....proceeding to school") : ("You failed!!!, you can rewrite test")}</p>
-                </div> : <div className="m-auto w-fit h-fit">
-                  <div className="w-fit m-auto h-fit pl-4 pr-4 pt-4 pb-4 rounded-lg shadow-2xl bg-white">
-                    <span
-                      className="font-bold text-2xl"
-                      style={{ fontFamily: "serif" }}
-                    >
-                      {("0" + Math.floor((time / 60000) % 60)).slice(-2)}
-                    </span>
-                    <span className="ml-2 mr-2">:</span>
-                    <span
-                      className="font-bold text-2xl"
-                      style={{ fontFamily: "serif" }}
-                    >
-                      {("0" + Math.floor((time / 1000) % 60)).slice(-2)}
-                    </span>
+                {showResult ? (
+                  <div className="m-auto top-0 relative w-fit h-fit">
+                    <p className="text-2xl font-bold">Your score is</p>
+                    <p className="text-2xl font-bold">
+                      {result.length} over 20
+                    </p>
+                    <p>
+                      {result.length >= 9
+                        ? "You Passed!, ....proceeding to school"
+                        : "You failed!!!, you can rewrite test"}
+                    </p>
                   </div>
+                ) : (
+                  <div className="m-auto w-fit h-fit">
+                    <div className="w-fit m-auto h-fit pl-4 pr-4 pt-4 pb-4 rounded-lg shadow-2xl bg-white">
+                      <span
+                        className="font-bold text-2xl"
+                        style={{ fontFamily: "serif" }}
+                      >
+                        {("0" + Math.floor((time / 60000) % 60)).slice(-2)}
+                      </span>
+                      <span className="ml-2 mr-2">:</span>
+                      <span
+                        className="font-bold text-2xl"
+                        style={{ fontFamily: "serif" }}
+                      >
+                        {("0" + Math.floor((time / 1000) % 60)).slice(-2)}
+                      </span>
+                    </div>
 
-                  <div className="m-auto top-8 relative w-fit">
-                    {studentQuestions[runnerChecker].question}
-                    <ul>
-                      {studentQuestions[runnerChecker].options.map(
-                        (ans, index) => (
-                          <li
-                            key={index}
-                            className="font-bold text-2xl"
-                            style={{ fontFamily: "serif" }}
-                          >
-                            <input
-                              type="radio"
-                              name="clicker"
-                              className="mr-2"
-                              value={ans.checked}
-                              checked={ans.checked}
-                              onChange={(e) => {
-                                ans.checked = e.target.checked;
-                                e.target.checked = false;
-                              }}
-                            />
-                            {ans.value}
-                          </li>
-                        )
-                      )}
-                    </ul>
+                    <div className="m-auto top-8 relative w-fit">
+                      {studentQuestions[runnerChecker].question}
+                      <ul>
+                        {studentQuestions[runnerChecker].options.map(
+                          (ans, index) => (
+                            <li
+                              key={index}
+                              className="font-bold text-2xl"
+                              style={{ fontFamily: "serif" }}
+                            >
+                              <input
+                                type="radio"
+                                name="clicker"
+                                className="mr-2"
+                                value={ans.checked}
+                                checked={ans.checked}
+                                onChange={(e) => {
+                                  ans.checked = e.target.checked;
+                                  e.target.checked = false;
+                                }}
+                              />
+                              {ans.value}
+                            </li>
+                          )
+                        )}
+                      </ul>
+                    </div>
+                    {runnerChecker === 19 && (
+                      <button
+                        className=" w-fit h-fit pl-8 pr-8 pt-4 pb-4 rounded-xl cursor-pointer relative top-10 -right-24 hover:drop-shadow-xl dark:shadow-md block font-extrabold"
+                        style={{
+                          fontFamily: "serif",
+                          background: currentColor,
+                        }}
+                        onClick={() => {
+                          setShowResult(true);
+                          submitAnswer();
+                        }}
+                      >
+                        Submit
+                        <GrEdit className="inline-block" />
+                      </button>
+                    )}
                   </div>
-                  {runnerChecker === 19 && (
-                    <button
-                      className=" w-fit h-fit pl-8 pr-8 pt-4 pb-4 rounded-xl cursor-pointer relative top-10 -right-24 hover:drop-shadow-xl dark:shadow-md block font-extrabold"
-                      style={{ fontFamily: "serif", background: currentColor }}
-                      onClick={() => {
-                        setShowResult(true);
-                        submitAnswer();
-                      }}
-                    >
-                      Submit
-                      <GrEdit className="inline-block" />
-                    </button>
-                  )}
-                </div>}
+                )}
               </div>
             </>
+          ) : schName === null ? (
+            <div className="m-auto w-fit">Please Refresh Page</div>
           ) : (
             <>
               <div className="w-fit m-auto relative top-3 font-bold text-2xl">
@@ -489,7 +526,7 @@ useEffect(()=>{
                       className="m-auto w-fit h-fit pl-5 pr-4 pt-2 pb-2 rounded-xl bg-gray-50 cursor-pointer relative top-3 hover:drop-shadow-xl dark:shadow-md block"
                       style={{ fontFamily: "serif" }}
                       onClick={() => {
-                        showTests()
+                        showTests();
                       }}
                     >
                       Write Test

@@ -34,15 +34,15 @@ const getQuestions = JSON.parse(localStorage.getItem("quee"));
 // initial class state
 // initial class state
 const initialState = {
-  newClass: newClass || {},
-  timetable: timetable || {},
-  adminQuestions: adminQuestions || {},
-  getQuestions: getQuestions || {},
-  singleClassTimetable: singleClassTimetable || {},
-  defaultClasses: defaultClasses || {},
-  pioneerNigerClass: pioneerNigerClass || {},
-  studentScreenPioneer: studentScreenPioneer || {},
-  pioneerClass: pioneerClass || {},
+  newClass: newClass || null,
+  timetable: timetable || null,
+  adminQuestions: adminQuestions || null,
+  getQuestions: getQuestions || null,
+  singleClassTimetable: singleClassTimetable || null,
+  defaultClasses: defaultClasses || null,
+  pioneerNigerClass: pioneerNigerClass || null,
+  studentScreenPioneer: studentScreenPioneer || null,
+  pioneerClass: pioneerClass || null,
   isSuccess: false,
   isLoading: false,
   isError: false,
@@ -258,7 +258,7 @@ export const classReducer = createSlice({
         state.isSuccess = false;
         state.isError = true;
         state.message = action.payload;
-        state.adminQuestions = {};
+        state.adminQuestions = null;
       })
       .addCase(getAdminQuestions.pending, (state) => {
         state.isLoading = true;
@@ -273,7 +273,7 @@ export const classReducer = createSlice({
         state.isSuccess = false;
         state.isError = true;
         state.message = action.payload;
-        state.getQuestions = {};
+        state.getQuestions = null;
       })
       .addCase(getDefaultClasses.pending, (state) => {
         state.isLoading = true;
@@ -287,7 +287,7 @@ export const classReducer = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
-        state.defaultClasses = {};
+        state.defaultClasses = null;
       })
       .addCase(registerPioneerNClass.pending, (state) => {
         state.isLoading = true;
@@ -302,7 +302,7 @@ export const classReducer = createSlice({
         state.isSuccess = false;
         state.isError = true;
         state.message = action.payload;
-        state.pioneerNigerClass = {};
+        state.pioneerNigerClass = null;
       })
       .addCase(getStudentScreenPioneer.pending, (state) => {
         state.isLoading = true;
@@ -316,7 +316,7 @@ export const classReducer = createSlice({
         state.isLoading = false;
         state.isSuccess = false;
         state.isError = true;
-        state.studentScreenPioneer = {};
+        state.studentScreenPioneer = null;
         state.message = action.payload;
       })
       .addCase(getPioneerNigerClass.pending, (state) => {
@@ -331,7 +331,7 @@ export const classReducer = createSlice({
         state.isLoading = false;
         state.isSuccess = false;
         state.isError = true;
-        state.pioneerClass = {};
+        state.pioneerClass = null;
         state.message = action.payload;
       })
       .addCase(createTimetable.pending, (state) => {
@@ -346,7 +346,7 @@ export const classReducer = createSlice({
         state.isLoading = false;
         state.isSuccess = false;
         state.isError = true;
-        state.timetable = {};
+        state.timetable = null;
         state.message = action.payload;
       })
       .addCase(getTimetable.pending, (state) => {
@@ -361,7 +361,7 @@ export const classReducer = createSlice({
         state.isLoading = false;
         state.isSuccess = false;
         state.isError = true;
-        state.singleClassTimetable = {};
+        state.singleClassTimetable = null;
         state.message = action.payload;
       });
   },

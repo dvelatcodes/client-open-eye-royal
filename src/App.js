@@ -24,6 +24,9 @@ import {
   StudentAdmissionScreening,
   AdminQuestions,
   pioneerTimetable,
+  StudentSubjects,
+  StudentSpecificClass,
+  StudentTimetable,
 } from "./pages";
 import { PioneerSchool } from "./components/pioneer/index";
 import { StudentDashboard } from "./components/student";
@@ -54,6 +57,7 @@ function App() {
             path="/studentdashboard/StudentAdmissionScreening"
             element={<StudentAdmissionScreening />}
           />
+          <Route path="/mylovelyclass" element={<StudentSpecificClass />} />
           {/* pioneer pages */}
           <Route
             path="/pioneerschool/allclassespioneer"
@@ -72,6 +76,8 @@ function App() {
             path="/pioneerschool/allclassespioneer/:id"
             element={<PioneerSingleArm />}
           />
+          <Route path="/mytimetable" element={<StudentTimetable />} />
+          <Route path="/mysubjects" element={<StudentSubjects />} />
           <Route path="" element={<pioneerTimetable />} />
           <Route path="/set-teachers" element={<SetTeachers />} />
           {/* apps */}

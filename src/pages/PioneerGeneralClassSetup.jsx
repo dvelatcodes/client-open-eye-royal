@@ -218,6 +218,8 @@ const PioneerGeneralClassSetup = () => {
     const totalData = known[0];
     const { className, classType, subjects } = totalData;
     const { _id, schoolName } = JSON.parse(localStorage.getItem("user"));
+    if (startOfAcademicYear === "" || endOfAcademicYear === "")
+      return alert("Please Set Current Academic Session Before Saving Class");
     if (startOfAcademicYear < endOfAcademicYear) {
       // console.log(startOfAcademicYear + "/" + endOfAcademicYear);
       const info = {

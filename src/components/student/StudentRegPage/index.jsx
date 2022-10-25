@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { regStudent, reset } from "../../../features/auth/authSlice";
+import {
+  regStudent,
+  loginStudent,
+  reset,
+} from "../../../features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -305,17 +309,15 @@ const StudentRegPage = () => {
   };
   // validation for phone number
   const checkStDial = () => {
-    if (
-      studentPhoneNumber.match(/[0-9]/) &&
-      studentPhoneNumber.length >= 11 &&
-      studentPhoneNumber.length <= 15
-    ) {
+    if (studentPhoneNumber.match(/[0-9]/) && studentPhoneNumber.length >= 11) {
       setStchecker({ ...stChecker, stSixth: true });
       setStDisplay({ ...stDisplay, display6: "block" });
     }
     if (
       studentPhoneNumber.match(/[!-\*]|[,-\/]|[:-~]|\s/) ||
-      studentPhoneNumber === ""
+      studentPhoneNumber === "" ||
+      studentPhoneNumber.length > 15 ||
+      studentPhoneNumber.length < 11
     ) {
       setStchecker({ ...stChecker, stSixth: false });
       setStDisplay({ ...stDisplay, display6: "block" });
@@ -323,10 +325,11 @@ const StudentRegPage = () => {
   };
   useEffect(() => {
     if (isSuccess || studentUser) {
-      navigate("/");
+      navigate("/studentdashboard");
     }
     if (isError) {
       toast.error(message);
+      navigate("/");
     }
     dispatch(reset());
   }, [message, dispatch, navigate, studentUser, isSuccess, isError]);
@@ -349,13 +352,13 @@ const StudentRegPage = () => {
     }
   };
 
-  const loginStudent = () => {
+  const loginPioneerStudent = () => {
     if (stFourth && stFifth) {
       try {
         setCursorLoginIsActive(true);
-        // dispatch(logStudent(student));
+        dispatch(loginStudent({ studentEmail, studentPassword }));
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     }
   };
@@ -417,7 +420,7 @@ const StudentRegPage = () => {
                   cursor: cursorLoginIsActive ? "not-allowed" : "pointer",
                 }}
                 onClick={() => {
-                  loginStudent();
+                  loginPioneerStudent();
                 }}
               >
                 Login
