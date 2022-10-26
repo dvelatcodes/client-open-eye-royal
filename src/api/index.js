@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 const API = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://open-eye-royal.onrender.com",
 });
 API.interceptors.request.use((req) => {
   req.headers.authorization = "Bearer " + Cookies.get("Auth_token");
