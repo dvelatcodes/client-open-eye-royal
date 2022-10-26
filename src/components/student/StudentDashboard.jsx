@@ -78,10 +78,6 @@ const StudentDashboard = () => {
   // get default classes
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("student"));
-    if (!user) {
-      alert("Unauthorized, Please Sign-up or Login");
-      navigate("/");
-    }
     if (user) {
       if (user.pioneerId === "none") {
         dispatch(getAllPioneer());
@@ -91,6 +87,10 @@ const StudentDashboard = () => {
         const { pioneerId, studentClass } = user;
         dispatch(getStudentSpecificClass({ pioneerId, studentClass }));
       }
+    }
+    if (!user) {
+      alert("Unauthorized, Please Sign-up or Login");
+      navigate("/");
     }
   }, []);
   // console.log(schName);
