@@ -199,6 +199,7 @@ export default function Home() {
               <div
                 className="top-40 right-40 -rotate-6 left-0 m-auto text-yellow-100 w-fit text-3xl font-extrabold italic absolute shadow-2xl cursor-pointer"
                 style={{ fontFamily: "cursive" }}
+                onClick={changeFirst}
               >
                 Click To Explore
               </div>
