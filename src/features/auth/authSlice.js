@@ -19,6 +19,8 @@ const studentTimetable = JSON.parse(localStorage.getItem("studentTimetable"));
 const studentSpecificClass = JSON.parse(
   localStorage.getItem("studentSpecificClass")
 );
+// initialstate
+// initialstate
 const initialState = {
   user: user ? user : null,
   student: student ? student : null,

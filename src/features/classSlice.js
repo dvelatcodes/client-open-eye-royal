@@ -31,12 +31,16 @@ const adminQuestions = JSON.parse(localStorage.getItem("que"));
 // get admin questions
 // get admin questions
 const getQuestions = JSON.parse(localStorage.getItem("quee"));
+// studentForPioneer
+// studentForPioneer
+const studentForPioneer = JSON.parse(localStorage.getItem("studentForPioneer"));
 // initial class state
 // initial class state
 const initialState = {
   newClass: newClass || null,
   timetable: timetable || null,
   adminQuestions: adminQuestions || null,
+  studentForPioneer: studentForPioneer ? studentForPioneer : null,
   getQuestions: getQuestions || null,
   singleClassTimetable: singleClassTimetable || null,
   defaultClasses: defaultClasses || null,
@@ -147,9 +151,9 @@ export const createTimetable = createAsyncThunk(
 // get timetable
 export const getTimetable = createAsyncThunk(
   "getTimetable",
-  async (_id, showTimetable, thunkAPI) => {
+  async (_id, showTimetable, showSubjects, thunkAPI) => {
     try {
-      return await authService.getTimetable(_id, showTimetable);
+      return await authService.getTimetable(_id, showTimetable, showSubjects);
     } catch (error) {
       const message =
         (error.response &&
@@ -216,6 +220,25 @@ export const getDefaultClasses = createAsyncThunk(
   }
 );
 
+// getStudentForPioneer
+// getStudentForPioneer
+export const getStudentForPioneerNow = createAsyncThunk(
+  "auth/getStudentForPioneerNow",
+  async (_id, showStudents, thunkAPI) => {
+    try {
+      return await authService.getStudentForPioneer(_id, showStudents);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.message &&
+          error.response.message.data) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 // slices
 // slices
 export const classReducer = createSlice({
@@ -259,6 +282,20 @@ export const classReducer = createSlice({
         state.isError = true;
         state.message = action.payload;
         state.adminQuestions = null;
+      })
+      .addCase(getStudentForPioneerNow.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getStudentForPioneerNow.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.studentForPioneer = action.payload;
+      })
+      .addCase(getStudentForPioneerNow.rejected, (state, action) => {
+        state.isError = true;
+        state.isLoading = false;
+        state.message = action.payload;
+        state.studentForPioneer = null;
       })
       .addCase(getAdminQuestions.pending, (state) => {
         state.isLoading = true;

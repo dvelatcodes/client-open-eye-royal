@@ -8,7 +8,11 @@ import { GiTeacher, GiSchoolBag } from "react-icons/gi";
 import { ImBooks } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
 import { FaArrowAltCircleRight } from "react-icons/fa";
-import { reset, getPioneerNigerClass } from "../../features/classSlice";
+import {
+  reset,
+  getPioneerNigerClass,
+  getStudentForPioneerNow,
+} from "../../features/classSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 import { useEffect } from "react";
@@ -29,9 +33,14 @@ const PioneerSchool = () => {
   const [examResultNum, setExamResultNum] = useState(0);
   // state initialization
   // state initialization
-  const { isSuccess, isError, isLoading, message, pioneerClass } = useSelector(
-    (state) => state.class
-  );
+  const {
+    isSuccess,
+    isError,
+    isLoading,
+    message,
+    pioneerClass,
+    studentForPioneer,
+  } = useSelector((state) => state.class);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // useEffect for states
@@ -48,11 +57,21 @@ const PioneerSchool = () => {
       //   return data;
       // });
     }
+    if (isSuccess && studentForPioneer) {
+    }
     if (isError) {
       // console.log("error");
     }
     dispatch(reset());
-  }, [isSuccess, isError, isLoading, message, dispatch, reset]);
+  }, [
+    isSuccess,
+    isError,
+    isLoading,
+    message,
+    dispatch,
+    reset,
+    studentForPioneer,
+  ]);
 
   // school data
   // school data
@@ -102,22 +121,26 @@ const PioneerSchool = () => {
   // get default classes
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
-    if (!user.schoolName) {
-      alert("Unauthorized Please SignUp/Login as A Proprietor");
-      navigate("/");
-    }
     if (!user) {
       alert("Unauthorized, Please SignUP/SignIn AS A Proprietor");
+      navigate("/");
+    }
+    if (!user.schoolName) {
+      alert("Unauthorized Please SignUp/Login as A Proprietor");
       navigate("/");
     }
     if (user) {
       const { _id } = user;
       const year1 = JSON.parse(localStorage.getItem("startOfAcademicYear"));
       const year2 = JSON.parse(localStorage.getItem("endOfAcademicYear"));
-      if (year1 && year2) {
+      if (year1 || year2 || _id) {
         const schSection = year1 + "/" + year2;
         dispatch(getPioneerNigerClass({ _id, schSection }));
       }
+    }
+    if (user) {
+      const { _id } = user;
+      dispatch(getStudentForPioneerNow({ _id }));
     }
   }, []);
 
@@ -240,7 +263,7 @@ const PioneerSchool = () => {
                           <span
                             className={`text-sm text-black m-2 ml-12 block`}
                           >
-                            0
+                            {studentForPioneer?.length || 0}
                           </span>
                         </p>
                         <p className="w-full h-px bg-slate-300"></p>

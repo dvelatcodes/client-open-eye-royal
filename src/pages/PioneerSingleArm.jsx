@@ -5,7 +5,10 @@ import {
   reset,
   getPioneerNigerClass,
   getTimetable,
+  getStudentForPioneerNow,
 } from "../features/classSlice";
+import { GiMaterialsScience } from "react-icons/gi";
+import { GoArrowUp } from "react-icons/go";
 import { IoIosPeople } from "react-icons/io";
 import { GiBookshelf } from "react-icons/gi";
 import { BiNotepad } from "react-icons/bi";
@@ -40,10 +43,19 @@ const PioneerSingleArm = () => {
   } = useStateContext();
   // state initialization
   // state initialization
-  const { isSuccess, isError, isLoading, message, singleClassTimetable } =
-    useSelector((state) => state.class);
+  const {
+    isSuccess,
+    isError,
+    isLoading,
+    message,
+    singleClassTimetable,
+    studentForPioneer,
+  } = useSelector((state) => state.class);
   const dispatch = useDispatch();
+  const [values, setValues] = useState(null);
   const [showTimetable, setShowTimetable] = useState(null);
+  const [showSubjects, setShowSubjects] = useState(null);
+  const [showStudents, setShowStudents] = useState(null);
   const [monday, setMonday] = useState(null);
   const [tuesday, setTuesday] = useState(null);
   const [wednesday, setWednesday] = useState(null);
@@ -83,6 +95,8 @@ const PioneerSingleArm = () => {
         }
       }
     }
+    if (isSuccess && studentForPioneer) {
+    }
     if (isError) {
       toast.error(message);
       console.log("error");
@@ -96,6 +110,7 @@ const PioneerSingleArm = () => {
     dispatch,
     reset,
     singleClassTimetable,
+    studentForPioneer,
   ]);
   // get default classes
   // get default classes
@@ -142,14 +157,30 @@ const PioneerSingleArm = () => {
   // get timetable
   // get timetable
   useEffect(() => {
-    if (showTimetable) {
-      const user = JSON.parse(localStorage.getItem("user"));
-      if (user) {
-        const { _id } = user;
-        dispatch(getTimetable({ _id, showTimetable }));
+    if (values) {
+      if (showTimetable) {
+        const user = JSON.parse(localStorage.getItem("user"));
+        if (user) {
+          const { _id } = user;
+          dispatch(getTimetable({ _id, showTimetable }));
+        }
+      }
+      if (showStudents) {
+        const user = JSON.parse(localStorage.getItem("user"));
+        if (user) {
+          const { _id } = user;
+          dispatch(getStudentForPioneerNow({ _id, showStudents }));
+        }
+      }
+      if (showSubjects) {
+        const user = JSON.parse(localStorage.getItem("user"));
+        if (user) {
+          const { _id } = user;
+          dispatch(getTimetable({ _id, showSubjects }));
+        }
       }
     }
-  }, [showTimetable]);
+  }, [showTimetable, values, showStudents, showSubjects]);
 
   // nameClass && console.log(classType);
   return (
@@ -174,128 +205,223 @@ const PioneerSingleArm = () => {
           <div className="fixed md:static inline-block bg-main-dark dark:bg-main-dark-bg navbar w-full">
             <Navbar />
           </div>
-          {showTimetable && timetable ? (
-            <div
-              className=" md:mt-2 sm:mt-2 lg:w-full absolute top-0 bottom-0 right-0 left-0 h-fit dark:bg-main-dark-bg bg-main-bg z-20"
-              style={{
-                minHeight: "120vh",
-                background:
-                  currentMode === "Light"
-                    ? "rgb(250 251 251)"
-                    : "rgb(32 35 42)",
-              }}
-            >
-              {classType && (
-                <div className="m-auto relative top-9" style={{ width: "60%" }}>
+          {values ? (
+            showTimetable && timetable ? (
+              <div
+                className=" md:mt-2 sm:mt-2 lg:w-full absolute top-0 bottom-0 right-0 left-0 h-fit dark:bg-main-dark-bg bg-main-bg z-20"
+                style={{
+                  minHeight: "120vh",
+                  background:
+                    currentMode === "Light"
+                      ? "rgb(250 251 251)"
+                      : "rgb(32 35 42)",
+                }}
+              >
+                {classType && (
+                  <div
+                    className="m-auto relative top-9"
+                    style={{ width: "60%" }}
+                  >
+                    <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl dark:text-white">
+                      {nameClass}
+                    </div>
+                    <div
+                      className="absolute flex justify-around items-center left-0 right-0 -bottom-20 m-auto h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl text-black font-semibold bg-green-200 hover:text-green-200 hover:bg-black"
+                      style={{ fontFamily: "serif" }}
+                      onClick={() => {
+                        setValues(null);
+                        setShowTimetable(null);
+                      }}
+                    >
+                      <BiLeftArrow className="absolute top-0 -left-24 right-0 bottom-0 m-auto w-fit" />
+                      Go Back
+                    </div>
+                    <div className="absolute -left-56 top-40 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold ">
+                      {classType &&
+                        classType.map((subject) => (
+                          <p
+                            key={subject.id}
+                            style={{ fontFamily: "serif" }}
+                            className="text-black"
+                          >
+                            {subject.subName}
+                          </p>
+                        ))}
+                    </div>
+                    <table className="dark:bg-main-bg">
+                      <thead>
+                        <tr>
+                          {time.map((time, index) => (
+                            <th
+                              key={index}
+                              className="w-fit border-1 border-neutral-800 text-sm pt-3"
+                            >
+                              {time}
+                            </th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td className="w-fit text-base border-1 border-neutral-800">
+                            Monday
+                          </td>
+                          {monday.map((ar, index) => (
+                            <td
+                              key={index}
+                              className="w-fit border-1 text-base border-neutral-800"
+                            >
+                              {ar}
+                            </td>
+                          ))}
+                        </tr>
+                        <tr>
+                          <td className="w-fit text-base border-1 border-neutral-800">
+                            Tuesday
+                          </td>
+                          {tuesday.map((ar, index) => (
+                            <td
+                              key={index}
+                              className="w-fit border-1 text-base border-neutral-800"
+                            >
+                              {ar}
+                            </td>
+                          ))}
+                        </tr>
+                        <tr>
+                          <td className="w-fit text-base border-1 border-neutral-800">
+                            Wednesday
+                          </td>
+                          {wednesday.map((ar, index) => (
+                            <td
+                              key={index}
+                              className="w-fit border-1 text-base border-neutral-800"
+                            >
+                              {ar}
+                            </td>
+                          ))}
+                        </tr>
+                        <tr>
+                          <td className="w-fit text-base border-1 border-neutral-800">
+                            Thursday
+                          </td>
+                          {thursday.map((ar, index) => (
+                            <td
+                              key={index}
+                              className="w-fit border-1 text-base border-neutral-800"
+                            >
+                              {ar}
+                            </td>
+                          ))}
+                        </tr>
+                        <tr>
+                          <td className="w-fit text-base border-1 border-neutral-800">
+                            Friday
+                          </td>
+                          {friday.map((ar, index) => (
+                            <td
+                              key={index}
+                              className="w-fit border-1 text-base border-neutral-800"
+                            >
+                              {ar}
+                            </td>
+                          ))}
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+            ) : values && showSubjects ? (
+              showSubjects &&
+              classType && (
+                <div
+                  className="m-auto relative top-9"
+                  style={{ width: "fit-content" }}
+                >
                   <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl dark:text-white">
                     {nameClass}
+                  </div>
+                  <div className="relative pl-8 pr-8 m-auto h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold ">
+                    {classType.map((ars) => (
+                      <p
+                        key={ars.id}
+                        style={{ fontFamily: "serif" }}
+                        className="text-black"
+                      >
+                        {ars.subName}
+                      </p>
+                    ))}
                   </div>
                   <div
                     className="absolute flex justify-around items-center left-0 right-0 -bottom-20 m-auto h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl text-black font-semibold bg-green-200 hover:text-green-200 hover:bg-black"
                     style={{ fontFamily: "serif" }}
                     onClick={() => {
-                      setShowTimetable(null);
+                      setValues(null);
+                      setShowSubjects(null);
                     }}
                   >
                     <BiLeftArrow className="absolute top-0 -left-24 right-0 bottom-0 m-auto w-fit" />
                     Go Back
                   </div>
-                  <div className="absolute -left-56 top-40 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold ">
-                    {classType &&
-                      classType.map((subject) => (
-                        <p
-                          key={subject.id}
-                          style={{ fontFamily: "serif" }}
-                          className="text-black"
-                        >
-                          {subject.subName}
-                        </p>
-                      ))}
-                  </div>
-                  <table className="dark:bg-main-bg">
-                    <thead>
-                      <tr>
-                        {time.map((time, index) => (
-                          <th
-                            key={index}
-                            className="w-fit border-1 border-neutral-800 text-sm pt-3"
-                          >
-                            {time}
-                          </th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td className="w-fit text-base border-1 border-neutral-800">
-                          Monday
-                        </td>
-                        {monday.map((ar, index) => (
-                          <td
-                            key={index}
-                            className="w-fit border-1 text-base border-neutral-800"
-                          >
-                            {ar}
-                          </td>
-                        ))}
-                      </tr>
-                      <tr>
-                        <td className="w-fit text-base border-1 border-neutral-800">
-                          Tuesday
-                        </td>
-                        {tuesday.map((ar, index) => (
-                          <td
-                            key={index}
-                            className="w-fit border-1 text-base border-neutral-800"
-                          >
-                            {ar}
-                          </td>
-                        ))}
-                      </tr>
-                      <tr>
-                        <td className="w-fit text-base border-1 border-neutral-800">
-                          Wednesday
-                        </td>
-                        {wednesday.map((ar, index) => (
-                          <td
-                            key={index}
-                            className="w-fit border-1 text-base border-neutral-800"
-                          >
-                            {ar}
-                          </td>
-                        ))}
-                      </tr>
-                      <tr>
-                        <td className="w-fit text-base border-1 border-neutral-800">
-                          Thursday
-                        </td>
-                        {thursday.map((ar, index) => (
-                          <td
-                            key={index}
-                            className="w-fit border-1 text-base border-neutral-800"
-                          >
-                            {ar}
-                          </td>
-                        ))}
-                      </tr>
-                      <tr>
-                        <td className="w-fit text-base border-1 border-neutral-800">
-                          Friday
-                        </td>
-                        {friday.map((ar, index) => (
-                          <td
-                            key={index}
-                            className="w-fit border-1 text-base border-neutral-800"
-                          >
-                            {ar}
-                          </td>
-                        ))}
-                      </tr>
-                    </tbody>
-                  </table>
                 </div>
-              )}
-            </div>
+              )
+            ) : (
+              showStudents &&
+              studentForPioneer && (
+                <div
+                  className="m-auto w-fit h-fit relative"
+                  style={{ width: "fit-content" }}
+                >
+                  {studentForPioneer.map((data, index) => (
+                    <div
+                      className="h-fit pt-9 pb-9 w-fit pl-8 pr-8 bg-white rounded-xl dark:bg-gray-50 m-auto shadow-2xl top-20 relative"
+                      key={index}
+                    >
+                      <div className="w-full flex justify-around items-center mb-6">
+                        <SiGoogleclassroom
+                          className="hover:drop-shadow-xl text-2xl h-9 w-fit p-2 rounded-md bg-black dark:bg-black text-white mr-16"
+                          style={{ background: currentColor }}
+                        />
+                        <p
+                          style={{ fontFamily: "cursive", fontWeight: "bold" }}
+                        >
+                          {data.studentFirstName} {data.studentLastName}
+                        </p>
+                      </div>
+                      <div className="w-full flex justify-around items-center mb-6">
+                        <GiMaterialsScience className="hover:drop-shadow-xl text-2xl h-9 w-fit p-2 rounded-md bg-black dark:bg-black text-white mr-24" />
+                        <p style={{ fontFamily: "cursive" }}>
+                          {data.studentClass}
+                        </p>
+                      </div>
+                      <div className="w-full flex justify-around items-center">
+                        <div
+                          className="mr-14"
+                          style={{ fontFamily: "cursive" }}
+                        >
+                          <GoArrowUp className="hover:drop-shadow-xl text-2xl h-9 w-fit p-2 rounded-md bg-green-400 dark:bg-black text-white inline-block" />
+                        </div>
+                        <p style={{ fontFamily: "cursive" }}>
+                          {data.studentPhoneNumber}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                  <div
+                    className="absolute flex justify-around items-center left-0 right-0 -bottom-44 m-auto h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl text-black font-semibold bg-green-200 hover:text-green-200 hover:bg-black"
+                    style={{ fontFamily: "serif" }}
+                    onClick={() => {
+                      setValues(null);
+                      setShowStudents(null);
+                    }}
+                  >
+                    <BiLeftArrow className="absolute top-0 -left-24 right-0 bottom-0 m-auto w-fit" />
+                    Go Back
+                  </div>
+                </div>
+              )
+            )
           ) : (
             <>
               <p
@@ -330,7 +456,13 @@ const PioneerSingleArm = () => {
                           {num.classNaming}
                         </p>
                       </div>
-                      <div className="w-full flex mt-2 flex-wrap justify-around h-3/5 items-center">
+                      <div
+                        className="w-full flex mt-2 flex-wrap justify-around h-3/5 items-center"
+                        onClick={() => {
+                          setValues(true);
+                          setShowStudents(num.classNaming);
+                        }}
+                      >
                         <Link to="">
                           <IoIosPeople className="hover:drop-shadow-xl text-2xl w-fit p-2 rounded-md text-black h-11 hover:h-12" />
                         </Link>
@@ -338,7 +470,14 @@ const PioneerSingleArm = () => {
                           <p style={{ fontFamily: "cursive" }}>Students</p>
                         </Link>
                       </div>
-                      <div className="w-full flex mt-2 flex-wrap justify-around h-3/5 items-center">
+                      <div
+                        className="w-full flex mt-2 flex-wrap justify-around h-3/5 items-center"
+                        onClick={() => {
+                          setValues(true);
+                          setShowSubjects(num.classNaming);
+                          alert("Please Generate Timetable, if you have not");
+                        }}
+                      >
                         <Link to="">
                           <GiBookshelf
                             className="hover:drop-shadow-xl text-2xl w-fit p-2 rounded-md h-11 hover:h-12"
@@ -355,6 +494,7 @@ const PioneerSingleArm = () => {
                             className="hover:drop-shadow-xl text-2xl w-fit p-2 rounded-md text-black h-12 hover:h-14"
                             style={{ color: "FD4462" }}
                             onClick={() => {
+                              setValues(true);
                               setShowTimetable(num.classNaming);
                               alert(
                                 "Please Generate Timetable, if you have not"

@@ -218,9 +218,10 @@ const PioneerRegPage = () => {
   };
 
   const [loginIsActive, setLoginIsActive] = useState(false);
-  const loginPioneer = () => {
+  const loginPioneerNow = () => {
     if (pThird && pFourth) {
       setCursorIsActive(true);
+      // console.log(email, password);
       dispatch(loginPioneer({ email, password }));
     }
   };
@@ -292,7 +293,7 @@ const PioneerRegPage = () => {
                   cursor: cursorIsActive ? "not-allowed" : "pointer",
                 }}
                 onClick={() => {
-                  loginPioneer();
+                  loginPioneerNow();
                 }}
               >
                 Login

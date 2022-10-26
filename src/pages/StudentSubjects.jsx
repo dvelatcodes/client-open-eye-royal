@@ -101,17 +101,15 @@ const StudentSubjects = () => {
                   {schName.className}
                 </div>
                 <div className="relative pl-8 pr-8 m-auto h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold ">
-                  {schName.classType
-                    .filter((arr) => arr.classNaming === schName.className)[0]
-                    .courses.map((ars) => (
-                      <p
-                        key={ars.id}
-                        style={{ fontFamily: "serif" }}
-                        className="text-black"
-                      >
-                        {ars.subName}
-                      </p>
-                    ))}
+                  {schName.classType.map((ars) => (
+                    <p
+                      key={ars.id}
+                      style={{ fontFamily: "serif" }}
+                      className="text-black"
+                    >
+                      {ars.subName}
+                    </p>
+                  ))}
                 </div>
               </div>
             </>

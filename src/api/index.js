@@ -80,10 +80,10 @@ const createTimetable = async (data) => {
 };
 // get timetable
 // get timetable
-const getTimetable = async ({ _id, showTimetable }) => {
+const getTimetable = async ({ _id, showTimetable, showSubjects }) => {
   try {
     const response = await API.get(
-      `/getTimetable?_id=${_id}&showTimetable=${showTimetable}`
+      `/getTimetable?_id=${_id}&showTimetable=${showTimetable}&showSubjects=${showSubjects}`
     );
     if (response.data) {
       localStorage.setItem(
@@ -118,6 +118,22 @@ const getStudentScreenPioneer = async ({ schoolStudentSelected }) => {
     localStorage.setItem("studentScreenPioneer", JSON.stringify(response.data));
   }
   return response.data;
+};
+
+// getStudent for pioneer
+// getStudent for pioneer
+const getStudentForPioneer = async ({ _id, showStudents }) => {
+  try {
+    const response = await API.get(
+      `/getStudentForPioneerNow?pioneerId=${_id}&classSelected=${showStudents}`
+    );
+    if (response.data) {
+      localStorage.setItem("studentForPioneer", JSON.stringify(response.data));
+    }
+    return response.data;
+  } catch (error) {
+    return error;
+  }
 };
 
 // get default classes Get Method
@@ -258,6 +274,7 @@ const authService = {
   getAdminQuestions,
   studentSpecificTimetable,
   studentSpecificClass,
+  getStudentForPioneer,
   loginPioneer,
   loginStudent,
   logout,

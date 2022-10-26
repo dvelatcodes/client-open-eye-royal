@@ -98,17 +98,15 @@ const StudentTimetable = () => {
                   {schName.className}
                 </div>
                 <div className="absolute left-0 right-0 flex -bottom-20 m-auto h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold bg-black">
-                  {schName.classType
-                    .filter((arr) => arr.classNaming === schName.className)[0]
-                    .courses.map((ars) => (
-                      <p
-                        key={ars.id}
-                        style={{ fontFamily: "serif" }}
-                        className="text-white dark:text-black mr-3"
-                      >
-                        {ars.subName}
-                      </p>
-                    ))}
+                  {schName.classType.map((ars) => (
+                    <p
+                      key={ars.id}
+                      style={{ fontFamily: "serif" }}
+                      className="text-white dark:text-black mr-3"
+                    >
+                      {ars.subName}
+                    </p>
+                  ))}
                 </div>
                 <table className="dark:bg-main-bg">
                   <thead>
