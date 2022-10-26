@@ -121,14 +121,6 @@ const PioneerSchool = () => {
   // get default classes
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
-    if (!user) {
-      alert("Unauthorized, Please SignUP/SignIn AS A Proprietor");
-      navigate("/");
-    }
-    if (!user.schoolName) {
-      alert("Unauthorized Please SignUp/Login as A Proprietor");
-      navigate("/");
-    }
     if (user) {
       const { _id } = user;
       const year1 = JSON.parse(localStorage.getItem("startOfAcademicYear"));

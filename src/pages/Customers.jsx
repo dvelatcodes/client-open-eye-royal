@@ -68,10 +68,6 @@ const Customers = () => {
       const { _id } = user;
       dispatch(getStudentForPioneerNow({ _id }));
     }
-    if (!user) {
-      alert("Not-Authorized");
-      navigate("/");
-    }
   }, []);
   return (
     <div

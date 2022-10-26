@@ -88,10 +88,6 @@ const StudentDashboard = () => {
         dispatch(getStudentSpecificClass({ pioneerId, studentClass }));
       }
     }
-    if (!user) {
-      alert("Unauthorized, Please Sign-up or Login");
-      navigate("/");
-    }
   }, []);
   // console.log(schName);
   return (
