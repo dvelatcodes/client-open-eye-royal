@@ -49,6 +49,9 @@ const StudentSubjects = () => {
     studentTimetable,
   ]);
 
+  // username
+  // username
+  const [userName, setUserName] = useState(null);
   // get default classes
   // get default classes
   useEffect(() => {
@@ -58,6 +61,7 @@ const StudentSubjects = () => {
       navigate("/");
     }
     if (user) {
+      setUserName(user.studentFirstName);
       if (user.pioneerId === "none") {
         //   dispatch(getAllPioneer());
         setSchName(null);
@@ -82,7 +86,7 @@ const StudentSubjects = () => {
           }`}
         >
           <div className="fixed md:static inline-block bg-main-dark dark:bg-main-dark-bg navbar w-full">
-            <Navbar />
+            <Navbar name={userName} />
           </div>
           {schName === null ? (
             <>
@@ -101,9 +105,9 @@ const StudentSubjects = () => {
                   {schName.className}
                 </div>
                 <div className="relative pl-8 pr-8 m-auto h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold ">
-                  {schName.classType.map((ars) => (
+                  {schName.classType.map((ars, index) => (
                     <p
-                      key={ars.id}
+                      key={index}
                       style={{ fontFamily: "serif" }}
                       className="text-black"
                     >

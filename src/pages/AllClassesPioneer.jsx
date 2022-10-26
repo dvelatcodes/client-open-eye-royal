@@ -14,6 +14,7 @@ import { BiLeftArrow } from "react-icons/bi";
 import { BiNotepad } from "react-icons/bi";
 import { useStateContext } from "../contexts/ContextProvider";
 import { DashboardFractionPioneer } from "../Dashboard";
+import { useNavigate } from "react-router-dom";
 
 const AllClassesPioneer = () => {
   const {
@@ -244,6 +245,7 @@ const AllClassesPioneer = () => {
     (state) => state.class
   );
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   // useEffect for states
   // useEffect for states
   useEffect(() => {
@@ -271,6 +273,10 @@ const AllClassesPioneer = () => {
         const schSection = year1 + "/" + year2;
         dispatch(getPioneerNigerClass({ _id, schSection }));
       }
+    }
+    if (!user) {
+      alert("Unauthorized, Please Sign-up or Login");
+      navigate("/");
     }
     const pioneerClasses = JSON.parse(
       localStorage.getItem("pioneerNigerClass")

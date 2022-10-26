@@ -134,6 +134,10 @@ const PioneerSchool = () => {
       const { _id } = user;
       dispatch(getStudentForPioneerNow({ _id }));
     }
+    if (!user) {
+      alert("Unauthorized, Please Sign-up or Login");
+      navigate("/");
+    }
   }, []);
 
   return (
