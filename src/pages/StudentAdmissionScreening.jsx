@@ -211,15 +211,15 @@ const StudentAdmissionScreening = () => {
         { value: "shouting", checked: false },
       ],
     },
-    {
-      question: "When there's a will, there's a way. Do you concur?",
-      options: [
-        { value: "Yes, absolutely", checked: false },
-        { value: "no", checked: false },
-        { value: "na lie", checked: false },
-        { value: "on the fence", checked: false },
-      ],
-    },
+    // {
+    //   question: "When there's a will, there's a way. Do you concur?",
+    //   options: [
+    //     { value: "Yes, absolutely", checked: false },
+    //     { value: "no", checked: false },
+    //     { value: "na lie", checked: false },
+    //     { value: "on the fence", checked: false },
+    //   ],
+    // },
   ]);
   const {
     activeMenu,
@@ -310,7 +310,7 @@ const StudentAdmissionScreening = () => {
         setRunnerChecker((prev) => prev + 1);
       }, 10000);
     }
-    if (runnerChecker === 19) {
+    if (runnerChecker === 18) {
       // console.log(studentQuestions);
       clearInterval(interval);
     }
@@ -323,7 +323,7 @@ const StudentAdmissionScreening = () => {
         setTime((prev) => prev + 10);
       }, 10);
     }
-    if (runnerChecker === 19) {
+    if (runnerChecker === 18) {
       clearInterval(timeInterval);
     }
     return () => clearInterval(timeInterval);
@@ -341,7 +341,7 @@ const StudentAdmissionScreening = () => {
   // }
   const submitAnswer = () => {
     var i = 0;
-    while (i < 19) {
+    while (i < 18) {
       if (
         studentQuestions[i].options.filter((arr) => arr.checked === true)[0]
           .value ===
@@ -411,7 +411,7 @@ const StudentAdmissionScreening = () => {
                   <div className="m-auto top-0 relative w-fit h-fit">
                     <p className="text-2xl font-bold">Your score is</p>
                     <p className="text-2xl font-bold">
-                      {result.length} over 20
+                      {result.length} over 19
                     </p>
                     <p>
                       {result.length >= 9
@@ -464,7 +464,7 @@ const StudentAdmissionScreening = () => {
                         )}
                       </ul>
                     </div>
-                    {runnerChecker === 19 && (
+                    {runnerChecker === 18 && (
                       <button
                         className=" w-fit h-fit pl-8 pr-8 pt-4 pb-4 rounded-xl cursor-pointer relative top-10 -right-24 hover:drop-shadow-xl dark:shadow-md block font-extrabold"
                         style={{
