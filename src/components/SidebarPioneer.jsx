@@ -28,11 +28,11 @@ const SidebarPioneer = ({ sideBarTitle }) => {
     {
       title: "Pages",
       links: [
-        {
-          name: "set-teachers",
-          icon: <IoMdContacts />,
-          link: "set-teacherspioneer",
-        },
+        // {
+        //   name: "set-teachers",
+        //   icon: <IoMdContacts />,
+        //   link: "set-teacherspioneer",
+        // },
         {
           name: "set-classes",
           icon: <SiGoogleclassroom />,
@@ -43,16 +43,16 @@ const SidebarPioneer = ({ sideBarTitle }) => {
     {
       title: "Apps",
       links: [
-        {
-          name: "calendar",
-          icon: <AiOutlineCalendar />,
-          link: "calendarpioneer",
-        },
-        {
-          name: "kanban",
-          icon: <BsKanban />,
-          link: "kanbanpioneer",
-        },
+        // {
+        //   name: "calendar",
+        //   icon: <AiOutlineCalendar />,
+        //   link: "calendarpioneer",
+        // },
+        // {
+        //   name: "kanban",
+        //   icon: <BsKanban />,
+        //   link: "kanbanpioneer",
+        // },
         {
           name: "editor",
           icon: <FiEdit />,

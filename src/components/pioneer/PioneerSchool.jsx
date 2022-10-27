@@ -226,12 +226,12 @@ const PioneerSchool = () => {
                         </p>
                         <p className="w-full h-px bg-slate-300"></p>
                         <p className="text-sm text-gray-400 mt-3">
-                          <Link to={"/edit-teachers"}>
+                          <Link to={""}>
                             <span className="cursor-pointer">
                               <FaArrowAltCircleRight />
                             </span>
                           </Link>
-                          <Link to={"/edit-teachers"}>
+                          <Link to={""}>
                             <span className="cursor-pointer">View</span>
                           </Link>
                         </p>

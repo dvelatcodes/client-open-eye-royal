@@ -460,6 +460,7 @@ const PioneerGeneralClassSetup = () => {
                     style={{ fontFamily: "cursive", background: currentColor }}
                     onClick={() => {
                       saveClass(data._id);
+                      navigate("/pioneerschool");
                     }}
                   >
                     Save
