@@ -150,7 +150,7 @@ const StudentDashboard = () => {
             </>
           ) : (
             <>
-              <div className="w-fit m-auto relative top-3">
+              <div className="w-fit m-auto relative top-3 font-bold">
                 List Of All Registered Schools
               </div>
               <div
@@ -160,7 +160,7 @@ const StudentDashboard = () => {
                 {schName &&
                   schName.map((data) => (
                     <div
-                      className="min-h-fit h-40 w-1/4 bg-white rounded-xl dark:bg-gray-50 ml-5 shadow-xl"
+                      className="min-h-fit h-40 w-1/4 bg-white rounded-xl dark:bg-gray-50 ml-5 shadow-xl mb-6"
                       key={data._id}
                     >
                       <div className="w-full flex justify-around h-3/5 items-center">

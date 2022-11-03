@@ -444,21 +444,36 @@ const StudentAdmissionScreening = () => {
                           (ans, index) => (
                             <li
                               key={index}
-                              className="font-bold text-2xl"
+                              className="font-bold text-2xl flex items-center"
                               style={{ fontFamily: "serif" }}
                             >
                               <input
                                 type="radio"
                                 name="clicker"
-                                className="mr-2"
-                                value={ans.checked}
+                                className="mr-2 w-8 h-9"
                                 checked={ans.checked}
                                 onChange={(e) => {
+                                  studentQuestions[
+                                    runnerChecker
+                                  ].options[0].checked = false;
+                                  studentQuestions[
+                                    runnerChecker
+                                  ].options[1].checked = false;
+                                  studentQuestions[
+                                    runnerChecker
+                                  ].options[2].checked = false;
+                                  studentQuestions[
+                                    runnerChecker
+                                  ].options[3].checked = false;
                                   ans.checked = e.target.checked;
-                                  e.target.checked = false;
                                 }}
                               />
-                              {ans.value}
+                              <div
+                                className="font-bold text-2xl"
+                                style={{ fontFamily: "serif" }}
+                              >
+                                {ans.value}
+                              </div>
                             </li>
                           )
                         )}
