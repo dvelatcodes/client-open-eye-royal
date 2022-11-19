@@ -9,6 +9,8 @@ import { Link } from "react-router-dom";
 
 export default function Home() {
   const [headerBlack, setHeaderBlack] = useState("header-color-img");
+  const [studentColor, setStudentColor] = useState("rgb(203, 255, 255)");
+  const [proprietorColor, setProprietorColor] = useState("rgb(187, 255, 255)");
   const [checker, setChecker] = useState(false);
   const [btnShow, setBtnShow] = useState({
     firstbtn: false,
@@ -93,6 +95,7 @@ export default function Home() {
           <div
             className={checker ? "explore" : "initial-explore"}
             onMouseOver={changeHead}
+            onClick={changeHead}
           ></div>
           <div className="header-group">
             <div className="header-up-container">
@@ -132,18 +135,23 @@ export default function Home() {
             </div>
             {btnShow.firstbtn && (
               <div
-                className="flex w-fit m-auto"
-                style={{ transform: "translateY(28vh)" }}
+                className="flex w-fit m-auto propAndStuContainer"
+                // style={{ transform: "translateY(28vh)" }}
               >
                 <Link to="/pioneerReg">
                   <div
-                    className="w-80 h-36 rounded-2xl flex justify-around items-center border-2 border-white"
-                    style={{ background: "rgba(2, 1, 1, 0.17)" }}
+                    className="w-80 h-36 rounded-2xl flex justify-around items-center border-8 border-white hover:border-cyan-100 proprietorContainer"
+                    // onMouseEnter={() => setProprietorColor("white")}
+                    // onMouseLeave={() =>
+                    //   setProprietorColor("rgb(187, 255, 255)")
+                    // }
+                    style={{ background: "rgba(165, 243, 252, 0.1)" }}
                   >
                     <div
-                      className="w-fit h-fit text-3xl text-cyan-200"
+                      className={`w-fit h-fit text-4xl font-bold proprietorText`}
                       style={{
-                        fontFamily: "Times New Roman', Times, serif",
+                        fontFamily: "revert-layer",
+                        // color: proprietorColor,
                       }}
                     >
                       Proprietor ? <br />
@@ -153,12 +161,14 @@ export default function Home() {
                 </Link>
                 <Link to="/studentRegPage">
                   <div
-                    className="bg-cyan-200 w-80 ml-8 h-36 rounded-2xl flex justify-around items-center border-2 border-white"
-                    style={{ background: "rgba(165, 243, 252, 0.2)" }}
+                    className={`bg-cyan-200 w-80 ml-8 h-36 rounded-2xl flex justify-around items-center border-8 border-cyan-300 hover:border-cyan-50 studentContainer`}
+                    style={{ background: "rgba(165, 243, 252, 0.1)" }}
+                    onMouseEnter={() => setStudentColor("cyan")}
+                    onMouseLeave={() => setStudentColor("rgb(203, 255, 255)")}
                   >
                     <div
-                      className="w-fit h-fit text-3xl  text-cyan-200"
-                      style={{ fontFamily: "serif" }}
+                      className={`w-fit h-fit text-4xl font-bold studentText`}
+                      style={{ color: studentColor }}
                     >
                       Student ? <br />
                       Free Admission
@@ -169,14 +179,14 @@ export default function Home() {
             )}
             {btnShow.firstbtn && (
               <div
-                className="bg-cyan-200 w-full absolute bottom-16"
-                style={{ height: "2px" }}
+                className="bg-cyan-200 w-full absolute bottom-16 propAndStuLine"
+                // style={{ height: "2px" }}
               ></div>
             )}
-            <MdOutlineSchool className="absolute bottom-4 left-10 text-5xl text-cyan-200" />
+            <MdOutlineSchool className="absolute bottom-4 left-10 text-5xl text-cyan-200 gradCap" />
             {btnShow.firstbtn && (
               <div
-                className="bottom-8 right-0 left-0 m-auto text-cyan-200 w-fit text-3xl font-bold absolute"
+                className="bottom-8 right-0 left-0 m-auto text-cyan-200 w-fit text-3xl font-bold absolute propAndStuTitle"
                 style={{ fontFamily: "serif" }}
               >
                 Junior/Senior Secondary schools

@@ -21,15 +21,26 @@ body{
         width: 100vw;
         height: 100vh;
         position: relative;
+        @media screen and (max-width : 376px) {
+            background-repeat: no-repeat;
+            height: 100vh;
+            background-size: cover;
+        }
     } 
+   
     .header-color-img{
         background-image: url("../../Assets/Images/janko-ferlic-sfL_QOnmy00-unsplash.jpg");
         background-size: contain;
         width: 100vw;
         height: 100vh;
         position: relative;
+        @media screen and (max-width : 376px) {
+            background-repeat: no-repeat;
+            height: 100vh;
+            background-size: cover;
+        }
     }
-
+   
     .initial-explore{
         opacity: 0;
     }
@@ -46,6 +57,12 @@ body{
         margin: 2.5rem auto;
         opacity: 1;
         transition: all 3s ease-in-out;
+        @media screen and (max-width:376px){
+            left: -1.3rem;
+            width: 58vw;
+            height: 44vh;
+            margin: 5.3rem auto;
+        }
     }
 
     .header-group{
@@ -56,12 +73,17 @@ body{
         width: 100vw;
         max-width: 1440px;
         height: 50vh;
-
+        @media screen and (max-width : 376px) {
+            height: 29vh;
+        }
             .header-up-container{
                 position: relative;
                 width: 100vw;
                 height: 24vh;
                 
+                @media screen and (max-width : 376px) {
+                    height: 9.2vh;
+                }
                     .header-up{
                         position: absolute;
                         left: 0;
@@ -70,14 +92,24 @@ body{
                         display: flex;
                         width: fit-content;
                         margin: auto;
+                        // @media screen and (max-width : 376px) {
+                        //     bottom: -1.9rem; 
+                        // }
                         h1{
                             color: white;
                             display: inline-block;
                             font-size: 15vh;
+                            @media screen and (max-width : 376px) {
+                                font-size:10vh; 
+                            }
                         }
                         img{
                             width: 60px;
                             height: 90px;
+                            @media screen and (max-width : 376px) {
+                                height: 58px;
+                                width: 50px; 
+                            }
                         }
         
                     }
@@ -89,7 +121,9 @@ body{
                 height: 26vh;
                 position: relative;
                 cursor: pointer;
-
+                @media screen and (max-width:376px){
+                        height: 20vh;
+                }
                 .header-down-color{
                     width: 100vw;
                     max-width: 1440px;
@@ -110,6 +144,7 @@ body{
                     margin: auto;
                     align-items: center;
                 }
+               
                 h4{
                     // color: white;
                     font-size: 1.7rem;
@@ -118,6 +153,28 @@ body{
                     width: fit-content;
                     font-style: italic;
                 }
+                @media screen and (max-width:376px){
+                    .header-down{
+                        height: 20vh;
+                    }
+                    .header-down-color{
+                        height: 20vh;
+                    }
+                    .auto-words{
+                        position: relative;
+                        flex-wrap: wrap;
+                        justify-content: space-around;
+                        width: fit-content;
+                        height: fit-content;
+                        padding-top: 0.5rem;
+                        width: fit-content;
+                    }
+                    h4{
+                        font-size: 1.3rem;
+                        font-family: 'Times New Roman', Times, serif;
+                    }
+                }
+              
                 .auto-1st{
                     color: white;
                     opacity: 1;
@@ -185,11 +242,25 @@ body{
                     height: 8vh;
                     text-decoration: none;
                 }
+
+                @media screen and (max-width : 376px) {
+                    .view-community{
+                        left: 1rem;
+                        top: 2.3rem;
+                        width: fit-content;
+                    }
+                    .view-community *{
+                        height: fit-content;
+                        width: fit-content;
+                        font-size: 0.7rem;
+                    }
+                }
                
             }
          
            
     }
+
 
     .home-showbiz{
         display: flex;
@@ -198,6 +269,9 @@ body{
         min-height: 100vh;
         height: fit-content;
 
+        @media screen and (max-width : 376px) {
+            min-height: 55vh;
+        }
             .show1st{
                 background-image: url("../../Assets/Images/students-black.jpg");
                 width: 20vw;
@@ -227,6 +301,70 @@ body{
                     width: 5vw;
                     height: 7vh;
                     cursor: pointer;
+                }
+            }
+
+            .proprietorContainer{
+              color: rgb(187, 255, 255);
+            }
+
+            .proprietorContainer:hover{
+                color: white;
+            }
+
+            .propAndStuContainer{
+                transform: translateY(28vh)
+            }
+            .propAndStuLine{
+                height: 2px
+            }
+
+            .proprietorText{
+                font-family: "serif",
+            }
+            @media screen and (max-width : "376px"){
+                .propAndStuContainer{
+                    transform:translateY(8vh)
+                }
+                .proprietorContainer{
+                    height: fit-content;
+                    width: fit-content;
+                    border-width : 4px;
+                    padding-left: 0.6rem;
+                }
+    
+                .studentContainer{
+                    width: fit-content;
+                    height: fit-content;
+                    border-width : 4px;
+                    padding-left: 0.6rem;
+                }
+
+                .proprietorText{
+                    font-size: 1rem;
+                    font-weight: 700;
+                    line-height: 1.3rem;
+                    color: rgb(126, 255, 255);
+                    text-shadow: 10px 10px 10px rgb(0,0,0,0.25);
+                }
+                .studentText{
+                    font-size: 1.2rem;
+                    line-height: 1.3rem;
+                }
+                .propAndStuTitle{
+                    font-size: 1.4rem;
+                    line-height: unset;
+                    bottom : 0;
+                    left : 1rem;
+                }
+                .gradCap{
+                    font-size : 2.3rem;
+                    left : 4rem;
+                    bottom : 0
+                }
+                .propAndStuLine{
+                    height: 1px;
+                    bottom : 2.1rem
                 }
             }
             
@@ -263,6 +401,8 @@ body{
                 }
             }
 
+         
+
             .show3rd{
                 background-image: url("../../Assets/Images/photo-happy-black-man-changed.jpg");
                 width: 20vw;
@@ -292,6 +432,35 @@ body{
                     width: 5vw;
                     height: 7vh;
                     cursor: pointer;
+                }
+            }
+
+            @media screen and (max-width : 376px) {
+                .show1st{
+                height: 55vh;
+                width: 10vw;
+                }
+                .changeshow1st{
+                    height: 55vh;
+                    width: 80vw;
+                }
+                .show2nd {
+                    width: 80vw;
+                    // background-size: contain;
+                    height: 55vh;
+                }
+                .changeshow2nd{
+                    // background-size: contain;
+                    width: 10vw;
+                    height: 55vh;
+                }
+                .show3rd{
+                height: 55vh;
+                width: 10vw;
+                }
+                .changeshow3rd{
+                height: 55vh;
+                width: 80vw;
                 }
             }
     }
