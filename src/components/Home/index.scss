@@ -69,6 +69,12 @@ body{
             height: 44vh;
             margin: 5.3rem auto;
         }
+        @media screen and (max-width:262px){
+            left: -1.3rem;
+            width: 86vw;
+            height: 44vh;
+            margin: 5.3rem auto;
+        }
     }
 
     .header-group{
@@ -111,6 +117,9 @@ body{
                             @media screen and (max-width : 326px) {
                                 font-size:7.5vh; 
                             }
+                            @media screen and (max-width : 362px) {
+                                font-size:6.7vh; 
+                            }
                         }
                         img{
                             width: 60px;
@@ -118,6 +127,10 @@ body{
                             @media screen and (max-width : 376px) {
                                 height: 50px;
                                 width: 43px; 
+                            }
+                            @media screen and (max-width : 262px) {
+                                height: 45px;
+                                width: 39px;
                             }
                         }
         
@@ -188,6 +201,11 @@ body{
                     font-size: 1.1rem;
                    } 
                 }
+                @media screen and (max-width:262px){
+                    h4{
+                     font-size: 0.9rem;
+                    } 
+                 }
               
                 .auto-1st{
                     color: white;
@@ -224,6 +242,29 @@ body{
                     opacity: 1;
                     transition: color 15s ease-in-out;
                 }
+                @media screen and (max-width:262px){
+                    .auto-1st{
+                        margin-right: 0.1rem;
+                    }
+                        .auto-2nd{
+                            margin-right: 0.1rem;
+                        }
+                        .auto-3rd{
+                            margin-right: 0.1rem;
+                        }
+                        .auto-4th{
+                            margin-right: 0.1rem;
+                        }
+                        .auto-5th{
+                            margin-right: 0.1rem;
+                        }
+                        .auto-6th{
+                            margin-right: 0.1rem;
+                        }
+                        .auto-7th{
+                            margin-right: 0.1rem;
+                        }
+                 }
 
                 .view-community{
                     z-index: 100;
