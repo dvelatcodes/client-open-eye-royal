@@ -62,6 +62,7 @@ body{
             width: 58vw;
             height: 44vh;
             margin: 5.3rem auto;
+            background-size: contain;
         }
         @media screen and (max-width:334px){
             left: -1.3rem;
@@ -175,10 +176,10 @@ body{
                 }
 
                 .auto-words{
-                    width: 55vw;
+                    width: fit-content;
                     height: 17vh;
                     display: flex;
-                    justify-content: space-around;
+                    // justify-content: space-around;
                     margin: auto;
                     align-items: center;
                 }
@@ -199,13 +200,12 @@ body{
                         height: 20vh;
                     }
                     .auto-words{
-                        position: relative;
+                        padding-top: 0.4rem;
                         flex-wrap: wrap;
-                        justify-content: space-around;
-                        width: fit-content;
+                        width: 70%;
+                        margin: auto;
                         height: fit-content;
-                        padding-top: 0.5rem;
-                        width: fit-content;
+                        line-height: 1.3rem;
                     }
                     h4{
                         font-size: 1.3rem;
@@ -232,36 +232,43 @@ body{
                 .auto-1st{
                     color: white;
                     opacity: 1;
+                    margin-right: 0.8rem;
                     transition: color 4s ease-in-out;
                 }
                 .auto-2nd{
                     color: white;
                     opacity: 1;
+                    margin-right: 0.8rem;
                     transition: color 6s ease-in-out;
                 }
                 .auto-3rd{
                     color: white;
                     opacity: 1;
+                    margin-right: 0.8rem;
                     transition: color 8s ease-in-out;
                 }
                 .auto-4th{
                     color: white;
                     opacity: 1;
+                    margin-right: 0.8rem;
                     transition: color 9s ease-in-out;
                 }
                 .auto-5th{
                     color: white;
                     opacity: 1;
+                    margin-right: 0.8rem;
                     transition: color 11s ease-in-out;
                 }
                 .auto-6th{
                     color: white;
                     opacity: 1;
+                    margin-right: 0.8rem;
                     transition: color 13s ease-in-out;
                 }
                 .auto-7th{
                     color: white;
                     opacity: 1;
+                    margin-right: 0.8rem;
                     transition: color 15s ease-in-out;
                 }
                 @media screen and (max-width:334px){
@@ -346,8 +353,9 @@ body{
                 @media screen and (max-width : 376px) {
                     .view-community{
                         left: 1rem;
-                        top: 2.5rem;
+                        top: 3.3rem;
                         width: fit-content;
+                        background-color: unset;
                     }
                     .view-community *{
                         height: fit-content;
@@ -469,7 +477,7 @@ body{
                     color : white;
                 }
                 .propAndStuTitle{
-                    font-size: 1.1rem;
+                    font-size:90%;
                     line-height: 1.5rem;
                     bottom : 0rem;
                     left : -1.9rem;
