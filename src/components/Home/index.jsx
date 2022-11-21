@@ -105,6 +105,7 @@ export default function Home() {
                 <h1>ROYAL</h1>
               </div>
             </div>
+            {/* There are other schools in Birmingham; Ulster University, Aston university, university of Wolverhampton, Coventry university, university of Birmingham et */}
             <div className="header-down">
               <div className="header-down-color"></div>
               <div className="auto-words">
@@ -131,7 +132,11 @@ export default function Home() {
             }
           >
             <div className="show1stbtn" onClick={changeFirst}>
-              {btnShow.firstbtn ? <MdZoomOut /> : <MdZoomIn />}
+              {btnShow.firstbtn ? (
+                <MdZoomOut id="zoomOut" />
+              ) : (
+                <MdZoomIn id="zoomIn" />
+              )}
             </div>
             {btnShow.firstbtn && (
               <div
@@ -149,10 +154,6 @@ export default function Home() {
                   >
                     <div
                       className={`w-fit h-fit text-4xl font-bold proprietorText`}
-                      style={{
-                        fontFamily: "revert-layer",
-                        // color: proprietorColor,
-                      }}
                     >
                       Proprietor ? <br />
                       Create School
@@ -168,7 +169,7 @@ export default function Home() {
                   >
                     <div
                       className={`w-fit h-fit text-4xl font-bold studentText`}
-                      style={{ color: studentColor }}
+                      // style={{ color: studentColor }}
                     >
                       Student ? <br />
                       Free Admission
@@ -200,14 +201,14 @@ export default function Home() {
           >
             <div className="show2ndbtn" onClick={changeSecond}>
               {btnShow.secondbtn ? (
-                <MdZoomIn className="text-yellow-100" />
+                <MdZoomIn className="text-yellow-100 zoomIn" />
               ) : (
-                <MdZoomOut className="text-yellow-100" />
+                <MdZoomOut className="text-yellow-100 zoomOut" />
               )}
             </div>
             {btnShow.secondbtn || (
               <div
-                className="top-40 right-40 -rotate-6 left-0 m-auto text-yellow-100 w-fit text-3xl font-extrabold italic absolute shadow-2xl cursor-pointer"
+                className="top-40 right-40 -rotate-6 left-0 m-auto text-yellow-100 w-fit text-3xl font-extrabold italic absolute shadow-2xl cursor-pointer exploreWords"
                 style={{ fontFamily: "cursive" }}
                 onClick={changeFirst}
               >
@@ -215,15 +216,12 @@ export default function Home() {
               </div>
             )}
             {btnShow.secondbtn || (
-              <div
-                className="bg-yellow-100 w-full absolute bottom-16"
-                style={{ height: "2px" }}
-              ></div>
+              <div className="bg-yellow-100 w-full absolute bottom-16 exploreLine"></div>
             )}
-            <SiDarkreader className="absolute bottom-4 left-10 text-5xl text-yellow-100" />
+            <SiDarkreader className="absolute bottom-4 left-10 text-5xl text-yellow-100 reader" />
             {btnShow.secondbtn || (
               <div
-                className="bottom-8 right-0 left-0 m-auto text-yellow-100 w-fit text-3xl font-extrabold italic absolute shadow-2xl"
+                className="bottom-8 right-0 left-0 m-auto text-yellow-100 w-fit text-3xl font-extrabold italic absolute shadow-2xl onlineCourses"
                 style={{ fontFamily: "cursive" }}
               >
                 Online Courses
@@ -236,18 +234,22 @@ export default function Home() {
             }
           >
             <div className="show3rdbtn" onClick={changeThird}>
-              {btnShow.thirdbtn ? <MdZoomOut /> : <MdZoomIn />}
+              {btnShow.thirdbtn ? (
+                <MdZoomOut className="zoomOut" />
+              ) : (
+                <MdZoomIn className="zoomIn" />
+              )}
             </div>
             {btnShow.thirdbtn && (
               <div
-                className="bg-fuchsia-500 w-full absolute bottom-16"
+                className="bg-fuchsia-500 w-full absolute bottom-16 tutorLine"
                 style={{ height: "2px" }}
               ></div>
             )}
-            <GiTeacher className="absolute bottom-4 left-10 text-5xl text-fuchsia-500" />
+            <GiTeacher className="absolute bottom-4 left-10 text-5xl text-fuchsia-500 tutorIcon" />
             {btnShow.thirdbtn && (
               <div
-                className="bottom-8 right-0 left-0 m-auto text-fuchsia-500 w-fit text-3xl font-bold absolute"
+                className="bottom-8 right-0 left-0 m-auto text-fuchsia-500 w-fit text-3xl font-bold absolute tutorWords"
                 style={{ fontFamily: "serif" }}
               >
                 Tutor
