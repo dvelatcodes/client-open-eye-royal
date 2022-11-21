@@ -63,6 +63,12 @@ body{
             height: 44vh;
             margin: 5.3rem auto;
         }
+        @media screen and (max-width:334px){
+            left: -1.3rem;
+            width: 68vw;
+            height: 44vh;
+            margin: 5.3rem auto;
+        }
         @media screen and (max-width:326px){
             left: -1.3rem;
             width: 70vw;
@@ -104,6 +110,9 @@ body{
                         display: flex;
                         width: fit-content;
                         margin: auto;
+                        @media screen and (max-width : 334px) {
+                            bottom: -0.6rem; 
+                        }
                         @media screen and (max-width : 326px) {
                             bottom: -0.8rem; 
                         }
@@ -114,10 +123,13 @@ body{
                             @media screen and (max-width : 376px) {
                                 font-size:10vh; 
                             }
+                            @media screen and (max-width: 334px) {
+                                font-size:7.5vh;
+                            }
                             @media screen and (max-width : 326px) {
                                 font-size:7.5vh; 
                             }
-                            @media screen and (max-width : 362px) {
+                            @media screen and (max-width : 262px) {
                                 font-size:6.7vh; 
                             }
                         }
@@ -127,6 +139,10 @@ body{
                             @media screen and (max-width : 376px) {
                                 height: 50px;
                                 width: 43px; 
+                            }
+                            @media screen and (max-width : 334px) {
+                                height: 45px;
+                                width: 39px;
                             }
                             @media screen and (max-width : 262px) {
                                 height: 45px;
@@ -196,6 +212,12 @@ body{
                         font-family: 'Times New Roman', Times, serif;
                     }
                 }
+                @media screen and (max-width:334px){
+                    h4{
+                     font-size: 1rem;
+                     justify-content: unset
+                    } 
+                 }
                 @media screen and (max-width:326px){
                    h4{
                     font-size: 1.1rem;
@@ -242,6 +264,29 @@ body{
                     opacity: 1;
                     transition: color 15s ease-in-out;
                 }
+                @media screen and (max-width:334px){
+                    .auto-1st{
+                        margin-right: 0.18rem;
+                    }
+                        .auto-2nd{
+                            margin-right: 0.18rem;
+                        }
+                        .auto-3rd{
+                            margin-right: 0.18rem;
+                        }
+                        .auto-4th{
+                            margin-right: 0.18rem;
+                        }
+                        .auto-5th{
+                            margin-right: 0.18rem;
+                        }
+                        .auto-6th{
+                            margin-right: 0.18rem;
+                        }
+                        .auto-7th{
+                            margin-right: 0.18rem;
+                        }
+                 }
                 @media screen and (max-width:262px){
                     .auto-1st{
                         margin-right: 0.1rem;
