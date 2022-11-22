@@ -19,6 +19,12 @@ body{
     display: flex;
     flex-direction: column;
     // justify-content: space-around;
+    // @media screen and (max-width : 376px) {
+    //     padding-bottom: 1rem;
+    // }
+    // @media screen and (max-width : 360px) {
+    //     padding-bottom: 1rem;
+    // }
 }
 
 .studentRegForm-li{
@@ -28,11 +34,25 @@ body{
     // justify-content: space-around;
     align-items: center;
     position: relative;
+    @media screen and (max-width : 376px) {
+        width: fit-content;   
+    }
+    @media screen and (max-width : 360px) {
+        width: fit-content;   
+    }
 
         label{
             width: 8vw;
             font-family: 'Times New Roman', Times, serif;
             font-size: 0.9rem;
+            @media screen and (max-width : 376px) {
+                width: 27vw;
+                font-size: 0.9rem;
+            }
+            @media screen and (max-width : 360px) {
+                width: 27vw;
+                font-size: 0.9rem;
+            }
         }
 
 }
@@ -43,6 +63,14 @@ body{
     right: 0;
     font-size: 1rem;
     font-weight: bold;
+    @media screen and (max-width : 376px) {
+        font-size: 0.8rem;
+        right: -2rem;
+    }
+    @media screen and (max-width : 360px) {
+        font-size: 0.8rem;
+        right: -2rem;
+    }
 }
 .red{
     color: rgb(249, 52, 52);
@@ -50,6 +78,14 @@ body{
     right: 0;
     font-size: 0.8rem;
     font-weight: bold;
+    @media screen and (max-width : 376px) {
+        font-size: 0.8rem;
+        right: -2rem;
+    }
+    @media screen and (max-width : 360px) {
+        font-size: 0.8rem;
+        right: -2rem;
+    }
 }
 
 .studentRegForm-li input{
@@ -59,6 +95,16 @@ body{
     border: 0.1px solid #777;
     border: 2.5px solid rgb(57, 192, 255);
     padding-left: 1.5rem;
+    @media screen and (max-width : 376px) {
+        font-size: 0.7rem;
+        width: 50vw;
+        height: 2.2rem;
+    }
+    @media screen and (max-width : 360px) {
+            font-size: 0.7rem;
+            width: 50vw;
+            height: 2.2rem;
+    }
 }
 
 .studentRegForm-li input:focus{
@@ -72,35 +118,55 @@ body{
     width: 10vw;
     // width: fit-content;
     align-items: center;
+    @media screen and (max-width : 376px) {
+        // font-size: 0.7rem;
+        width: 25vw;
+        // height: 2.2rem;
+    }
+    @media screen and (max-width : 360px) {
+            // font-size: 0.7rem;
+            width: 30vw;
+            // height: 2.2rem;
+    }
 }
 
 
-select{
-    width: 20vw;
-    height: 7vh;
-    border-radius: 7px;
-    padding-left: 1rem;
-    background-color: rgba(240, 240, 240, 0.221);
-    // color: rgb(255, 0, 43);
-    font-size: 1.2rem;
-    font-family: 'Times New Roman', Times, serif; 
-    font-weight: bold;
-    display: block;
-    cursor: pointer;
-}
-.schTypeOption{
-    color: white;
-    // background: rgb(255, 0, 81);
-    border-radius: 7px;
-    font-family: 'Times New Roman', Times, serif; 
-    font-weight: bold;
-    cursor: pointer;
-}
+// select{
+//     width: 20vw;
+//     height: 7vh;
+//     border-radius: 7px;
+//     padding-left: 1rem;
+//     background-color: rgba(240, 240, 240, 0.221);
+//     // color: rgb(255, 0, 43);
+//     font-size: 1.2rem;
+//     font-family: 'Times New Roman', Times, serif; 
+//     font-weight: bold;
+//     display: block;
+//     cursor: pointer;
+// }
+// .schTypeOption{
+//     color: white;
+//     // background: rgb(255, 0, 81);
+//     border-radius: 7px;
+//     font-family: 'Times New Roman', Times, serif; 
+//     font-weight: bold;
+//     cursor: pointer;
+// }
 
 .studentbtn{
     width: 12vw;
     height: 8vh;
     border: 3px solid white;
+    @media screen and (max-width : 376px) {
+            width: fit-content;
+            height: fit-content;
+            padding: 1rem 1rem 1rem 1rem;
+    }
+    @media screen and (max-width : 360px) {
+            width: fit-content;
+            height: fit-content;
+            padding: 1rem 1rem 1rem 1rem;
+    }
 }
 .studentbtn:hover{
 border-color: rgb(169, 255, 39);
@@ -112,6 +178,16 @@ color: rgb(169, 255, 39);
     height: 8vh;
     border: 3px solid rgb(169, 255, 39);
     color: rgb(169, 255, 39);
+    @media screen and (max-width : 376px) {
+        width: fit-content;
+        height: fit-content;
+        padding: 1rem 1rem 1rem 1rem;
+    }
+    @media screen and (max-width : 360px) {
+        width: fit-content;
+        height: fit-content;
+        padding: 1rem 1rem 1rem 1rem;
+    }
 }
 .studentbtn2:hover{
 border-color: white;

@@ -450,7 +450,7 @@ const PioneerRegPage = () => {
             </button>
             <button
               type="button"
-              className="studentbtn2 rounded-3xl mt-4 font-bold"
+              className=" rounded-3xl mt-4 font-bold btnToNavigateToLoginPioneer"
               style={{
                 cursor: cursorIsActive ? "not-allowed" : "pointer",
               }}

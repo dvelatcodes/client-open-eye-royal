@@ -139,17 +139,10 @@ export default function Home() {
               )}
             </div>
             {btnShow.firstbtn && (
-              <div
-                className="flex w-fit m-auto propAndStuContainer"
-                // style={{ transform: "translateY(28vh)" }}
-              >
+              <div className="flex w-fit m-auto propAndStuContainer">
                 <Link to="/pioneerReg">
                   <div
                     className="w-80 h-36 rounded-2xl flex justify-around items-center border-8 border-white hover:border-cyan-100 proprietorContainer"
-                    // onMouseEnter={() => setProprietorColor("white")}
-                    // onMouseLeave={() =>
-                    //   setProprietorColor("rgb(187, 255, 255)")
-                    // }
                     style={{ background: "rgba(165, 243, 252, 0.1)" }}
                   >
                     <div
