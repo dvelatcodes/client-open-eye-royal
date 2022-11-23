@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Navbar, ThemeSettings } from "../../components";
 import { Link } from "react-router-dom";
 import { useStateContext } from "../../contexts/ContextProvider";
@@ -14,8 +14,7 @@ import {
   getStudentForPioneerNow,
 } from "../../features/classSlice";
 import { useSelector, useDispatch } from "react-redux";
-
-import { useEffect } from "react";
+import "./pioneerSchool.scss";
 
 const PioneerSchool = () => {
   const {
@@ -26,6 +25,7 @@ const PioneerSchool = () => {
     currentMode,
   } = useStateContext();
 
+  const [pioneerName, setPioneerName] = useState(null);
   const [schName, setSchName] = useState("");
   const [classNum, setClassNum] = useState(0);
   const [teacherNum, setTeacherNum] = useState(0);
@@ -129,6 +129,8 @@ const PioneerSchool = () => {
         const schSection = year1 + "/" + year2;
         dispatch(getPioneerNigerClass({ _id, schSection }));
       }
+      const { firstName } = user;
+      setPioneerName(firstName);
     }
     if (user) {
       const { _id } = user;
@@ -143,21 +145,25 @@ const PioneerSchool = () => {
   return (
     <div className={currentMode === "Dark" ? "dark" : ""}>
       <div className="flex  bg-neutral-700 relative  dark:bg-main-dark-bg">
-        <DashboardFractionPioneer
-          activeMenu={activeMenu}
-          onClick={() => setThemeSettings(true)}
-        />
+        {themeSettings ? (
+          ""
+        ) : (
+          <DashboardFractionPioneer
+            activeMenu={activeMenu}
+            onClick={() => setThemeSettings(true)}
+          />
+        )}
         {themeSettings && <ThemeSettings />}
         <div
-          className={`dark:bg-main-dark-bg bg-main-bg w-full min-h-screen ${
+          className={`dark:bg-main-dark-bg bg-main-bg w-full min-h-screen pioneerSchoolContainer ${
             activeMenu ? "md:ml-0" : "flex-2"
           }`}
         >
-          <div className="fixed md:static inline-block bg-main-dark dark:bg-main-dark-bg navbar w-full">
-            <Navbar />
+          <div className="fixed md:static inline-block bg-main-dark dark:bg-main-dark-bg navbar w-full ">
+            {themeSettings ? "" : <Navbar name={pioneerName || ""} />}
           </div>
           <div>
-            <div className="m-auto relative top-12 w-screen md:w-800 sm:w-760">
+            <div className="m-auto relative top-12 w-screen md:w-800 sm:w-760 pioneerSchoolContent">
               <div className="flex w-full flex-wrap lg:flex-nowrap justify-center m-auto">
                 <div className="w-full">
                   <div className="flex m-1 w-full flex-wrap gap-1 justify-around items-center gap-y-4">
@@ -277,7 +283,7 @@ const PioneerSchool = () => {
                     </div>
                     {/* {Exam Result} */}
                     <div className="w-fit">
-                      <div className="bg-white dark:text-gray-200 w-full dark:bg-secondary-dark-bg md:w-56 p-4 pt-9 rounded-2xl flex justify-around flex-wrap shadow-xl">
+                      <div className="bg-white dark:text-gray-200 w-full dark:bg-secondary-dark-bg md:w-56 p-4 pt-9 rounded-2xl flex justify-around flex-wrap shadow-xl examBox">
                         <div className="w-3/6">
                           <button
                             type="button"

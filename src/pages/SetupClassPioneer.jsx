@@ -6,6 +6,7 @@ import { SiGoogleclassroom } from "react-icons/si";
 import { Navbar, ThemeSettings } from "../components";
 import { DashboardFractionPioneer } from "../Dashboard";
 import { useNavigate } from "react-router-dom";
+import "./setup-classPioneer.scss";
 
 const SetupClassPioneer = () => {
   // my contexts
@@ -56,6 +57,7 @@ const SetupClassPioneer = () => {
       link: "/setup-classPioneer/generalclass/sss3",
     },
   ]);
+  const [pioneerName, setPioneerName] = useState(null);
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (!user.schoolName) {
@@ -66,17 +68,29 @@ const SetupClassPioneer = () => {
       alert("Unauthorized, Please SignUP/SignIn AS A Proprietor");
       navigate("/");
     }
+    if (user) {
+      const { firstName } = user;
+      setPioneerName(firstName);
+    }
   }, []);
   return (
     <div
-      className={currentMode === "Dark" ? "dark" : ""}
+      className={
+        currentMode === "Dark"
+          ? "dark setupClassPioneerParentContainer"
+          : "setupClassPioneerParentContainer"
+      }
       style={{ height: "max-content", minHeight: "100vh" }}
     >
       <div className="flex min-h-screen h-fit  bg-neutral-700 relative  dark:bg-main-dark-bg">
-        <DashboardFractionPioneer
-          activeMenu={activeMenu}
-          onClick={() => setThemeSettings(true)}
-        />
+        {themeSettings ? (
+          ""
+        ) : (
+          <DashboardFractionPioneer
+            activeMenu={activeMenu}
+            onClick={() => setThemeSettings(true)}
+          />
+        )}
         {themeSettings && <ThemeSettings />}
         <div
           className={`dark:bg-main-dark-bg bg-main-bg w-full min-h-screen h-fit ${
@@ -84,15 +98,12 @@ const SetupClassPioneer = () => {
           }`}
         >
           <div className="fixed md:static inline-block bg-main-dark dark:bg-main-dark-bg navbar w-full">
-            <Navbar />
+            {themeSettings ? "" : <Navbar name={pioneerName || ""} />}
           </div>
-          <div
-            className="md:w-800 md:mt-7 sm:mt-7 sm:w-760 lg:w-full relative flex justify-around flex-wrap content-around"
-            style={{ minHeight: "70vh" }}
-          >
+          <div className="md:w-800 md:mt-7 sm:mt-7 sm:w-760 lg:w-full relative flex justify-around flex-wrap content-around setupClassPioneerChildContainer">
             {classData.map((data, index) => (
               <div
-                className="min-h-fit h-40 w-1/4 bg-white rounded-xl dark:bg-gray-50 ml-5 shadow-xl"
+                className="min-h-fit h-40 w-1/4 bg-white rounded-xl dark:bg-gray-50 ml-5 shadow-xl setupClassPioneerBox"
                 key={index}
               >
                 <div className="w-full flex justify-around h-3/5 items-center">

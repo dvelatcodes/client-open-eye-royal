@@ -1,0 +1,41 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+@media screen and (max-width: 376px) {
+    .pioneerSchoolContainer{
+        min-height: 100vh;
+        width: fit-content;
+        height: fit-content;
+        padding-right: 1rem;
+        padding-bottom: 4rem;
+    }
+
+    .pioneerSchoolContent{
+        margin-top: 1.3rem;
+    }
+    .examBox{
+        width: 12.3rem;
+        padding-top: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .pioneerSchoolContainer{
+        min-height: 100vh;
+        width: fit-content;
+        height: fit-content;
+        padding-right: 1rem;
+        padding-bottom: 4rem;
+    }
+
+    .pioneerSchoolContent{
+        margin-top: 1.3rem;
+    }
+    .examBox{
+        width: 12.3rem;
+        padding-top: 1.5rem;
+    }
+}

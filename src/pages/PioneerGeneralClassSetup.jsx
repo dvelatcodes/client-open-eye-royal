@@ -20,6 +20,7 @@ import { Navbar, ThemeSettings } from "../components";
 import { Button } from "../components";
 import { DashboardFractionPioneer } from "../Dashboard";
 import { icons } from "react-icons/lib";
+import "./setupClassPioneerGeneralClass.scss";
 
 const PioneerGeneralClassSetup = () => {
   // my contexts
@@ -128,6 +129,7 @@ const PioneerGeneralClassSetup = () => {
   // get default classes
   // get default classes
   const [classData, setClassData] = useState([]);
+  const [pioneerName, setPioneerName] = useState(null);
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (!user.schoolName) {
@@ -137,6 +139,10 @@ const PioneerGeneralClassSetup = () => {
     if (!user) {
       alert("Unauthorized, Please SignUP/SignIn AS A Proprietor");
       navigate("/");
+    }
+    if (user) {
+      const { firstName } = user;
+      setPioneerName(firstName);
     }
     const defaultClasses = JSON.parse(localStorage.getItem("defaultclasses"));
 
@@ -238,16 +244,20 @@ const PioneerGeneralClassSetup = () => {
   return (
     <div
       className={currentMode === "Dark" ? "dark" : ""}
-      style={{ height: "max-content", minHeight: "100vh" }}
+      style={{ height: "fit-content", minHeight: "100vh" }}
     >
       <div
         className="flex min-h-screen h-fit  bg-neutral-700 relative  dark:bg-main-dark-bg"
         // style={{ height: "150vh" }}
       >
-        <DashboardFractionPioneer
-          activeMenu={activeMenu}
-          onClick={() => setThemeSettings(true)}
-        />
+        {themeSettings ? (
+          ""
+        ) : (
+          <DashboardFractionPioneer
+            activeMenu={activeMenu}
+            onClick={() => setThemeSettings(true)}
+          />
+        )}
         {themeSettings && <ThemeSettings />}
         <div
           className={`dark:bg-main-dark-bg bg-main-bg w-full min-h-screen h-fit ${
@@ -255,17 +265,17 @@ const PioneerGeneralClassSetup = () => {
           }`}
         >
           <div className="fixed md:static inline-block bg-main-dark dark:bg-main-dark-bg navbar w-full">
-            <Navbar />
+            {themeSettings ? "" : <Navbar name={pioneerName || ""} />}
           </div>
           <p
-            className="academic-title w-fit m-auto font-medium"
+            className="academic-title w-fit m-auto font-bold academicSession"
             style={{ color: currentMode === "Dark" ? "white" : "black" }}
           >
             Current Academic Session
           </p>
-          <div className="student-year-container bg-main-bg w-fit m-auto top-2 shadow-md rounded-lg">
+          <div className="student-year-container bg-main-bg w-fit m-auto top-2 shadow-md rounded-lg calenderContainer">
             <p className="initial-academic-Session w-2/4 flex justify-around">
-              <label htmlFor="academic-Session" className="to mr-1">
+              <label htmlFor="academic-Session" className="to mr-1 font-bold">
                 From
               </label>
               <input
@@ -284,7 +294,7 @@ const PioneerGeneralClassSetup = () => {
             <p className="end-academic-Session mr-7 flex justify-around">
               <label
                 htmlFor="end-academic-Session"
-                className="to ml-3 mr-2 md:ml-6 sm:ml-9 inline-block"
+                className="to ml-3 mr-2 md:ml-6 sm:ml-9 inline-block font-bold"
               >
                 To
               </label>
@@ -301,20 +311,21 @@ const PioneerGeneralClassSetup = () => {
                 style={{ paddingLeft: "0.5rem", minWidth: "4rem" }}
               />
             </p>
-            <span
-              className={stEleven ? "green" : "red"}
-              style={{ display: display11, marginLeft: "5rem" }}
-            >
-              {stEleven ? "valid" : "invalid"}
-            </span>
+            {activeMenu ? (
+              ""
+            ) : (
+              <span
+                className={stEleven ? "green checkDate" : "red checkDate"}
+                // style={{ display: display11, marginLeft: "2rem" }}
+              >
+                {stEleven ? "valid" : "invalid"}
+              </span>
+            )}
           </div>
-          <div
-            className="md:w-800 md:mt-7 sm:mt-7 sm:w-760 lg:w-full relative flex justify-around flex-wrap content-around h-fit"
-            style={{ minHeight: "80vh" }}
-          >
+          <div className="md:w-800 md:mt-7 sm:mt-7 sm:w-760 lg:w-full relative flex justify-around flex-wrap content-around h-fit pioneerGeneralClassSetupBoxContainer">
             {classData.map((data, index) => (
               <div
-                className="h-fit pt-7 pb-2 w-1/4 bg-white rounded-xl dark:bg-gray-50 ml-5 shadow-xl"
+                className="pioneerGeneralClassSetupBoxes h-fit pt-7 pb-2 w-1/4 bg-white rounded-xl dark:bg-gray-50 ml-5 shadow-xl"
                 key={index}
                 style={{ minHeight: "10rem" }}
               >
@@ -366,16 +377,7 @@ const PioneerGeneralClassSetup = () => {
                   <p style={{ fontFamily: "cursive" }}>Subjects</p>
                 </div>
                 {showSubjects === data._id && (
-                  <div
-                    className="w-screen left-0 pb-5 bottom-0 absolute bg-main-bg right-0 dark:bg-main-dark-bg pt-8"
-                    style={{
-                      top: "-5rem",
-                      zIndex: "20",
-                      minHeight: "100vh",
-                      height: "fit-content",
-                      maxWidth: "1440px",
-                    }}
-                  >
+                  <div className="w-screen left-0 pb-5 bottom-0 absolute bg-main-bg right-0 dark:bg-main-dark-bg pt-8 showSubjectsContainer">
                     <FaEyeSlash
                       className="h-7 w-fit hover:h-8 cursor-pointer m-auto"
                       onClick={() => {
@@ -388,19 +390,19 @@ const PioneerGeneralClassSetup = () => {
                     />
                     {data.subjects.map((subject) => (
                       <div
-                        className="flex h-14 flex-wrap w-fit justify-between items-center bg-main-bg m-auto dark:bg-main-dark-bg"
+                        className="flex h-14 flex-wrap w-fit justify-between items-center bg-main-bg m-auto dark:bg-main-dark-bg editSubject"
                         key={subject.id}
                         style={{ minWidth: "50%" }}
                       >
                         <p
                           style={{ fontFamily: "cursive" }}
-                          className="relative  text-orange font-semibold text-xl dark:text-white"
+                          className="relative  text-orange font-semibold text-xl dark:text-white subjectName"
                         >
                           {subject.subName}
                         </p>
                         <div className="w-fit">
                           <RiDeleteBin6Line
-                            className="text-2xl h-5 w-fit hover:h-6 pl-3 pr-3 text-red-600 inline-block cursor-pointer"
+                            className="text-2xl h-5 w-fit hover:h-6 pl-3 pr-3 text-red-600 inline-block cursor-pointer subjectDelete"
                             onClick={() => {
                               deleteSub(subject.id);
                             }}
@@ -437,7 +439,7 @@ const PioneerGeneralClassSetup = () => {
                             </div>
                           ) : (
                             <ImPencil2
-                              className="text-2xl h-5 w-fit hover:h-6 pl-3 cursor-pointer pr-3 inline-block"
+                              className="text-2xl h-5 w-fit hover:h-6 pl-3 cursor-pointer pr-3 inline-block subjectEdit"
                               onClick={() => setEditSubject(subject.id)}
                               style={{
                                 color:
