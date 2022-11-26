@@ -1,0 +1,62 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.currentAcademicSession{
+    font-weight: bold;
+}
+
+.startEnd{
+    margin-top: 1rem;
+    width: 10vw;
+    display: flex;
+    justify-content: space-around;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.singleClassBoxCover{
+    min-height: 60vh;
+    height: fit-content;
+    padding-bottom: 3rem;
+}
+
+.singleClassBox{
+    min-height: 10rem;
+}
+
+@media screen and (max-width : 376px) {
+    .currentAcademicSession{
+        margin-top: 3.4rem;
+    }
+    .startEnd{
+        width: fit-content;
+        margin-top: 0.5rem;
+    }
+    .singleClassBoxCover{
+        padding-right: 1rem;
+    }
+    .singleClassBox{
+        width: 60vw;
+        margin-top: 1rem;
+    }
+}
+
+@media screen and (max-width : 360px) {
+    .currentAcademicSession{
+        margin-top: 3.4rem;
+    }
+    .startEnd{
+        width: fit-content;
+        margin-top: 0.5rem;
+    }
+    .singleClassBoxCover{
+        padding-right: 1rem;
+    }
+    .singleClassBox{
+        width: 60vw;
+        margin-top: 1rem;
+    }
+}

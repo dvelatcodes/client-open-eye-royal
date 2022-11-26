@@ -1,0 +1,54 @@
+*{
+    padding : 0;
+    margin : 0;
+    box-sizing : border-box
+}
+
+.allClassesContainer{
+min-height: 90vh;
+height: fit-content;
+}
+@media screen and (max-width : 376px) {
+    .allClassesContainer{
+        flex-direction: column;
+        margin-top: 2.4rem;
+        padding-right: 1rem;
+    }
+    .allClassesContainerSingleClass{
+        width: 52vw;
+    }
+    .generateTimetableContainer{
+        width: 52vw;
+        height: 13rem;
+    }
+}
+@media screen and (max-width : 360px) {
+    .allClassesContainer{
+        flex-direction: column;
+        margin-top: 2.4rem;
+        padding-right: 1rem;
+    }
+    .allClassesContainerSingleClass{
+        width: 52vw;
+    }
+    .generateTimetableContainer{
+        width: 52vw;
+        height: 13rem;
+    }
+    .pioneerGenerateCover{
+        min-width: 100vh;
+        min-height: 370vh;
+        height: fit-content;
+        width: fit-content;
+        padding: 2rem 14rem 15rem 5rem;
+        margin-top: 0;
+    }
+    #sidebarpioneer{
+        position: absolute;
+        z-index: 1;
+    }
+    #navbarPioneer{
+        position: absolute;
+        z-index: 1;
+    }
+}

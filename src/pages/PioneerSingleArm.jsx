@@ -15,17 +15,19 @@ import { BiNotepad } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import { BiLeftArrow } from "react-icons/bi";
 import { Link } from "react-router-dom";
-import { ImPencil2 } from "react-icons/im";
+// import { ImPencil2 } from "react-icons/im";
 import { toast } from "react-toastify";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { GrEdit } from "react-icons/gr";
+// import { GrEdit } from "react-icons/gr";
 import { GiCheckMark } from "react-icons/gi";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { SiGoogleclassroom } from "react-icons/si";
 import { Navbar, ThemeSettings } from "../components";
-import { Button } from "../components";
+// import { Button } from "../components";
 import { DashboardFractionPioneer } from "../Dashboard";
-import { icons } from "react-icons/lib";
+// import { icons } from "react-icons/lib";
+import "./pioneerSingleArm.scss";
+// import { set } from "immer/dist/internal";
 
 const PioneerSingleArm = () => {
   // my contexts
@@ -99,7 +101,7 @@ const PioneerSingleArm = () => {
     }
     if (isError) {
       toast.error(message);
-      console.log("error");
+      // console.log("error");
     }
     dispatch(reset());
   }, [
@@ -120,6 +122,7 @@ const PioneerSingleArm = () => {
     endYear: "",
   });
   const { startYear, endYear } = year;
+  const [pioneerName, setPioneerTitle] = useState(null);
   // fetching pioneer class data from db and local storage
   // fetching pioneer class data from db and local storage
   useEffect(() => {
@@ -142,6 +145,8 @@ const PioneerSingleArm = () => {
           const schSection = year1 + "/" + year2;
           pioneerClass || dispatch(getPioneerNigerClass({ _id, schSection }));
         }
+        const { firstName } = user;
+        setPioneerTitle(firstName);
       }
       pioneerClass &&
         setClassNum(
@@ -192,10 +197,14 @@ const PioneerSingleArm = () => {
         className="flex min-h-screen h-fit  bg-neutral-700 relative  dark:bg-main-dark-bg"
         // style={{ height: "150vh" }}
       >
-        <DashboardFractionPioneer
-          activeMenu={activeMenu}
-          onClick={() => setThemeSettings(true)}
-        />
+        {themeSettings ? (
+          ""
+        ) : (
+          <DashboardFractionPioneer
+            activeMenu={activeMenu}
+            onClick={() => setThemeSettings(true)}
+          />
+        )}
         {themeSettings && <ThemeSettings />}
         <div
           className={`dark:bg-main-dark-bg bg-main-bg w-full min-h-screen h-fit ${
@@ -203,7 +212,7 @@ const PioneerSingleArm = () => {
           }`}
         >
           <div className="fixed md:static inline-block bg-main-dark dark:bg-main-dark-bg navbar w-full">
-            <Navbar />
+            {themeSettings ? "" : <Navbar name={pioneerName || ""} />}
           </div>
           {values ? (
             showTimetable && timetable ? (
@@ -425,27 +434,23 @@ const PioneerSingleArm = () => {
           ) : (
             <>
               <p
-                className="academic-title w-fit m-auto font-medium"
+                className="academic-title w-fit m-auto font-medium currentAcademicSession"
                 style={{ color: currentMode === "Dark" ? "white" : "black" }}
               >
                 Current Academic Session
               </p>
-              <div className="student-year-container bg-main-bg w-fit m-auto top-2 shadow-md rounded-lg">
+              <div className="student-year-container bg-main-bg w-fit m-auto top-2 shadow-md rounded-lg startEnd">
                 <p style={{ fontFamily: "serif" }}>{startYear}</p>
                 <p className="ml-7" style={{ fontFamily: "serif" }}>
                   {endYear}
                 </p>
               </div>
-              <div
-                className="md:w-800 md:mt-2 sm:mt-2 sm:w-760 lg:w-full relative flex justify-around flex-wrap content-around h-fit"
-                style={{ minHeight: "90vh" }}
-              >
+              <div className="md:w-800 md:mt-2 sm:mt-2 sm:w-760 lg:w-full relative flex justify-around flex-wrap content-around h-fit singleClassBoxCover">
                 {classNum &&
                   classNum.map((num) => (
                     <div
-                      className="h-fit pt-7 pb-2 w-1/4 bg-white rounded-2xl dark:bg-gray-50 ml-5 shadow-xl"
+                      className="h-fit pt-7 pb-2 w-1/4 bg-white rounded-2xl dark:bg-gray-50 ml-5 shadow-xl singleClassBox"
                       key={num._id}
-                      style={{ minHeight: "10rem" }}
                     >
                       <div className="w-full flex flex-wrap justify-around h-3/5 items-center">
                         <SiGoogleclassroom

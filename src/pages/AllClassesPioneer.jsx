@@ -15,6 +15,7 @@ import { BiNotepad } from "react-icons/bi";
 import { useStateContext } from "../contexts/ContextProvider";
 import { DashboardFractionPioneer } from "../Dashboard";
 import { useNavigate } from "react-router-dom";
+import "./allclassespioneer.scss";
 
 const AllClassesPioneer = () => {
   const {
@@ -264,6 +265,9 @@ const AllClassesPioneer = () => {
   // pioneer class data
   // pioneer class data
   const [classData, setClassData] = useState(null);
+  // pioneerName
+  // pioneerName
+  const [pioneerName, setPioneerName] = useState(null);
   // fetching pioneer class data from db and local storage
   // fetching pioneer class data from db and local storage
   useEffect(() => {
@@ -276,6 +280,8 @@ const AllClassesPioneer = () => {
         const schSection = year1 + "/" + year2;
         dispatch(getPioneerNigerClass({ _id, schSection }));
       }
+      const { firstName } = user;
+      setPioneerName(firstName);
     }
     if (!user) {
       alert("Unauthorized, Please Sign-up or Login");
@@ -3219,23 +3225,34 @@ const AllClassesPioneer = () => {
   return (
     <div className={currentMode === "Dark" ? "dark" : ""}>
       <div className="flex  bg-neutral-700 relative  dark:bg-main-dark-bg">
-        <DashboardFractionPioneer
-          activeMenu={activeMenu}
-          onClick={() => setThemeSettings(true)}
-        />
+        {themeSettings ? (
+          ""
+        ) : (
+          <span id="sidebarpioneer">
+            <DashboardFractionPioneer
+              activeMenu={activeMenu}
+              onClick={() => setThemeSettings(true)}
+            />
+          </span>
+        )}
         {themeSettings && <ThemeSettings />}
         <div
           className={`dark:bg-main-dark-bg bg-main-bg w-full min-h-screen ${
             activeMenu ? "md:ml-0" : "flex-2"
           }`}
         >
-          <div className="fixed md:static inline-block bg-main-dark dark:bg-main-dark-bg navbar w-full">
-            <Navbar />
+          <div
+            className="fixed md:static inline-block bg-main-dark dark:bg-main-dark-bg navbar w-full"
+            id="navbarPioneer"
+          >
+            {themeSettings ? "" : <Navbar name={pioneerName || ""} />}
           </div>
           {classData ? (
             showTimetable ? (
               <div
-                className=" md:mt-2 sm:mt-2 lg:w-full absolute top-0 bottom-0 right-0 left-0 h-fit dark:bg-main-dark-bg bg-main-bg z-20 pb-60"
+                className=" md:mt-2 sm:mt-2 lg:w-full absolute top-0 bottom-0 right-0 left-0 h-fit 
+                dark:bg-main-dark-bg
+                 bg-main-bg z-20 pb-60 pioneerGenerateCover"
                 style={{
                   // minHeight: "200vh",
                   background:
@@ -6140,13 +6157,10 @@ const AllClassesPioneer = () => {
                 )}
               </div>
             ) : (
-              <div
-                className="md:w-800  sm:w-760 lg:w-full relative flex justify-around flex-wrap content-around"
-                style={{ minHeight: "90vh" }}
-              >
+              <div className="md:w-800  sm:w-760 lg:w-full relative flex justify-around flex-wrap content-around allClassesContainer">
                 {classData.map((data, index) => (
                   <div
-                    className="min-h-fit h-40 w-1/4 bg-white rounded-xl dark:bg-gray-50 ml-5 shadow-xl"
+                    className="min-h-fit h-40 w-1/4 bg-white rounded-xl dark:bg-gray-50 ml-5 shadow-xl allClassesContainerSingleClass"
                     key={index}
                   >
                     <div className="w-full flex justify-around h-3/5 items-center">
@@ -6171,7 +6185,7 @@ const AllClassesPioneer = () => {
                     </Link>
                   </div>
                 ))}
-                <div className="min-h-fit h-40 w-1/4 bg-green-500 rounded-xl ml-5 shadow-xl">
+                <div className="min-h-fit h-40 w-1/4 bg-green-500 rounded-xl ml-5 shadow-xl generateTimetableContainer">
                   <div className="w-full flex justify-around h-3/5 items-center">
                     <BiNotepad
                       className="drop-shadow-xl bg-green-400 text-2xl w-fit p-2 rounded-md text-black h-12 hover:h-14 cursor-pointer"

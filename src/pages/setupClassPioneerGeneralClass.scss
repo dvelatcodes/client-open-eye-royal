@@ -40,6 +40,22 @@ right: 15rem;
     .pioneerGeneralClassSetupBoxes{
         width: 55vw;
     }
+    .showSubjectsContainer{
+        padding-top: 0;
+        min-height: 202vh;
+    }
+    .editSubject{
+        width: fit-content;
+        min-width: 100vw;
+    }
+    .subjectName{
+        font-size: 1rem;
+    }
+    .subjectEdit{
+        font-size: 1rem;
+        padding-left: 0.6rem;
+        height: fit-content;
+    }
 }
 @media screen and (max-width : 360px) {
     .academicSession{
@@ -59,8 +75,6 @@ right: 15rem;
         width: 55vw;
     }
     .showSubjectsContainer{
-        // width: fit-content;
-        // min-width: 100vw;
         padding-top: 0;
         min-height: 202vh;
     }

@@ -118,11 +118,10 @@ const PioneerGeneralClassSetup = () => {
   useEffect(() => {
     if (isError) {
       toast.error(message);
-      console.log("error");
+      // console.log("error");
     }
     if (isSuccess) {
-      // navigate("/pioneerschool");
-      // console.log("success");
+      navigate("/pioneerschool");
     }
     dispatch(reset());
   }, [dispatch, reset, navigate, isSuccess, isError, isLoading, message]);
@@ -226,6 +225,10 @@ const PioneerGeneralClassSetup = () => {
     const { _id, schoolName } = JSON.parse(localStorage.getItem("user"));
     if (startOfAcademicYear === "" || endOfAcademicYear === "")
       return alert("Please Set Current Academic Session Before Saving Class");
+    if (startOfAcademicYear === endOfAcademicYear)
+      alert(
+        `Cannot Save Class "To" In The Academic Year Needs To Be Greater Than "From"`
+      );
     if (startOfAcademicYear < endOfAcademicYear) {
       // console.log(startOfAcademicYear + "/" + endOfAcademicYear);
       const info = {
@@ -318,7 +321,7 @@ const PioneerGeneralClassSetup = () => {
                 className={stEleven ? "green checkDate" : "red checkDate"}
                 // style={{ display: display11, marginLeft: "2rem" }}
               >
-                {stEleven ? "valid" : "invalid"}
+                {/* {stEleven ? "valid" : "invalid"} */}
               </span>
             )}
           </div>
@@ -462,7 +465,6 @@ const PioneerGeneralClassSetup = () => {
                     style={{ fontFamily: "cursive", background: currentColor }}
                     onClick={() => {
                       saveClass(data._id);
-                      navigate("/pioneerschool");
                     }}
                   >
                     Save
