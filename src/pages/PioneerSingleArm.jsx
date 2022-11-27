@@ -199,6 +199,8 @@ const PioneerSingleArm = () => {
       >
         {themeSettings ? (
           ""
+        ) : showTimetable ? (
+          ""
         ) : (
           <DashboardFractionPioneer
             activeMenu={activeMenu}
@@ -207,19 +209,18 @@ const PioneerSingleArm = () => {
         )}
         {themeSettings && <ThemeSettings />}
         <div
-          className={`dark:bg-main-dark-bg bg-main-bg w-full min-h-screen h-fit ${
+          className={`dark:bg-main-dark-bg bg-main-bg showSubjectContainer w-full min-h-screen h-fit ${
             activeMenu ? "md:ml-0" : "flex-2"
           }`}
         >
-          <div className="fixed md:static inline-block bg-main-dark dark:bg-main-dark-bg navbar w-full">
+          <div className="fixed md:static inline-block bg-main-dark dark:bg-main-dark-bg navbar w-full singleClassNav">
             {themeSettings ? "" : <Navbar name={pioneerName || ""} />}
           </div>
           {values ? (
             showTimetable && timetable ? (
               <div
-                className=" md:mt-2 sm:mt-2 lg:w-full absolute top-0 bottom-0 right-0 left-0 h-fit dark:bg-main-dark-bg bg-main-bg z-20"
+                className=" md:mt-2 sm:mt-2 lg:w-full absolute top-0 bottom-0 right-0 left-0 h-fit dark:bg-main-dark-bg bg-main-bg z-20 singleClassMainContainer"
                 style={{
-                  minHeight: "120vh",
                   background:
                     currentMode === "Light"
                       ? "rgb(250 251 251)"
@@ -228,8 +229,8 @@ const PioneerSingleArm = () => {
               >
                 {classType && (
                   <div
-                    className="m-auto relative top-9"
-                    style={{ width: "60%" }}
+                    className="m-auto relative top-9 singleClassTimetableContainer"
+                    // style={{ width: "60%" }}
                   >
                     <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl dark:text-white">
                       {nameClass}
@@ -245,7 +246,7 @@ const PioneerSingleArm = () => {
                       <BiLeftArrow className="absolute top-0 -left-24 right-0 bottom-0 m-auto w-fit" />
                       Go Back
                     </div>
-                    <div className="absolute -left-56 top-40 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold ">
+                    <div className="absolute -left-56 top-40 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold timetableSubject">
                       {classType &&
                         classType.map((subject) => (
                           <p
@@ -257,7 +258,7 @@ const PioneerSingleArm = () => {
                           </p>
                         ))}
                     </div>
-                    <table className="dark:bg-main-bg">
+                    <table className="dark:bg-main-bg singleClassTimetable">
                       <thead>
                         <tr>
                           {time.map((time, index) => (
@@ -345,7 +346,7 @@ const PioneerSingleArm = () => {
               showSubjects &&
               classType && (
                 <div
-                  className="m-auto relative top-9"
+                  className="m-auto relative top-9 showSubjectMainContainer"
                   style={{ width: "fit-content" }}
                 >
                   <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl dark:text-white">

@@ -258,7 +258,7 @@ const AllClassesPioneer = () => {
     }
     if (isError) {
       toast.error(message);
-      console.log("error");
+      // console.log("error");
     }
     dispatch(reset());
   }, [isSuccess, isError, isLoading, message, dispatch, reset]);

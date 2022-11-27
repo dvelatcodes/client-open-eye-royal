@@ -27,6 +27,14 @@
     min-height: 10rem;
 }
 
+.singleClassTimetableContainer{
+    width: 60%;
+}
+
+.singleClassMainContainer{
+    min-height: 120vh;
+}
+
 @media screen and (max-width : 376px) {
     .currentAcademicSession{
         margin-top: 3.4rem;
@@ -41,6 +49,27 @@
     .singleClassBox{
         width: 60vw;
         margin-top: 1rem;
+    }
+    .singleClassMainContainer{
+        min-height: 280vh;
+        width: fit-content;
+    }
+    .singleClassTimetableContainer{
+        width: fit-content;
+    }
+    .timetableSubject{
+        left: 12.3rem;
+        top: 35rem;
+    }
+    .singleClassTimetable{
+        width: fit-content;
+        width: 200vw;
+    }
+    .showSubjectContainer{
+        min-height: 120vh;
+    }
+    .showSubjectMainContainer{
+        margin-top: 1.6rem;
     }
 }
 
@@ -58,5 +87,26 @@
     .singleClassBox{
         width: 60vw;
         margin-top: 1rem;
+    }
+    .singleClassMainContainer{
+        min-height: 280vh;
+        width: fit-content;
+    }
+    .singleClassTimetableContainer{
+        width: fit-content;
+    }
+    .timetableSubject{
+        left: 12.3rem;
+        top: 35rem;
+    }
+    .singleClassTimetable{
+        width: fit-content;
+        width: 200vw;
+    }
+    .showSubjectContainer{
+        min-height: 120vh;
+    }
+    .showSubjectMainContainer{
+        margin-top: 1.6rem;
     }
 }
