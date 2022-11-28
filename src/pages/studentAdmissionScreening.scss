@@ -7,7 +7,11 @@
 .pickClassContainer{
     min-height: 70vh;
 }
-@media screen and (max-width : 360px) {
+.screeningContainer{
+    min-height: 70vh;
+}
+
+@media screen and (max-width : 376px) {
     .studentScreenContainer{
         width: fit-content;
     }
@@ -18,6 +22,7 @@
         margin-top: 2.8rem;
         font-size: 1.1rem;
         padding: 0 1rem 0 1rem;
+        font-family: 'Times New Roman', Times, serif;
     }
     .pickClassContainer{
         margin-top: 0;
@@ -32,5 +37,77 @@
     .pickClass{
         margin-left: 2.1rem;
         margin-top: 1.1rem;
+    }
+    .pickClassContainer{
+        width: fit-content;
+        margin: auto;
+    }
+    .studentScreeningQuestions{
+        padding-left: 1.5rem;
+        padding-right: 1rem;
+        width: fit-content;
+        min-width: 100vw;
+        margin-top: 3.5rem
+    }
+    .screeningContainer{
+        width: fit-content;
+        min-width: 100vw;
+    }
+    .showScreeningScoreContainer{
+        width: fit-content;
+        min-width: 100vw;
+        padding-left: 3rem;
+    }
+}
+
+@media screen and (max-width : 360px) {
+    .studentScreenContainer{
+        width: fit-content;
+    }
+    .studentScreenContainerRight{
+        min-height: 130vh;
+    }
+    .pickClassHeading{
+        margin-top: 2.8rem;
+        font-size: 1.1rem;
+        padding: 0 1rem 0 1rem;
+        font-family: 'Times New Roman', Times, serif;
+    }
+    .pickClassContainer{
+        margin-top: 0;
+        min-height: 50vh;
+    }
+    .pickClassBox{
+        width: 63vw;
+    }
+    .numberOfClasses{
+        margin-bottom: 0;
+    }
+    .pickClass{
+        margin-left: 2.1rem;
+        margin-top: 1.1rem;
+    }
+    .pickClassContainer{
+        width: fit-content;
+        margin: auto;
+    }
+    .studentScreeningQuestions{
+        padding-left: 1.5rem;
+        padding-right: 1rem;
+        width: fit-content;
+        min-width: 100vw;
+        margin-top: 3.5rem
+    }
+    .screeningContainer{
+        width: fit-content;
+        min-width: 100vw;
+    }
+    .showScreeningScoreContainer{
+        width: fit-content;
+        min-width: 100vw;
+        padding-left: 3rem;
+    }
+    .initialWelcome{
+        min-width: 100vw;
     }
 }

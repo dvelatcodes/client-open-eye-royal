@@ -128,7 +128,7 @@ const StudentAdmissionScreening = () => {
     },
     {
       question:
-        "To find out the truth about things scientist makes guesses and then puts them to the lest, and these guesses is called __ ",
+        "To find out the truth about things scientist makes guesses and then puts them to the test, and these guesses is called __ ",
       options: [
         { value: "hypothesis", checked: false },
         { value: "practical", checked: false },
@@ -161,7 +161,7 @@ const StudentAdmissionScreening = () => {
         { value: "na lie", checked: false },
         { value: "nor be magic na", checked: false },
         { value: "very true", checked: false },
-        { value: "", checked: false },
+        { value: "Maybe", checked: false },
       ],
     },
     {
@@ -380,7 +380,7 @@ const StudentAdmissionScreening = () => {
       setTimeout(() => {
         const info = {
           pioneerId: schoolStudentSelected,
-          studentId: user._id,
+          studentId: user.studentId,
           studentClass: studentPickedClass,
         };
         dispatch(studentAdmittedClass(info));
@@ -419,23 +419,25 @@ const StudentAdmissionScreening = () => {
           {showQuestions ? (
             <>
               <div
-                className="md:w-800 md:mt-7 sm:mt-7 sm:w-760 lg:w-full relative flex justify-around flex-wrap content-around"
-                style={{ minHeight: "70vh" }}
+                className="md:w-800 md:mt-7 sm:mt-7 sm:w-760 lg:w-full relative flex justify-around flex-wrap content-around screeningContainer"
+                // style={{ minHeight: "70vh" }}
               >
                 {showResult ? (
-                  <div className="m-auto top-0 relative w-fit h-fit">
-                    <p className="text-2xl font-bold">Your score is</p>
-                    <p className="text-2xl font-bold">
+                  <div className="m-auto top-0 relative w-fit h-fit showScreeningScoreContainer">
+                    <p className="text-2xl font-bold dark:text-white">
+                      Your score is
+                    </p>
+                    <p className="text-2xl font-bold dark:text-white">
                       {result.length} over 19
                     </p>
-                    <p>
+                    <p className="dark:text-white">
                       {result.length >= 9
                         ? "You Passed!, ....proceeding to school"
                         : "You failed!!!, you can rewrite test"}
                     </p>
                   </div>
                 ) : (
-                  <div className="m-auto w-fit h-fit">
+                  <div className="m-auto w-fit h-fit studentScreeningQuestions">
                     <div className="w-fit m-auto h-fit pl-4 pr-4 pt-4 pb-4 rounded-lg shadow-2xl bg-white">
                       <span
                         className="font-bold text-2xl"
@@ -453,7 +455,9 @@ const StudentAdmissionScreening = () => {
                     </div>
 
                     <div className="m-auto top-8 relative w-fit">
-                      {studentQuestions[runnerChecker].question}
+                      <span className="dark:text-white">
+                        {studentQuestions[runnerChecker].question}
+                      </span>
                       <ul>
                         {studentQuestions[runnerChecker].options.map(
                           (ans, index) => (
@@ -465,7 +469,7 @@ const StudentAdmissionScreening = () => {
                               <input
                                 type="radio"
                                 name="clicker"
-                                className="mr-2 w-8 h-9"
+                                className="mr-2 w-8 h-9 dark:text-white"
                                 checked={ans.checked}
                                 onChange={(e) => {
                                   studentQuestions[
@@ -484,7 +488,7 @@ const StudentAdmissionScreening = () => {
                                 }}
                               />
                               <div
-                                className="font-bold text-2xl"
+                                className="font-bold text-2xl dark:text-white"
                                 style={{ fontFamily: "serif" }}
                               >
                                 {ans.value}
@@ -515,7 +519,9 @@ const StudentAdmissionScreening = () => {
               </div>
             </>
           ) : schName === null ? (
-            <div className="m-auto w-fit">Please Refresh Page</div>
+            <div className="m-auto w-fit initialWelcome">
+              Please Refresh Page
+            </div>
           ) : (
             <>
               <div className="w-fit m-auto relative top-3 font-bold text-2xl pickClassHeading dark:text-white">

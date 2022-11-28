@@ -120,7 +120,7 @@ const StudentDashboard = () => {
           {schName === null ? (
             <>
               {myClass === null ? (
-                <div>Welcome Please Reload</div>
+                <div className="reloadPage">Welcome Please Reload</div>
               ) : (
                 <div className="w-fit m-auto relative top-3">
                   <div
@@ -157,7 +157,7 @@ const StudentDashboard = () => {
             </>
           ) : (
             <>
-              <div className="w-fit m-auto relative top-3 font-bold allSchoolsHeading">
+              <div className="w-fit m-auto relative top-3 font-bold allSchoolsHeading dark:text-white">
                 List Of All Registered Schools
               </div>
               <div
