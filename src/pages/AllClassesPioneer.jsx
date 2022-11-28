@@ -6157,6 +6157,11 @@ const AllClassesPioneer = () => {
                 )}
               </div>
             ) : (
+              //               [5:11 PM, 11/27/2022] Faith 5: You can check for openings in Bolt Tallinn
+              // [5:11 PM, 11/27/2022] Faith 5: Wise, Tallinn
+              // [5:11 PM, 11/27/2022] Faith 5: Veriff, Tallinn
+              // [5:11 PM, 11/27/2022] Faith 5: Yolo, Tallinn
+              // [5:11 PM, 11/27/2022] Faith 5: You can also check  Ericsson
               <div className="md:w-800  sm:w-760 lg:w-full relative flex justify-around flex-wrap content-around allClassesContainer">
                 {classData.map((data, index) => (
                   <div

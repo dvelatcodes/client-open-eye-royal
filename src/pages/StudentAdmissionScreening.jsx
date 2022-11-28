@@ -19,6 +19,7 @@ import {
   getAllPioneer,
   studentAdmittedClass,
 } from "../features/auth/authSlice";
+import "./studentAdmissionScreening.scss";
 
 const StudentAdmissionScreening = () => {
   // show questions
@@ -196,7 +197,7 @@ const StudentAdmissionScreening = () => {
       question: "The first stage of soil formation is accomplished by ____ ",
       options: [
         { value: "waethring process", checked: false },
-        { value: ") weathering process", checked: false },
+        { value: "weathering process", checked: false },
         { value: "withering process", checked: false },
         { value: "weuthering process", checked: false },
       ],
@@ -286,7 +287,9 @@ const StudentAdmissionScreening = () => {
     getQuestions,
     schName,
   ]);
-
+  // setStudentName
+  // setStudentName
+  const [studentName, setStudentName] = useState(null);
   // get getStudentScreenPioneer
   // get getStudentScreenPioneer
   useEffect(() => {
@@ -294,6 +297,8 @@ const StudentAdmissionScreening = () => {
     if (user) {
       dispatch(getAdminQuestions());
       dispatch(getStudentScreenPioneer({ schoolStudentSelected }));
+      const { studentFirstName } = user;
+      setStudentName(studentFirstName);
     }
     if (!user) {
       alert("Unauthorized, Please Sign-up or Login");
@@ -386,20 +391,30 @@ const StudentAdmissionScreening = () => {
     }
   }, [showResult]);
   return (
-    <div className={currentMode === "Dark" ? "dark" : ""}>
+    <div
+      className={
+        currentMode === "Dark"
+          ? "dark studentScreenContainer"
+          : "studentScreenContainer"
+      }
+    >
       <div className="flex  bg-neutral-700 relative  dark:bg-main-dark-bg">
-        <DashboardFractionStudent
-          activeMenu={activeMenu}
-          onClick={() => setThemeSettings(true)}
-        />
+        {themeSettings ? (
+          ""
+        ) : (
+          <DashboardFractionStudent
+            activeMenu={activeMenu}
+            onClick={() => setThemeSettings(true)}
+          />
+        )}
         {themeSettings && <ThemeSettings />}
         <div
-          className={`dark:bg-main-dark-bg bg-main-bg w-full min-h-screen ${
+          className={`dark:bg-main-dark-bg  bg-main-bg studentScreenContainerRight w-full min-h-screen ${
             activeMenu ? "md:ml-0" : "flex-2"
           }`}
         >
           <div className="fixed md:static inline-block bg-main-dark dark:bg-main-dark-bg navbar w-full">
-            <Navbar />
+            {themeSettings ? "" : <Navbar name={studentName || ""} />}
           </div>
           {showQuestions ? (
             <>
@@ -503,28 +518,28 @@ const StudentAdmissionScreening = () => {
             <div className="m-auto w-fit">Please Refresh Page</div>
           ) : (
             <>
-              <div className="w-fit m-auto relative top-3 font-bold text-2xl">
+              <div className="w-fit m-auto relative top-3 font-bold text-2xl pickClassHeading dark:text-white">
                 Pick desired Class and click Write test for{" "}
                 {schName && schName[0].schoolNaming} school
               </div>
               <div
-                className="md:w-800 md:mt-7 sm:mt-7 sm:w-760 lg:w-full relative flex justify-around flex-wrap content-around"
+                className="md:w-800 md:mt-7 sm:mt-7 sm:w-760 lg:w-full relative flex justify-around flex-wrap content-around pickClassContainer"
                 style={{ minHeight: "70vh" }}
               >
                 {schName && (
-                  <div className="h-fit w-fit bg-white rounded-xl dark:bg-gray-50 ml-5 shadow-xl pt-8 pb-8 pl-8 pr-8">
+                  <div className="h-fit w-fit bg-white pickClassBox rounded-xl dark:bg-gray-50 ml-5 shadow-xl pt-8 pb-8 pl-8 pr-8">
                     <div className="w-full flex justify-around h-3/5 items-center mb-4">
                       <SiGoogleclassroom className="hover:drop-shadow-xl text-2xl h-9 w-fit p-2 rounded-md bg-black dark:bg-black text-white" />
                       <p style={{ fontFamily: "cursive" }}>
                         {schName[0].schoolNaming}
                       </p>
                     </div>
-                    <div className="w-full flex justify-around h-fit items-center mb-4">
+                    <div className="w-full flex justify-around h-fit items-center mb-4 numberOfClasses">
                       <p style={{ fontFamily: "cursive" }}>{schName.length}</p>
                       <p style={{ fontFamily: "cursive" }}>Classes</p>
                     </div>
                     <select
-                      className="mb-4 hover:drop-shadow-xl dark:shadow-md"
+                      className="mb-4 hover:drop-shadow-xl dark:shadow-md pickClass"
                       onChange={(e) => {
                         setStudentPickedClass(e.target.value);
                       }}

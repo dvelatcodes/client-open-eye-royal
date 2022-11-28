@@ -1,0 +1,44 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+// .studentDashboardContainer{
+//     flex-direction: column;
+// }
+
+.studentDashboardAllClasses{
+    min-height: 70vh;
+}
+
+@media screen and (max-width : 376px) {
+    .studentDashboardMajorContainer{
+        width: fit-content;
+    }
+    .allSchoolsHeading{
+        margin-top: 2.5rem;
+    }
+    .studentDashboardAllClasses{
+        margin-top: 1.4rem;
+        height: fit-content;
+    }
+    .schoolBox{
+        width: 55vw;
+    }
+}
+@media screen and (max-width : 360px) {
+    .studentDashboardMajorContainer{
+        width: fit-content;
+    }
+    .allSchoolsHeading{
+        margin-top: 2.5rem;
+    }
+    .studentDashboardAllClasses{
+        margin-top: 1.4rem;
+        height: fit-content;
+    }
+    .schoolBox{
+        width: 55vw;
+    }
+}

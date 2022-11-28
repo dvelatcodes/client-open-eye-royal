@@ -17,6 +17,7 @@ import {
   getStudentSpecificClass,
   reset,
 } from "../../features/auth/authSlice";
+import "./studentDashboard.scss";
 
 const StudentDashboard = () => {
   const {
@@ -73,7 +74,7 @@ const StudentDashboard = () => {
     studentSpecificClass,
     studentTimetable,
   ]);
-
+  const [studentName, setStudentName] = useState(null);
   // get default classes
   // get default classes
   useEffect(() => {
@@ -87,6 +88,8 @@ const StudentDashboard = () => {
         const { pioneerId, studentClass } = user;
         dispatch(getStudentSpecificClass({ pioneerId, studentClass }));
       }
+      const { studentFirstName } = user;
+      setStudentName(studentFirstName);
     }
     if (!user) {
       alert("Unauthorized, Please Sign-up or Login");
@@ -96,19 +99,23 @@ const StudentDashboard = () => {
   // console.log(schName);
   return (
     <div className={currentMode === "Dark" ? "dark" : ""}>
-      <div className="flex  bg-neutral-700 relative  dark:bg-main-dark-bg">
-        <DashboardFractionStudent
-          activeMenu={activeMenu}
-          onClick={() => setThemeSettings(true)}
-        />
+      <div className="flex  bg-neutral-700 relative  dark:bg-main-dark-bg studentDashboardMajorContainer">
+        {themeSettings ? (
+          ""
+        ) : (
+          <DashboardFractionStudent
+            activeMenu={activeMenu}
+            onClick={() => setThemeSettings(true)}
+          />
+        )}
         {themeSettings && <ThemeSettings />}
         <div
-          className={`dark:bg-main-dark-bg bg-main-bg w-full min-h-screen ${
+          className={`studentDashboardContainer dark:bg-main-dark-bg bg-main-bg w-full min-h-screen ${
             activeMenu ? "md:ml-0" : "flex-2"
           }`}
         >
           <div className="fixed md:static inline-block bg-main-dark dark:bg-main-dark-bg navbar w-full">
-            <Navbar />
+            {themeSettings ? "" : <Navbar name={studentName} />}
           </div>
           {schName === null ? (
             <>
@@ -150,17 +157,17 @@ const StudentDashboard = () => {
             </>
           ) : (
             <>
-              <div className="w-fit m-auto relative top-3 font-bold">
+              <div className="w-fit m-auto relative top-3 font-bold allSchoolsHeading">
                 List Of All Registered Schools
               </div>
               <div
-                className="md:w-800 md:mt-7 sm:mt-7 sm:w-760 lg:w-full relative flex justify-around flex-wrap content-around"
-                style={{ minHeight: "70vh" }}
+                className="md:w-800 md:mt-7 sm:mt-7 sm:w-760 lg:w-full relative flex justify-around flex-wrap content-around studentDashboardAllClasses"
+                // style={{ minHeight: "70vh" }}
               >
                 {schName &&
                   schName.map((data) => (
                     <div
-                      className="min-h-fit h-40 w-1/4 bg-white rounded-xl dark:bg-gray-50 ml-5 shadow-xl mb-6"
+                      className="min-h-fit h-40 w-1/4 bg-white rounded-xl dark:bg-gray-50 ml-5 shadow-xl mb-6 schoolBox"
                       key={data._id}
                     >
                       <div className="w-full flex justify-around h-3/5 items-center">
