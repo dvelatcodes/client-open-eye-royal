@@ -194,7 +194,7 @@ const PioneerSingleArm = () => {
       style={{ height: "max-content", minHeight: "100vh" }}
     >
       <div
-        className="flex min-h-screen h-fit  bg-neutral-700 relative  dark:bg-main-dark-bg"
+        className="flex min-h-screen h-fit pioneerSingleStudentCover  bg-neutral-700 relative  dark:bg-main-dark-bg"
         // style={{ height: "150vh" }}
       >
         {themeSettings ? (
@@ -380,12 +380,12 @@ const PioneerSingleArm = () => {
               showStudents &&
               studentForPioneer && (
                 <div
-                  className="m-auto w-fit h-fit relative"
+                  className="m-auto w-fit h-fit relative checkNumberOfPioneerStudents"
                   style={{ width: "fit-content" }}
                 >
                   {studentForPioneer.map((data, index) => (
                     <div
-                      className="h-fit pt-9 pb-9 w-fit pl-8 pr-8 bg-white rounded-xl dark:bg-gray-50 m-auto shadow-2xl top-20 relative"
+                      className="h-fit pt-9 pb-9 w-fit pl-8 pr-8 bg-white rounded-xl dark:bg-gray-50 m-auto shadow-2xl top-20 relative checkNumberOfPioneerStudentsBox"
                       key={index}
                     >
                       <div className="w-full flex justify-around items-center mb-6">

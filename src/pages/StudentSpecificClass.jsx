@@ -10,6 +10,7 @@ import { ImBooks } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getStudentSpecificClass, reset } from "../features/auth/authSlice";
+import "./studentSpecificClass.scss";
 
 const StudentSpecificClass = () => {
   const {
@@ -53,7 +54,9 @@ const StudentSpecificClass = () => {
     reset,
     studentSpecificClass,
   ]);
-
+  // studentName
+  // studentName
+  const [studentName, setStudentName] = useState(null);
   // get default classes
   // get default classes
   useEffect(() => {
@@ -71,15 +74,21 @@ const StudentSpecificClass = () => {
         const { pioneerId, studentClass } = user;
         dispatch(getStudentSpecificClass({ pioneerId, studentClass }));
       }
+      const { studentFirstName } = user;
+      setStudentName(studentFirstName);
     }
   }, []);
   return (
-    <div className={currentMode === "Dark" ? "dark" : ""}>
-      <div className="flex  bg-neutral-700 relative  dark:bg-main-dark-bg">
-        <DashboardFractionStudent
-          activeMenu={activeMenu}
-          onClick={() => setThemeSettings(true)}
-        />
+    <div className={currentMode === "Dark" ? "dark heads" : " heads"}>
+      <div className="flex  bg-neutral-700 relative  dark:bg-main-dark-bg subHead">
+        {themeSettings ? (
+          ""
+        ) : (
+          <DashboardFractionStudent
+            activeMenu={activeMenu}
+            onClick={() => setThemeSettings(true)}
+          />
+        )}
         {themeSettings && <ThemeSettings />}
         <div
           className={`dark:bg-main-dark-bg bg-main-bg w-full min-h-screen ${
@@ -87,11 +96,11 @@ const StudentSpecificClass = () => {
           }`}
         >
           <div className="fixed md:static inline-block bg-main-dark dark:bg-main-dark-bg navbar w-full">
-            <Navbar />
+            {themeSettings ? "" : <Navbar name={studentName || ""} />}
           </div>
           {schName === null ? (
             <>
-              <div className="m-auto w-fit font-bold italic">
+              <div className="m-auto w-fit font-bold italic noClassMessage">
                 You Don't Have a Class Yet, Please Click on Available Schools
                 for Screening
               </div>

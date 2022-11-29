@@ -10,6 +10,7 @@ import { ImBooks } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getStudentTimetable, reset } from "../features/auth/authSlice";
+import "./studentSubjects.scss";
 
 const StudentSubjects = () => {
   const {
@@ -73,24 +74,34 @@ const StudentSubjects = () => {
     }
   }, []);
   return (
-    <div className={currentMode === "Dark" ? "dark" : ""}>
-      <div className="flex  bg-neutral-700 relative  dark:bg-main-dark-bg">
-        <DashboardFractionStudent
-          activeMenu={activeMenu}
-          onClick={() => setThemeSettings(true)}
-        />
+    <div
+      className={
+        currentMode === "Dark"
+          ? "dark studentSubjectMainContainer"
+          : " studentSubjectMainContainer"
+      }
+    >
+      <div className="flex  bg-neutral-700 relative  dark:bg-main-dark-bg studentSubjectContainer">
+        {themeSettings ? (
+          ""
+        ) : (
+          <DashboardFractionStudent
+            activeMenu={activeMenu}
+            onClick={() => setThemeSettings(true)}
+          />
+        )}
         {themeSettings && <ThemeSettings />}
         <div
-          className={`dark:bg-main-dark-bg bg-main-bg w-full min-h-screen ${
+          className={`dark:bg-main-dark-bg childContainer bg-main-bg w-full min-h-screen ${
             activeMenu ? "md:ml-0" : "flex-2"
           }`}
         >
           <div className="fixed md:static inline-block bg-main-dark dark:bg-main-dark-bg navbar w-full">
-            <Navbar name={userName} />
+            {themeSettings ? "" : <Navbar name={userName} />}
           </div>
           {schName === null ? (
             <>
-              <div className="m-auto w-fit font-bold italic">
+              <div className="m-auto w-fit font-bold italic noSubjectMessage">
                 You Don't Have a Class Yet, Please Click on Available Schools
                 for Screening
               </div>
@@ -98,7 +109,7 @@ const StudentSubjects = () => {
           ) : (
             <>
               <div
-                className="m-auto relative top-9"
+                className="m-auto relative top-9 subjectGrandParentContainer "
                 style={{ width: "fit-content" }}
               >
                 <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl dark:text-white">

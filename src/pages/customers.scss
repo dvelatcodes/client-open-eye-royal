@@ -1,0 +1,36 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.pioneerStudentsMain{
+    min-height: 100vh;
+    height: max-content;
+}
+
+@media screen and (max-width : "360px") {
+    // .pioneerStudentsMain{
+    //     min-height: 120vh;
+    //     height: fit-content;
+    //     overflow-y: hidden;
+
+    // }
+    .pioneerStudentsChildMain{
+        min-height: 100vh;
+        height: fit-content;
+        overflow-y: hidden;
+    }
+    .pioneerAdmittedStudentsContainer{
+        min-height: 100vh;
+        padding-bottom: 16rem;
+    }
+    .pioneerStudentBox{
+        padding-left: 1rem;
+        padding-right: 1rem;
+        margin-top: 2rem;
+    }
+    // .checker{
+    //     height: 70vh;
+    // }
+}

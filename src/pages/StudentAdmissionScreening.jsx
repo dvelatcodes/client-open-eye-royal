@@ -519,8 +519,10 @@ const StudentAdmissionScreening = () => {
               </div>
             </>
           ) : schName === null ? (
-            <div className="m-auto w-fit initialWelcome">
-              Please Refresh Page
+            <div className="w-screen">
+              <div className="m-auto w-fit initialWelcome">
+                Please Refresh Page
+              </div>
             </div>
           ) : (
             <>

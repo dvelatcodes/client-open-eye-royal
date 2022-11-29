@@ -1,0 +1,47 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+@media screen and (max-width : 376px) {
+    .studentSubjectMainContainer{
+        overflow-y: hidden;
+    }
+    .studentSubjectContainer{
+        width: fit-content;
+        min-height: 100vw;
+        overflow-y: hidden;
+    }
+    .childContainer{
+        width: fit-content;
+    }
+    .subjectGrandParentContainer{
+        top: 3.5rem;
+        min-width: 100vw;
+    }
+    .noSubjectMessage{
+        margin-top: 7rem;
+    }
+}
+
+@media screen and (max-width : 360px) {
+    .studentSubjectMainContainer{
+        overflow-y: hidden;
+    }
+    .studentSubjectContainer{
+        width: fit-content;
+        min-height: 100vw;
+        overflow-y: hidden;
+    }
+    .childContainer{
+        width: fit-content;
+    }
+    .subjectGrandParentContainer{
+        top: 3.5rem;
+        min-width: 100vw;
+    }
+    .noSubjectMessage{
+        margin-top: 7rem;
+    }
+}

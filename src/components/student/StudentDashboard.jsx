@@ -98,7 +98,10 @@ const StudentDashboard = () => {
   }, []);
   // console.log(schName);
   return (
-    <div className={currentMode === "Dark" ? "dark" : ""}>
+    <div
+      className={currentMode === "Dark" ? "dark" : ""}
+      style={{ overflowY: "hidden", height: "fit-content" }}
+    >
       <div className="flex  bg-neutral-700 relative  dark:bg-main-dark-bg studentDashboardMajorContainer">
         {themeSettings ? (
           ""
@@ -122,12 +125,11 @@ const StudentDashboard = () => {
               {myClass === null ? (
                 <div className="reloadPage">Welcome Please Reload</div>
               ) : (
-                <div className="w-fit m-auto relative top-3">
+                <div className="w-fit m-auto relative top-3 admittedStudentContainer">
                   <div
-                    className="w-fit m-auto relative top-10"
+                    className="w-fit m-auto relative top-10 studentWelcomeMessage"
                     style={{
                       fontFamily: "serif",
-                      fontSize: "2.3rem",
                       fontWeight: "bold",
                       color: currentColor,
                     }}

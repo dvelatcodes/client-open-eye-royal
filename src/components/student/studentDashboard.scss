@@ -4,12 +4,17 @@
     box-sizing: border-box;
 }
 
+
 // .studentDashboardContainer{
 //     flex-direction: column;
 // }
 
 .studentDashboardAllClasses{
     min-height: 70vh;
+}
+
+.studentWelcomeMessage{
+    font-size: 2.2rem;
 }
 
 @media screen and (max-width : 376px) {
@@ -30,8 +35,19 @@
     .schoolBox{
         width: 55vw;
     }
+    .admittedStudentContainer{
+        min-width: 100vw;
+        top: 4.5rem;
+    }
+    .studentWelcomeMessage{
+        font-size: 1.8rem;
+    }
 }
 @media screen and (max-width : 360px) {
+    // body{
+    //     min-height: 100vh;
+    //     height: fit-content;
+    // }
     .reloadPage{
         margin-top: 5rem;
         margin-left: 3.5rem;
@@ -42,6 +58,9 @@
     }
     .studentDashboardMajorContainer{
         width: fit-content;
+        min-height: 100vh;
+        height: fit-content;
+        overflow-y: hidden;
     }
     .allSchoolsHeading{
         margin-top: 2.7rem;
@@ -52,5 +71,12 @@
     }
     .schoolBox{
         width: 55vw;
+    }
+    .admittedStudentContainer{
+        min-width: 100vw;
+        top: 4.5rem;
+    }
+    .studentWelcomeMessage{
+        font-size: 1.8rem;
     }
 }

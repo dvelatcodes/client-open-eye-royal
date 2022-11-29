@@ -13,6 +13,7 @@ import { Navbar, ThemeSettings } from "../components";
 import { Button } from "../components";
 import { DashboardFractionPioneer } from "../Dashboard";
 import { icons } from "react-icons/lib";
+import "./customers.scss";
 
 const Customers = () => {
   // my contexts
@@ -60,6 +61,9 @@ const Customers = () => {
   useEffect(() => {
     localStorage.setItem("themeMode", currentMode);
   }, [currentMode]);
+  // setPioneerName
+  // setPioneerName
+  const [pioneerName, setPioneerName] = useState(null);
   // get timetable
   // get timetable
   useEffect(() => {
@@ -67,29 +71,41 @@ const Customers = () => {
     if (user) {
       const { _id } = user;
       dispatch(getStudentForPioneerNow({ _id }));
+      const { firstName } = user;
+      setPioneerName(firstName);
     }
   }, []);
   return (
     <div
-      className={currentMode === "Dark" ? "dark" : ""}
-      style={{ height: "max-content", minHeight: "100vh" }}
+      className={
+        currentMode === "Dark"
+          ? "dark pioneerStudentsMain"
+          : " pioneerStudentsMain"
+      }
+      // style={{ height: "max-content", minHeight: "100vh" }}
     >
       <div
-        className="flex min-h-screen h-fit  bg-neutral-700 relative  dark:bg-main-dark-bg"
+        className="flex min-h-screen checker h-fit pioneerStudentsChildMain  bg-neutral-700 relative  dark:bg-main-dark-bg"
         // style={{ height: "150vh" }}
       >
-        <DashboardFractionPioneer
-          activeMenu={activeMenu}
-          onClick={() => setThemeSettings(true)}
-        />
+        {studentForPioneer ? (
+          ""
+        ) : themeSettings ? (
+          ""
+        ) : (
+          <DashboardFractionPioneer
+            activeMenu={activeMenu}
+            onClick={() => setThemeSettings(true)}
+          />
+        )}
         {themeSettings && <ThemeSettings />}
         <div
-          className={`dark:bg-main-dark-bg bg-main-bg w-full min-h-screen h-fit ${
+          className={`dark:bg-main-dark-bg bg-main-bg w-full pioneerAdmittedStudentsContainer min-h-screen h-fit ${
             activeMenu ? "md:ml-0" : "flex-2"
           }`}
         >
           <div className="fixed md:static inline-block bg-main-dark dark:bg-main-dark-bg navbar w-full">
-            <Navbar />
+            {themeSettings ? "" : <Navbar name={pioneerName || ""} />}
           </div>
           {studentForPioneer ? (
             <>
@@ -100,7 +116,7 @@ const Customers = () => {
                 >
                   {studentForPioneer.map((data, index) => (
                     <div
-                      className="h-fit pt-9 pb-9 w-fit pl-8 pr-8 bg-white rounded-xl dark:bg-gray-50 m-auto shadow-2xl top-20 relative"
+                      className="h-fit pt-9 pb-9 w-fit pl-8 pr-8 bg-white rounded-xl dark:bg-gray-50 m-auto shadow-2xl top-20 relative pioneerStudentBox"
                       key={index}
                     >
                       <div className="w-full flex justify-around items-center mb-6">

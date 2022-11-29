@@ -1,0 +1,30 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+@media screen and (max-width : "376px") {
+    .noClassMessage{
+        margin-top: 7rem;
+    }
+    .heads{
+        overflow-y: hidden;
+    }
+    .subHead{
+        min-width : 100vw;
+        width: fit-content;
+    }
+}
+@media screen and (max-width : "360px") {
+    .noClassMessage{
+        margin-top: 7rem;
+    }
+    .heads{
+        overflow-y: hidden;
+    }
+    .subHead{
+        min-width : 100vw;
+        width: fit-content;
+    }
+}

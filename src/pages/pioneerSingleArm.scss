@@ -74,6 +74,17 @@
 }
 
 @media screen and (max-width : 360px) {
+    .pioneerSingleStudentCover{
+        overflow-y: hidden;
+    }
+    .checkNumberOfPioneerStudents{
+        margin-bottom: 20rem;
+    }
+    .checkNumberOfPioneerStudentsBox{
+        margin-top: 2rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
     .currentAcademicSession{
         margin-top: 3.4rem;
     }
