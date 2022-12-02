@@ -18,6 +18,7 @@ import {
   reset,
 } from "../../features/auth/authSlice";
 import "./studentDashboard.scss";
+import IsLoading from "../isLoading/IsLoading";
 
 const StudentDashboard = () => {
   const {
@@ -123,8 +124,9 @@ const StudentDashboard = () => {
           {schName === null ? (
             <>
               {myClass === null ? (
-                <div className="reloadPage">Welcome Please Reload</div>
+                <IsLoading />
               ) : (
+                // <div className="reloadPage">Welcome Please Reload</div>
                 <div className="w-fit m-auto relative top-3 admittedStudentContainer">
                   <div
                     className="w-fit m-auto relative top-10 studentWelcomeMessage"

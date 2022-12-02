@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getStudentTimetable, reset } from "../features/auth/authSlice";
 import "./studentSubjects.scss";
+import IsLoading from "../components/isLoading/IsLoading";
 
 const StudentSubjects = () => {
   const {
@@ -81,56 +82,60 @@ const StudentSubjects = () => {
           : " studentSubjectMainContainer"
       }
     >
-      <div className="flex  bg-neutral-700 relative  dark:bg-main-dark-bg studentSubjectContainer">
-        {themeSettings ? (
-          ""
-        ) : (
-          <DashboardFractionStudent
-            activeMenu={activeMenu}
-            onClick={() => setThemeSettings(true)}
-          />
-        )}
-        {themeSettings && <ThemeSettings />}
-        <div
-          className={`dark:bg-main-dark-bg childContainer bg-main-bg w-full min-h-screen ${
-            activeMenu ? "md:ml-0" : "flex-2"
-          }`}
-        >
-          <div className="fixed md:static inline-block bg-main-dark dark:bg-main-dark-bg navbar w-full">
-            {themeSettings ? "" : <Navbar name={userName} />}
-          </div>
-          {schName === null ? (
-            <>
-              <div className="m-auto w-fit font-bold italic noSubjectMessage">
-                You Don't Have a Class Yet, Please Click on Available Schools
-                for Screening
-              </div>
-            </>
+      {isLoading ? (
+        <IsLoading />
+      ) : (
+        <div className="flex  bg-neutral-700 relative  dark:bg-main-dark-bg studentSubjectContainer">
+          {themeSettings ? (
+            ""
           ) : (
-            <>
-              <div
-                className="m-auto relative top-9 subjectGrandParentContainer "
-                style={{ width: "fit-content" }}
-              >
-                <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl dark:text-white">
-                  {schName.className}
-                </div>
-                <div className="relative pl-8 pr-8 m-auto h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold ">
-                  {schName.classType.map((ars, index) => (
-                    <p
-                      key={index}
-                      style={{ fontFamily: "serif" }}
-                      className="text-black"
-                    >
-                      {ars.subName}
-                    </p>
-                  ))}
-                </div>
-              </div>
-            </>
+            <DashboardFractionStudent
+              activeMenu={activeMenu}
+              onClick={() => setThemeSettings(true)}
+            />
           )}
+          {themeSettings && <ThemeSettings />}
+          <div
+            className={`dark:bg-main-dark-bg childContainer bg-main-bg w-full min-h-screen ${
+              activeMenu ? "md:ml-0" : "flex-2"
+            }`}
+          >
+            <div className="fixed md:static inline-block bg-main-dark dark:bg-main-dark-bg navbar w-full">
+              {themeSettings ? "" : <Navbar name={userName} />}
+            </div>
+            {schName === null ? (
+              <>
+                <div className="m-auto w-fit font-bold italic noSubjectMessage">
+                  You Don't Have a Class Yet, Please Click on Available Schools
+                  for Screening
+                </div>
+              </>
+            ) : (
+              <>
+                <div
+                  className="m-auto relative top-9 subjectGrandParentContainer "
+                  style={{ width: "fit-content" }}
+                >
+                  <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl dark:text-white">
+                    {schName.className}
+                  </div>
+                  <div className="relative pl-8 pr-8 m-auto h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold ">
+                    {schName.classType.map((ars, index) => (
+                      <p
+                        key={index}
+                        style={{ fontFamily: "serif" }}
+                        className="text-black"
+                      >
+                        {ars.subName}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

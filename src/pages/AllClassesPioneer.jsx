@@ -16,6 +16,7 @@ import { useStateContext } from "../contexts/ContextProvider";
 import { DashboardFractionPioneer } from "../Dashboard";
 import { useNavigate } from "react-router-dom";
 import "./allclassespioneer.scss";
+import IsLoading from "../components/isLoading/IsLoading";
 
 const AllClassesPioneer = () => {
   const {
@@ -3224,1511 +3225,1635 @@ const AllClassesPioneer = () => {
 
   return (
     <div className={currentMode === "Dark" ? "dark" : ""}>
-      <div className="flex  bg-neutral-700 relative  dark:bg-main-dark-bg">
-        {themeSettings ? (
-          ""
-        ) : (
-          <span id="sidebarpioneer">
-            <DashboardFractionPioneer
-              activeMenu={activeMenu}
-              onClick={() => setThemeSettings(true)}
-            />
-          </span>
-        )}
-        {themeSettings && <ThemeSettings />}
-        <div
-          className={`dark:bg-main-dark-bg bg-main-bg w-full min-h-screen ${
-            activeMenu ? "md:ml-0" : "flex-2"
-          }`}
-        >
+      {isLoading ? (
+        <IsLoading />
+      ) : (
+        <div className="flex  bg-neutral-700 relative  dark:bg-main-dark-bg">
+          {themeSettings ? (
+            ""
+          ) : (
+            <span id="sidebarpioneer">
+              <DashboardFractionPioneer
+                activeMenu={activeMenu}
+                onClick={() => setThemeSettings(true)}
+              />
+            </span>
+          )}
+          {themeSettings && <ThemeSettings />}
           <div
-            className="fixed md:static inline-block bg-main-dark dark:bg-main-dark-bg navbar w-full"
-            id="navbarPioneer"
+            className={`dark:bg-main-dark-bg bg-main-bg w-full min-h-screen ${
+              activeMenu ? "md:ml-0" : "flex-2"
+            }`}
           >
-            {themeSettings ? "" : <Navbar name={pioneerName || ""} />}
-          </div>
-          {classData ? (
-            showTimetable ? (
-              <div
-                className=" md:mt-2 sm:mt-2 lg:w-full absolute top-0 bottom-0 right-0 left-0 h-fit 
+            <div
+              className="fixed md:static inline-block bg-main-dark dark:bg-main-dark-bg navbar w-full"
+              id="navbarPioneer"
+            >
+              {themeSettings ? "" : <Navbar name={pioneerName || ""} />}
+            </div>
+            {classData ? (
+              showTimetable ? (
+                <div
+                  className=" md:mt-2 sm:mt-2 lg:w-full absolute top-0 bottom-0 right-0 left-0 h-fit 
                 dark:bg-main-dark-bg
                  bg-main-bg z-20 pb-60 pioneerGenerateCover"
-                style={{
-                  // minHeight: "200vh",
-                  background:
-                    currentMode === "Light"
-                      ? "rgb(250 251 251)"
-                      : "rgb(32 35 42)",
-                }}
-              >
-                <div
-                  className="relative left-20 flex justify-around items-center h-14 w-40 border-1 rounded-xl shadow-2xl text-white font-semibold bg-green-500 hover:text-green-500 hover:bg-white"
                   style={{
-                    fontFamily: "serif",
-                    cursor: cursorIsActive ? "not-allowed" : "pointer",
-                  }}
-                  onClick={() => {
-                    saveChanges();
-                    setCursorIsActive(true);
-                    setTimeout(() => {
-                      alert(
-                        "Timetable Successfully Generated, You Can Now View Timetable from Class"
-                      );
-                    }, 1000);
+                    // minHeight: "200vh",
+                    background:
+                      currentMode === "Light"
+                        ? "rgb(250 251 251)"
+                        : "rgb(32 35 42)",
                   }}
                 >
-                  Save Changes
-                </div>
-                <div
-                  className="relative flex justify-around items-center left-20 top-2  h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl text-black hover:text-green-200 font-semibold bg-green-200 hover:bg-black"
-                  style={{ fontFamily: "serif" }}
-                  onClick={() => {
-                    setShowTimetable(null);
-                  }}
-                >
-                  <BiLeftArrow className="absolute top-0 -left-24 right-0 bottom-0 m-auto w-fit" />
-                  Go Back
-                </div>
-                {classNum?.filter((data) => data.classNaming === "JSS 1A") && (
                   <div
-                    className="m-auto relative top-9 mb-16"
-                    style={{ width: "60%" }}
+                    className="relative left-20 flex justify-around items-center h-14 w-40 border-1 rounded-xl shadow-2xl text-white font-semibold bg-green-500 hover:text-green-500 hover:bg-white"
+                    style={{
+                      fontFamily: "serif",
+                      cursor: cursorIsActive ? "not-allowed" : "pointer",
+                    }}
+                    onClick={() => {
+                      saveChanges();
+                      setCursorIsActive(true);
+                      setTimeout(() => {
+                        alert(
+                          "Timetable Successfully Generated, You Can Now View Timetable from Class"
+                        );
+                      }, 1000);
+                    }}
                   >
+                    Save Changes
+                  </div>
+                  <div
+                    className="relative flex justify-around items-center left-20 top-2  h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl text-black hover:text-green-200 font-semibold bg-green-200 hover:bg-black"
+                    style={{ fontFamily: "serif" }}
+                    onClick={() => {
+                      setShowTimetable(null);
+                    }}
+                  >
+                    <BiLeftArrow className="absolute top-0 -left-24 right-0 bottom-0 m-auto w-fit" />
+                    Go Back
+                  </div>
+                  {classNum?.filter(
+                    (data) => data.classNaming === "JSS 1A"
+                  ) && (
                     <div
-                      className="absolute -left-48 flex justify-around items-center top-0 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
-                      onClick={() => {
-                        setRefresh(refresh + 1);
-                      }}
-                      style={{
-                        fontFamily: "Arial, Helvetica, sans-serif",
-                        background: currentColor,
-                        fontWeight: "bolder",
-                      }}
+                      className="m-auto relative top-9 mb-16"
+                      style={{ width: "60%" }}
                     >
-                      Complete Timetable
-                    </div>
+                      <div
+                        className="absolute -left-48 flex justify-around items-center top-0 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
+                        onClick={() => {
+                          setRefresh(refresh + 1);
+                        }}
+                        style={{
+                          fontFamily: "Arial, Helvetica, sans-serif",
+                          background: currentColor,
+                          fontWeight: "bolder",
+                        }}
+                      >
+                        Complete Timetable
+                      </div>
 
-                    <div className="absolute -left-56 top-16 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold ">
-                      {tests
-                        ?.filter((arr) => arr.classNaming === "JSS 1A")[0]
-                        ?.courses.map((subject) => (
-                          <p
-                            key={subject.id}
-                            style={{ fontFamily: "serif" }}
-                            className="text-black"
-                          >
-                            {subject.subName}
-                          </p>
-                        ))}
+                      <div className="absolute -left-56 top-16 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold ">
+                        {tests
+                          ?.filter((arr) => arr.classNaming === "JSS 1A")[0]
+                          ?.courses.map((subject) => (
+                            <p
+                              key={subject.id}
+                              style={{ fontFamily: "serif" }}
+                              className="text-black"
+                            >
+                              {subject.subName}
+                            </p>
+                          ))}
+                      </div>
+                      <div className="absolute left-0 right-0 -top-8 m-auto w-fit font-extrabold text-2xl">
+                        JSS 1A
+                      </div>
+                      <table className="dark:bg-main-bg">
+                        <thead>
+                          <tr>
+                            {defaultTime.map((time, index) => (
+                              <th
+                                key={index}
+                                className="w-fit border-1 border-neutral-800 text-sm pt-3"
+                              >
+                                {time}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Monday
+                            </td>
+                            {js1aMon?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Tuesday
+                            </td>
+                            {js1aTue?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Wednesday
+                            </td>
+                            {js1aWed?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Thursday
+                            </td>
+                            {js1aThur?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Friday
+                            </td>
+                            {js1aFri?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
-                    <div className="absolute left-0 right-0 -top-8 m-auto w-fit font-extrabold text-2xl">
-                      JSS 1A
-                    </div>
-                    <table className="dark:bg-main-bg">
-                      <thead>
-                        <tr>
-                          {defaultTime.map((time, index) => (
-                            <th
-                              key={index}
-                              className="w-fit border-1 border-neutral-800 text-sm pt-3"
-                            >
-                              {time}
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Monday
-                          </td>
-                          {js1aMon?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Tuesday
-                          </td>
-                          {js1aTue?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Wednesday
-                          </td>
-                          {js1aWed?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Thursday
-                          </td>
-                          {js1aThur?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Friday
-                          </td>
-                          {js1aFri?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                )}
+                  )}
 
-                {classNum?.some((arr) => {
-                  if (arr.classNaming === "JSS 1B") return true;
-                }) && (
-                  <div
-                    className="m-auto relative top-9 mb-16"
-                    style={{ width: "60%" }}
-                  >
+                  {classNum?.some((arr) => {
+                    if (arr.classNaming === "JSS 1B") return true;
+                  }) && (
                     <div
-                      className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
-                      onClick={() => {
-                        setRefresh(refresh + 1);
-                      }}
-                      style={{
-                        fontFamily: "Arial, Helvetica, sans-serif",
-                        background: currentColor,
-                        fontWeight: "bolder",
-                      }}
+                      className="m-auto relative top-9 mb-16"
+                      style={{ width: "60%" }}
                     >
-                      Complete Timetable
-                    </div>
+                      <div
+                        className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
+                        onClick={() => {
+                          setRefresh(refresh + 1);
+                        }}
+                        style={{
+                          fontFamily: "Arial, Helvetica, sans-serif",
+                          background: currentColor,
+                          fontWeight: "bolder",
+                        }}
+                      >
+                        Complete Timetable
+                      </div>
 
-                    <div className="absolute -left-56 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold ">
-                      {tests
-                        ?.filter((arr) => arr.classNaming === "JSS 1B")[0]
-                        ?.courses.map((subject) => (
-                          <p
-                            key={subject.id}
-                            style={{ fontFamily: "serif" }}
-                            className="text-black"
-                          >
-                            {subject.subName}
-                          </p>
-                        ))}
+                      <div className="absolute -left-56 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold ">
+                        {tests
+                          ?.filter((arr) => arr.classNaming === "JSS 1B")[0]
+                          ?.courses.map((subject) => (
+                            <p
+                              key={subject.id}
+                              style={{ fontFamily: "serif" }}
+                              className="text-black"
+                            >
+                              {subject.subName}
+                            </p>
+                          ))}
+                      </div>
+                      <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
+                        JSS 1B
+                      </div>
+                      <table className="dark:bg-main-bg">
+                        <thead>
+                          <tr>
+                            {defaultTime.map((time, index) => (
+                              <th
+                                key={index}
+                                className="w-fit border-1 border-neutral-800 text-sm pt-3"
+                              >
+                                {time}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Monday
+                            </td>
+                            {js1bMon?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Tuesday
+                            </td>
+                            {js1bTue?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Wednesday
+                            </td>
+                            {js1bWed?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Thursday
+                            </td>
+                            {js1bThur?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Friday
+                            </td>
+                            {js1bFri?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
-                    <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
-                      JSS 1B
-                    </div>
-                    <table className="dark:bg-main-bg">
-                      <thead>
-                        <tr>
-                          {defaultTime.map((time, index) => (
-                            <th
-                              key={index}
-                              className="w-fit border-1 border-neutral-800 text-sm pt-3"
-                            >
-                              {time}
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Monday
-                          </td>
-                          {js1bMon?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Tuesday
-                          </td>
-                          {js1bTue?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Wednesday
-                          </td>
-                          {js1bWed?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Thursday
-                          </td>
-                          {js1bThur?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Friday
-                          </td>
-                          {js1bFri?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-                {classNum?.some((arr) => {
-                  if (arr.classNaming === "JSS 1C") return true;
-                }) && (
-                  <div
-                    className="m-auto relative top-9 mb-16"
-                    style={{ width: "60%" }}
-                  >
+                  )}
+                  {classNum?.some((arr) => {
+                    if (arr.classNaming === "JSS 1C") return true;
+                  }) && (
                     <div
-                      className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
-                      onClick={() => {
-                        setRefresh(refresh + 1);
-                      }}
-                      style={{
-                        fontFamily: "Arial, Helvetica, sans-serif",
-                        background: currentColor,
-                        fontWeight: "bolder",
-                      }}
+                      className="m-auto relative top-9 mb-16"
+                      style={{ width: "60%" }}
                     >
-                      Complete Timetable
-                    </div>
+                      <div
+                        className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
+                        onClick={() => {
+                          setRefresh(refresh + 1);
+                        }}
+                        style={{
+                          fontFamily: "Arial, Helvetica, sans-serif",
+                          background: currentColor,
+                          fontWeight: "bolder",
+                        }}
+                      >
+                        Complete Timetable
+                      </div>
 
-                    <div className="absolute -left-56 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold ">
-                      {tests
-                        ?.filter((arr) => arr.classNaming === "JSS 1C")[0]
-                        ?.courses.map((subject) => (
-                          <p
-                            key={subject.id}
-                            style={{ fontFamily: "serif" }}
-                            className="text-black"
-                          >
-                            {subject.subName}
-                          </p>
-                        ))}
+                      <div className="absolute -left-56 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold ">
+                        {tests
+                          ?.filter((arr) => arr.classNaming === "JSS 1C")[0]
+                          ?.courses.map((subject) => (
+                            <p
+                              key={subject.id}
+                              style={{ fontFamily: "serif" }}
+                              className="text-black"
+                            >
+                              {subject.subName}
+                            </p>
+                          ))}
+                      </div>
+                      <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
+                        JSS 1C
+                      </div>
+                      <table className="dark:bg-main-bg">
+                        <thead>
+                          <tr>
+                            {defaultTime.map((time, index) => (
+                              <th
+                                key={index}
+                                className="w-fit border-1 border-neutral-800 text-sm pt-3"
+                              >
+                                {time}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Monday
+                            </td>
+                            {js1cMon?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Tuesday
+                            </td>
+                            {js1cTue?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Wednesday
+                            </td>
+                            {js1cWed?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Thursday
+                            </td>
+                            {js1cThur?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Friday
+                            </td>
+                            {js1cFri?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
-                    <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
-                      JSS 1C
-                    </div>
-                    <table className="dark:bg-main-bg">
-                      <thead>
-                        <tr>
-                          {defaultTime.map((time, index) => (
-                            <th
-                              key={index}
-                              className="w-fit border-1 border-neutral-800 text-sm pt-3"
-                            >
-                              {time}
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Monday
-                          </td>
-                          {js1cMon?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Tuesday
-                          </td>
-                          {js1cTue?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Wednesday
-                          </td>
-                          {js1cWed?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Thursday
-                          </td>
-                          {js1cThur?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Friday
-                          </td>
-                          {js1cFri?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-                {classNum?.some((arr) => {
-                  if (arr.classNaming === "JSS 1D") return true;
-                }) && (
-                  <div
-                    className="m-auto relative top-9 mb-16"
-                    style={{ width: "60%" }}
-                  >
+                  )}
+                  {classNum?.some((arr) => {
+                    if (arr.classNaming === "JSS 1D") return true;
+                  }) && (
                     <div
-                      className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
-                      onClick={() => {
-                        setRefresh(refresh + 1);
-                      }}
-                      style={{
-                        fontFamily: "Arial, Helvetica, sans-serif",
-                        background: currentColor,
-                        fontWeight: "bolder",
-                      }}
+                      className="m-auto relative top-9 mb-16"
+                      style={{ width: "60%" }}
                     >
-                      Complete Timetable
-                    </div>
+                      <div
+                        className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
+                        onClick={() => {
+                          setRefresh(refresh + 1);
+                        }}
+                        style={{
+                          fontFamily: "Arial, Helvetica, sans-serif",
+                          background: currentColor,
+                          fontWeight: "bolder",
+                        }}
+                      >
+                        Complete Timetable
+                      </div>
 
-                    <div className="absolute -left-56 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold ">
-                      {tests
-                        ?.filter((arr) => arr.classNaming === "JSS 1D")[0]
-                        ?.courses.map((subject) => (
-                          <p
-                            key={subject.id}
-                            style={{ fontFamily: "serif" }}
-                            className="text-black"
-                          >
-                            {subject.subName}
-                          </p>
-                        ))}
+                      <div className="absolute -left-56 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold ">
+                        {tests
+                          ?.filter((arr) => arr.classNaming === "JSS 1D")[0]
+                          ?.courses.map((subject) => (
+                            <p
+                              key={subject.id}
+                              style={{ fontFamily: "serif" }}
+                              className="text-black"
+                            >
+                              {subject.subName}
+                            </p>
+                          ))}
+                      </div>
+                      <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
+                        JSS 1D
+                      </div>
+                      <table className="dark:bg-main-bg">
+                        <thead>
+                          <tr>
+                            {defaultTime.map((time, index) => (
+                              <th
+                                key={index}
+                                className="w-fit border-1 border-neutral-800 text-sm pt-3"
+                              >
+                                {time}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Monday
+                            </td>
+                            {js1dMon?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Tuesday
+                            </td>
+                            {js1dTue?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Wednesday
+                            </td>
+                            {js1dWed?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Thursday
+                            </td>
+                            {js1dThur?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Friday
+                            </td>
+                            {js1dFri?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
-                    <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
-                      JSS 1D
-                    </div>
-                    <table className="dark:bg-main-bg">
-                      <thead>
-                        <tr>
-                          {defaultTime.map((time, index) => (
-                            <th
-                              key={index}
-                              className="w-fit border-1 border-neutral-800 text-sm pt-3"
-                            >
-                              {time}
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Monday
-                          </td>
-                          {js1dMon?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Tuesday
-                          </td>
-                          {js1dTue?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Wednesday
-                          </td>
-                          {js1dWed?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Thursday
-                          </td>
-                          {js1dThur?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Friday
-                          </td>
-                          {js1dFri?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-                {classNum?.some((arr) => {
-                  if (arr.classNaming === "JSS 2A") return true;
-                }) && (
-                  <div
-                    className="m-auto relative top-20 mb-16"
-                    style={{ width: "60%" }}
-                  >
+                  )}
+                  {classNum?.some((arr) => {
+                    if (arr.classNaming === "JSS 2A") return true;
+                  }) && (
                     <div
-                      className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
-                      onClick={() => {
-                        setRefresh(refresh + 1);
-                      }}
-                      style={{
-                        fontFamily: "Arial, Helvetica, sans-serif",
-                        background: currentColor,
-                        fontWeight: "bolder",
-                      }}
+                      className="m-auto relative top-20 mb-16"
+                      style={{ width: "60%" }}
                     >
-                      Complete Timetable
-                    </div>
+                      <div
+                        className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
+                        onClick={() => {
+                          setRefresh(refresh + 1);
+                        }}
+                        style={{
+                          fontFamily: "Arial, Helvetica, sans-serif",
+                          background: currentColor,
+                          fontWeight: "bolder",
+                        }}
+                      >
+                        Complete Timetable
+                      </div>
 
-                    <div className="absolute -left-56 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold ">
-                      {tests
-                        ?.filter((arr) => arr.classNaming === "JSS 2A")[0]
-                        ?.courses.map((subject) => (
-                          <p
-                            key={subject.id}
-                            style={{ fontFamily: "serif" }}
-                            className="text-black"
-                          >
-                            {subject.subName}
-                          </p>
-                        ))}
+                      <div className="absolute -left-56 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold ">
+                        {tests
+                          ?.filter((arr) => arr.classNaming === "JSS 2A")[0]
+                          ?.courses.map((subject) => (
+                            <p
+                              key={subject.id}
+                              style={{ fontFamily: "serif" }}
+                              className="text-black"
+                            >
+                              {subject.subName}
+                            </p>
+                          ))}
+                      </div>
+                      <div className="absolute left-0 right-0 -top-8 m-auto w-fit font-extrabold text-2xl">
+                        JSS 2A
+                      </div>
+                      <table className="dark:bg-main-bg">
+                        <thead>
+                          <tr>
+                            {defaultTime.map((time, index) => (
+                              <th
+                                key={index}
+                                className="w-fit border-1 border-neutral-800 text-sm pt-3"
+                              >
+                                {time}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Monday
+                            </td>
+                            {js2aMon?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Tuesday
+                            </td>
+                            {js2aTue?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Wednesday
+                            </td>
+                            {js2aWed?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Thursday
+                            </td>
+                            {js2aThur?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Friday
+                            </td>
+                            {js2aFri?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
-                    <div className="absolute left-0 right-0 -top-8 m-auto w-fit font-extrabold text-2xl">
-                      JSS 2A
-                    </div>
-                    <table className="dark:bg-main-bg">
-                      <thead>
-                        <tr>
-                          {defaultTime.map((time, index) => (
-                            <th
-                              key={index}
-                              className="w-fit border-1 border-neutral-800 text-sm pt-3"
-                            >
-                              {time}
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Monday
-                          </td>
-                          {js2aMon?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Tuesday
-                          </td>
-                          {js2aTue?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Wednesday
-                          </td>
-                          {js2aWed?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Thursday
-                          </td>
-                          {js2aThur?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Friday
-                          </td>
-                          {js2aFri?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-                {classNum?.some((arr) => {
-                  if (arr.classNaming === "JSS 2B") return true;
-                }) && (
-                  <div
-                    className="m-auto relative top-20 mb-16"
-                    style={{ width: "60%" }}
-                  >
+                  )}
+                  {classNum?.some((arr) => {
+                    if (arr.classNaming === "JSS 2B") return true;
+                  }) && (
                     <div
-                      className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
-                      onClick={() => {
-                        setRefresh(refresh + 1);
-                      }}
-                      style={{
-                        fontFamily: "Arial, Helvetica, sans-serif",
-                        background: currentColor,
-                        fontWeight: "bolder",
-                      }}
+                      className="m-auto relative top-20 mb-16"
+                      style={{ width: "60%" }}
                     >
-                      Complete Timetable
-                    </div>
+                      <div
+                        className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
+                        onClick={() => {
+                          setRefresh(refresh + 1);
+                        }}
+                        style={{
+                          fontFamily: "Arial, Helvetica, sans-serif",
+                          background: currentColor,
+                          fontWeight: "bolder",
+                        }}
+                      >
+                        Complete Timetable
+                      </div>
 
-                    <div className="absolute -left-56 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold ">
-                      {tests
-                        ?.filter((arr) => arr.classNaming === "JSS 2B")[0]
-                        ?.courses.map((subject) => (
-                          <p
-                            key={subject.id}
-                            style={{ fontFamily: "serif" }}
-                            className="text-black"
-                          >
-                            {subject.subName}
-                          </p>
-                        ))}
+                      <div className="absolute -left-56 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold ">
+                        {tests
+                          ?.filter((arr) => arr.classNaming === "JSS 2B")[0]
+                          ?.courses.map((subject) => (
+                            <p
+                              key={subject.id}
+                              style={{ fontFamily: "serif" }}
+                              className="text-black"
+                            >
+                              {subject.subName}
+                            </p>
+                          ))}
+                      </div>
+                      <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
+                        JSS 2B
+                      </div>
+                      <table className="dark:bg-main-bg">
+                        <thead>
+                          <tr>
+                            {defaultTime.map((time, index) => (
+                              <th
+                                key={index}
+                                className="w-fit border-1 border-neutral-800 text-sm pt-3"
+                              >
+                                {time}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Monday
+                            </td>
+                            {js2bMon?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Tuesday
+                            </td>
+                            {js2bTue?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Wednesday
+                            </td>
+                            {js2bWed?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Thursday
+                            </td>
+                            {js2bThur?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Friday
+                            </td>
+                            {js2bFri?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
-                    <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
-                      JSS 2B
-                    </div>
-                    <table className="dark:bg-main-bg">
-                      <thead>
-                        <tr>
-                          {defaultTime.map((time, index) => (
-                            <th
-                              key={index}
-                              className="w-fit border-1 border-neutral-800 text-sm pt-3"
-                            >
-                              {time}
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Monday
-                          </td>
-                          {js2bMon?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Tuesday
-                          </td>
-                          {js2bTue?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Wednesday
-                          </td>
-                          {js2bWed?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Thursday
-                          </td>
-                          {js2bThur?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Friday
-                          </td>
-                          {js2bFri?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-                {classNum?.some((arr) => {
-                  if (arr.classNaming === "JSS 2C") return true;
-                }) && (
-                  <div
-                    className="m-auto relative top-20 mb-16"
-                    style={{ width: "60%" }}
-                  >
+                  )}
+                  {classNum?.some((arr) => {
+                    if (arr.classNaming === "JSS 2C") return true;
+                  }) && (
                     <div
-                      className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
-                      onClick={() => {
-                        setRefresh(refresh + 1);
-                      }}
-                      style={{
-                        fontFamily: "Arial, Helvetica, sans-serif",
-                        background: currentColor,
-                        fontWeight: "bolder",
-                      }}
+                      className="m-auto relative top-20 mb-16"
+                      style={{ width: "60%" }}
                     >
-                      Complete Timetable
-                    </div>
+                      <div
+                        className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
+                        onClick={() => {
+                          setRefresh(refresh + 1);
+                        }}
+                        style={{
+                          fontFamily: "Arial, Helvetica, sans-serif",
+                          background: currentColor,
+                          fontWeight: "bolder",
+                        }}
+                      >
+                        Complete Timetable
+                      </div>
 
-                    <div className="absolute -left-56 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold ">
-                      {tests
-                        ?.filter((arr) => arr.classNaming === "JSS 2C")[0]
-                        ?.courses.map((subject) => (
-                          <p
-                            key={subject.id}
-                            style={{ fontFamily: "serif" }}
-                            className="text-black"
-                          >
-                            {subject.subName}
-                          </p>
-                        ))}
+                      <div className="absolute -left-56 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold ">
+                        {tests
+                          ?.filter((arr) => arr.classNaming === "JSS 2C")[0]
+                          ?.courses.map((subject) => (
+                            <p
+                              key={subject.id}
+                              style={{ fontFamily: "serif" }}
+                              className="text-black"
+                            >
+                              {subject.subName}
+                            </p>
+                          ))}
+                      </div>
+                      <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
+                        JSS 2C
+                      </div>
+                      <table className="dark:bg-main-bg">
+                        <thead>
+                          <tr>
+                            {defaultTime.map((time, index) => (
+                              <th
+                                key={index}
+                                className="w-fit border-1 border-neutral-800 text-sm pt-3"
+                              >
+                                {time}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Monday
+                            </td>
+                            {js2cMon?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Tuesday
+                            </td>
+                            {js2cTue?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Wednesday
+                            </td>
+                            {js2cWed?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Thursday
+                            </td>
+                            {js2cThur?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Friday
+                            </td>
+                            {js2cFri?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
-                    <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
-                      JSS 2C
-                    </div>
-                    <table className="dark:bg-main-bg">
-                      <thead>
-                        <tr>
-                          {defaultTime.map((time, index) => (
-                            <th
-                              key={index}
-                              className="w-fit border-1 border-neutral-800 text-sm pt-3"
-                            >
-                              {time}
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Monday
-                          </td>
-                          {js2cMon?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Tuesday
-                          </td>
-                          {js2cTue?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Wednesday
-                          </td>
-                          {js2cWed?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Thursday
-                          </td>
-                          {js2cThur?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Friday
-                          </td>
-                          {js2cFri?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-                {classNum?.some((arr) => {
-                  if (arr.classNaming === "JSS 2D") return true;
-                }) && (
-                  <div
-                    className="m-auto relative top-20 mb-16"
-                    style={{ width: "60%" }}
-                  >
+                  )}
+                  {classNum?.some((arr) => {
+                    if (arr.classNaming === "JSS 2D") return true;
+                  }) && (
                     <div
-                      className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
-                      onClick={() => {
-                        setRefresh(refresh + 1);
-                      }}
-                      style={{
-                        fontFamily: "Arial, Helvetica, sans-serif",
-                        background: currentColor,
-                        fontWeight: "bolder",
-                      }}
+                      className="m-auto relative top-20 mb-16"
+                      style={{ width: "60%" }}
                     >
-                      Complete Timetable
-                    </div>
+                      <div
+                        className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
+                        onClick={() => {
+                          setRefresh(refresh + 1);
+                        }}
+                        style={{
+                          fontFamily: "Arial, Helvetica, sans-serif",
+                          background: currentColor,
+                          fontWeight: "bolder",
+                        }}
+                      >
+                        Complete Timetable
+                      </div>
 
-                    <div className="absolute -left-56 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold ">
-                      {tests
-                        ?.filter((arr) => arr.classNaming === "JSS 2D")[0]
-                        ?.courses.map((subject) => (
-                          <p
-                            key={subject.id}
-                            style={{ fontFamily: "serif" }}
-                            className="text-black"
-                          >
-                            {subject.subName}
-                          </p>
-                        ))}
+                      <div className="absolute -left-56 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold ">
+                        {tests
+                          ?.filter((arr) => arr.classNaming === "JSS 2D")[0]
+                          ?.courses.map((subject) => (
+                            <p
+                              key={subject.id}
+                              style={{ fontFamily: "serif" }}
+                              className="text-black"
+                            >
+                              {subject.subName}
+                            </p>
+                          ))}
+                      </div>
+                      <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
+                        JSS 2D
+                      </div>
+                      <table className="dark:bg-main-bg">
+                        <thead>
+                          <tr>
+                            {defaultTime.map((time, index) => (
+                              <th
+                                key={index}
+                                className="w-fit border-1 border-neutral-800 text-sm pt-3"
+                              >
+                                {time}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Monday
+                            </td>
+                            {js2dMon?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Tuesday
+                            </td>
+                            {js2dTue?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Wednesday
+                            </td>
+                            {js2dWed?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Thursday
+                            </td>
+                            {js2dThur?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Friday
+                            </td>
+                            {js2dFri?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
-                    <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
-                      JSS 2D
-                    </div>
-                    <table className="dark:bg-main-bg">
-                      <thead>
-                        <tr>
-                          {defaultTime.map((time, index) => (
-                            <th
-                              key={index}
-                              className="w-fit border-1 border-neutral-800 text-sm pt-3"
-                            >
-                              {time}
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Monday
-                          </td>
-                          {js2dMon?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Tuesday
-                          </td>
-                          {js2dTue?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Wednesday
-                          </td>
-                          {js2dWed?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Thursday
-                          </td>
-                          {js2dThur?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Friday
-                          </td>
-                          {js2dFri?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-                {classNum?.some((arr) => {
-                  if (arr.classNaming === "JSS 3A") return true;
-                }) && (
-                  <div
-                    className="m-auto relative top-20 mb-16"
-                    style={{ width: "60%" }}
-                  >
+                  )}
+                  {classNum?.some((arr) => {
+                    if (arr.classNaming === "JSS 3A") return true;
+                  }) && (
                     <div
-                      className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
-                      onClick={() => {
-                        setRefresh(refresh + 1);
-                      }}
-                      style={{
-                        fontFamily: "Arial, Helvetica, sans-serif",
-                        background: currentColor,
-                        fontWeight: "bolder",
-                      }}
+                      className="m-auto relative top-20 mb-16"
+                      style={{ width: "60%" }}
                     >
-                      Complete Timetable
+                      <div
+                        className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
+                        onClick={() => {
+                          setRefresh(refresh + 1);
+                        }}
+                        style={{
+                          fontFamily: "Arial, Helvetica, sans-serif",
+                          background: currentColor,
+                          fontWeight: "bolder",
+                        }}
+                      >
+                        Complete Timetable
+                      </div>
+                      <div className="absolute -left-56 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold ">
+                        {tests
+                          ?.filter((arr) => arr.classNaming === "JSS 3A")[0]
+                          ?.courses.map((subject) => (
+                            <p
+                              key={subject.id}
+                              style={{ fontFamily: "serif" }}
+                              className="text-black"
+                            >
+                              {subject.subName}
+                            </p>
+                          ))}
+                      </div>
+                      <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
+                        JSS 3A
+                      </div>
+                      <table className="dark:bg-main-bg">
+                        <thead>
+                          <tr>
+                            {defaultTime.map((time, index) => (
+                              <th
+                                key={index}
+                                className="w-fit border-1 border-neutral-800 text-sm pt-3"
+                              >
+                                {time}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Monday
+                            </td>
+                            {js3aMon?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Tuesday
+                            </td>
+                            {js3aTue?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Wednesday
+                            </td>
+                            {js3aWed?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Thursday
+                            </td>
+                            {js3aThur?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Friday
+                            </td>
+                            {js3aFri?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
-                    <div className="absolute -left-56 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold ">
-                      {tests
-                        ?.filter((arr) => arr.classNaming === "JSS 3A")[0]
-                        ?.courses.map((subject) => (
-                          <p
-                            key={subject.id}
-                            style={{ fontFamily: "serif" }}
-                            className="text-black"
-                          >
-                            {subject.subName}
-                          </p>
-                        ))}
-                    </div>
-                    <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
-                      JSS 3A
-                    </div>
-                    <table className="dark:bg-main-bg">
-                      <thead>
-                        <tr>
-                          {defaultTime.map((time, index) => (
-                            <th
-                              key={index}
-                              className="w-fit border-1 border-neutral-800 text-sm pt-3"
-                            >
-                              {time}
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Monday
-                          </td>
-                          {js3aMon?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Tuesday
-                          </td>
-                          {js3aTue?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Wednesday
-                          </td>
-                          {js3aWed?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Thursday
-                          </td>
-                          {js3aThur?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Friday
-                          </td>
-                          {js3aFri?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-                {classNum?.some((arr) => {
-                  if (arr.classNaming === "JSS 3B") return true;
-                }) && (
-                  <div
-                    className="m-auto relative top-20 mb-16"
-                    style={{ width: "60%" }}
-                  >
+                  )}
+                  {classNum?.some((arr) => {
+                    if (arr.classNaming === "JSS 3B") return true;
+                  }) && (
                     <div
-                      className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
-                      onClick={() => {
-                        setRefresh(refresh + 1);
-                      }}
-                      style={{
-                        fontFamily: "Arial, Helvetica, sans-serif",
-                        background: currentColor,
-                        fontWeight: "bolder",
-                      }}
+                      className="m-auto relative top-20 mb-16"
+                      style={{ width: "60%" }}
                     >
-                      Complete Timetable
+                      <div
+                        className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
+                        onClick={() => {
+                          setRefresh(refresh + 1);
+                        }}
+                        style={{
+                          fontFamily: "Arial, Helvetica, sans-serif",
+                          background: currentColor,
+                          fontWeight: "bolder",
+                        }}
+                      >
+                        Complete Timetable
+                      </div>
+                      <div className="absolute -left-56 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold ">
+                        {tests
+                          ?.filter((arr) => arr.classNaming === "JSS 3B")[0]
+                          ?.courses.map((subject) => (
+                            <p
+                              key={subject.id}
+                              style={{ fontFamily: "serif" }}
+                              className="text-black"
+                            >
+                              {subject.subName}
+                            </p>
+                          ))}
+                      </div>
+                      <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
+                        JSS 3B
+                      </div>
+                      <table className="dark:bg-main-bg">
+                        <thead>
+                          <tr>
+                            {defaultTime.map((time, index) => (
+                              <th
+                                key={index}
+                                className="w-fit border-1 border-neutral-800 text-sm pt-3"
+                              >
+                                {time}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Monday
+                            </td>
+                            {js3bMon?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Tuesday
+                            </td>
+                            {js3bTue?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Wednesday
+                            </td>
+                            {js3bWed?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Thursday
+                            </td>
+                            {js3bThur?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Friday
+                            </td>
+                            {js3bFri?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
-                    <div className="absolute -left-56 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold ">
-                      {tests
-                        ?.filter((arr) => arr.classNaming === "JSS 3B")[0]
-                        ?.courses.map((subject) => (
-                          <p
-                            key={subject.id}
-                            style={{ fontFamily: "serif" }}
-                            className="text-black"
-                          >
-                            {subject.subName}
-                          </p>
-                        ))}
-                    </div>
-                    <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
-                      JSS 3B
-                    </div>
-                    <table className="dark:bg-main-bg">
-                      <thead>
-                        <tr>
-                          {defaultTime.map((time, index) => (
-                            <th
-                              key={index}
-                              className="w-fit border-1 border-neutral-800 text-sm pt-3"
-                            >
-                              {time}
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Monday
-                          </td>
-                          {js3bMon?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Tuesday
-                          </td>
-                          {js3bTue?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Wednesday
-                          </td>
-                          {js3bWed?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Thursday
-                          </td>
-                          {js3bThur?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Friday
-                          </td>
-                          {js3bFri?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-                {classNum?.some((arr) => {
-                  if (arr.classNaming === "JSS 3C") return true;
-                }) && (
-                  <div
-                    className="m-auto relative top-20 mb-16"
-                    style={{ width: "60%" }}
-                  >
+                  )}
+                  {classNum?.some((arr) => {
+                    if (arr.classNaming === "JSS 3C") return true;
+                  }) && (
                     <div
-                      className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
-                      onClick={() => {
-                        setRefresh(refresh + 1);
-                      }}
-                      style={{
-                        fontFamily: "Arial, Helvetica, sans-serif",
-                        background: currentColor,
-                        fontWeight: "bolder",
-                      }}
+                      className="m-auto relative top-20 mb-16"
+                      style={{ width: "60%" }}
                     >
-                      Complete Timetable
+                      <div
+                        className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
+                        onClick={() => {
+                          setRefresh(refresh + 1);
+                        }}
+                        style={{
+                          fontFamily: "Arial, Helvetica, sans-serif",
+                          background: currentColor,
+                          fontWeight: "bolder",
+                        }}
+                      >
+                        Complete Timetable
+                      </div>
+                      <div className="absolute -left-56 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold ">
+                        {tests
+                          ?.filter((arr) => arr.classNaming === "JSS 3C")[0]
+                          ?.courses.map((subject) => (
+                            <p
+                              key={subject.id}
+                              style={{ fontFamily: "serif" }}
+                              className="text-black"
+                            >
+                              {subject.subName}
+                            </p>
+                          ))}
+                      </div>
+                      <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
+                        JSS 3C
+                      </div>
+                      <table className="dark:bg-main-bg">
+                        <thead>
+                          <tr>
+                            {defaultTime.map((time, index) => (
+                              <th
+                                key={index}
+                                className="w-fit border-1 border-neutral-800 text-sm pt-3"
+                              >
+                                {time}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Monday
+                            </td>
+                            {js3cMon?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Tuesday
+                            </td>
+                            {js3cTue?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Wednesday
+                            </td>
+                            {js3cWed?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Thursday
+                            </td>
+                            {js3cThur?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Friday
+                            </td>
+                            {js3cFri?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
-                    <div className="absolute -left-56 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold ">
-                      {tests
-                        ?.filter((arr) => arr.classNaming === "JSS 3C")[0]
-                        ?.courses.map((subject) => (
-                          <p
-                            key={subject.id}
-                            style={{ fontFamily: "serif" }}
-                            className="text-black"
-                          >
-                            {subject.subName}
-                          </p>
-                        ))}
-                    </div>
-                    <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
-                      JSS 3C
-                    </div>
-                    <table className="dark:bg-main-bg">
-                      <thead>
-                        <tr>
-                          {defaultTime.map((time, index) => (
-                            <th
-                              key={index}
-                              className="w-fit border-1 border-neutral-800 text-sm pt-3"
-                            >
-                              {time}
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Monday
-                          </td>
-                          {js3cMon?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Tuesday
-                          </td>
-                          {js3cTue?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Wednesday
-                          </td>
-                          {js3cWed?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Thursday
-                          </td>
-                          {js3cThur?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Friday
-                          </td>
-                          {js3cFri?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-                {classNum?.some((arr) => {
-                  if (arr.classNaming === "JSS 3D") return true;
-                }) && (
-                  <div
-                    className="m-auto relative top-20 mb-16"
-                    style={{ width: "60%" }}
-                  >
+                  )}
+                  {classNum?.some((arr) => {
+                    if (arr.classNaming === "JSS 3D") return true;
+                  }) && (
                     <div
-                      className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
-                      onClick={() => {
-                        setRefresh(refresh + 1);
-                      }}
-                      style={{
-                        fontFamily: "Arial, Helvetica, sans-serif",
-                        background: currentColor,
-                        fontWeight: "bolder",
-                      }}
+                      className="m-auto relative top-20 mb-16"
+                      style={{ width: "60%" }}
                     >
-                      Complete Timetable
+                      <div
+                        className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
+                        onClick={() => {
+                          setRefresh(refresh + 1);
+                        }}
+                        style={{
+                          fontFamily: "Arial, Helvetica, sans-serif",
+                          background: currentColor,
+                          fontWeight: "bolder",
+                        }}
+                      >
+                        Complete Timetable
+                      </div>
+                      <div className="absolute -left-56 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold ">
+                        {tests
+                          ?.filter((arr) => arr.classNaming === "JSS 3D")[0]
+                          ?.courses.map((subject) => (
+                            <p
+                              key={subject.id}
+                              style={{ fontFamily: "serif" }}
+                              className="text-black"
+                            >
+                              {subject.subName}
+                            </p>
+                          ))}
+                      </div>
+                      <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
+                        JSS 3D
+                      </div>
+                      <table className="dark:bg-main-bg">
+                        <thead>
+                          <tr>
+                            {defaultTime.map((time, index) => (
+                              <th
+                                key={index}
+                                className="w-fit border-1 border-neutral-800 text-sm pt-3"
+                              >
+                                {time}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Monday
+                            </td>
+                            {js3dMon?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Tuesday
+                            </td>
+                            {js3dTue?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Wednesday
+                            </td>
+                            {js3dWed?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Thursday
+                            </td>
+                            {js3dThur?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Friday
+                            </td>
+                            {js3dFri?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
-                    <div className="absolute -left-56 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold ">
-                      {tests
-                        ?.filter((arr) => arr.classNaming === "JSS 3D")[0]
-                        ?.courses.map((subject) => (
-                          <p
-                            key={subject.id}
-                            style={{ fontFamily: "serif" }}
-                            className="text-black"
-                          >
-                            {subject.subName}
-                          </p>
-                        ))}
-                    </div>
-                    <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
-                      JSS 3D
-                    </div>
-                    <table className="dark:bg-main-bg">
-                      <thead>
-                        <tr>
-                          {defaultTime.map((time, index) => (
-                            <th
-                              key={index}
-                              className="w-fit border-1 border-neutral-800 text-sm pt-3"
-                            >
-                              {time}
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Monday
-                          </td>
-                          {js3dMon?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Tuesday
-                          </td>
-                          {js3dTue?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Wednesday
-                          </td>
-                          {js3dWed?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Thursday
-                          </td>
-                          {js3dThur?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Friday
-                          </td>
-                          {js3dFri?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-                {classNum?.some((arr) => {
-                  if (arr.classNaming === "SSS 1A") return true;
-                }) &&
-                  classNum.some((arr) => {
+                  )}
+                  {classNum?.some((arr) => {
                     if (arr.classNaming === "SSS 1A") return true;
+                  }) &&
+                    classNum.some((arr) => {
+                      if (arr.classNaming === "SSS 1A") return true;
+                    }) && (
+                      <div
+                        className="m-auto relative top-20 mb-16"
+                        style={{ width: "60%" }}
+                      >
+                        <div
+                          className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
+                          onClick={() => {
+                            setRefresh(refresh + 1);
+                          }}
+                          style={{
+                            fontFamily: "Arial, Helvetica, sans-serif",
+                            background: currentColor,
+                            fontWeight: "bolder",
+                          }}
+                        >
+                          Complete Timetable
+                        </div>
+                        <div className="absolute -left-48 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold pt-2 pb-2">
+                          {classNum
+                            ?.filter((arr) => arr.classNaming === "SSS 1A")[0]
+                            ?.courses.map((subject) => (
+                              <p
+                                key={subject.id}
+                                style={{ fontFamily: "serif" }}
+                                className="text-black"
+                              >
+                                {subject.subName}
+                              </p>
+                            ))}
+                        </div>
+                        <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
+                          SSS 1A
+                        </div>
+                        <table className="dark:bg-main-bg">
+                          <thead>
+                            <tr>
+                              {scienceTime.map((time, index) => (
+                                <th
+                                  key={index}
+                                  className="w-fit border-1 border-neutral-800 text-sm pt-3"
+                                >
+                                  {time}
+                                </th>
+                              ))}
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td className="w-fit text-base border-1 border-neutral-800">
+                                Monday
+                              </td>
+                              {ss1aMon?.map((ar, index) => (
+                                <td
+                                  key={index}
+                                  className="w-fit border-1 text-base border-neutral-800"
+                                >
+                                  {ar}
+                                </td>
+                              ))}
+                            </tr>
+                            <tr>
+                              <td className="w-fit text-base border-1 border-neutral-800">
+                                Tuesday
+                              </td>
+                              {ss1aTue?.map((ar, index) => (
+                                <td
+                                  key={index}
+                                  className="w-fit border-1 text-base border-neutral-800"
+                                >
+                                  {ar}
+                                </td>
+                              ))}
+                            </tr>
+                            <tr>
+                              <td className="w-fit text-base border-1 border-neutral-800">
+                                Wednesday
+                              </td>
+                              {ss1aWed?.map((ar, index) => (
+                                <td
+                                  key={index}
+                                  className="w-fit border-1 text-base border-neutral-800"
+                                >
+                                  {ar}
+                                </td>
+                              ))}
+                            </tr>
+                            <tr>
+                              <td className="w-fit text-base border-1 border-neutral-800">
+                                Thursday
+                              </td>
+                              {ss1aThur?.map((ar, index) => (
+                                <td
+                                  key={index}
+                                  className="w-fit border-1 text-base border-neutral-800"
+                                >
+                                  {ar}
+                                </td>
+                              ))}
+                            </tr>
+                            <tr>
+                              <td className="w-fit text-base border-1 border-neutral-800">
+                                Friday
+                              </td>
+                              {ss1aFri?.map((ar, index) => (
+                                <td
+                                  key={index}
+                                  className="w-fit border-1 text-base border-neutral-800"
+                                >
+                                  {ar}
+                                </td>
+                              ))}
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    )}
+                  {classNum?.some((arr) => {
+                    if (arr.classNaming === "SSS 1B") return true;
                   }) && (
                     <div
                       className="m-auto relative top-20 mb-16"
@@ -4749,7 +4874,7 @@ const AllClassesPioneer = () => {
                       </div>
                       <div className="absolute -left-48 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold pt-2 pb-2">
                         {classNum
-                          ?.filter((arr) => arr.classNaming === "SSS 1A")[0]
+                          ?.filter((arr) => arr.classNaming === "SSS 1B")[0]
                           ?.courses.map((subject) => (
                             <p
                               key={subject.id}
@@ -4761,7 +4886,7 @@ const AllClassesPioneer = () => {
                           ))}
                       </div>
                       <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
-                        SSS 1A
+                        SSS 1B
                       </div>
                       <table className="dark:bg-main-bg">
                         <thead>
@@ -4781,7 +4906,7 @@ const AllClassesPioneer = () => {
                             <td className="w-fit text-base border-1 border-neutral-800">
                               Monday
                             </td>
-                            {ss1aMon?.map((ar, index) => (
+                            {ss1bMon?.map((ar, index) => (
                               <td
                                 key={index}
                                 className="w-fit border-1 text-base border-neutral-800"
@@ -4794,7 +4919,7 @@ const AllClassesPioneer = () => {
                             <td className="w-fit text-base border-1 border-neutral-800">
                               Tuesday
                             </td>
-                            {ss1aTue?.map((ar, index) => (
+                            {ss1bTue?.map((ar, index) => (
                               <td
                                 key={index}
                                 className="w-fit border-1 text-base border-neutral-800"
@@ -4807,7 +4932,7 @@ const AllClassesPioneer = () => {
                             <td className="w-fit text-base border-1 border-neutral-800">
                               Wednesday
                             </td>
-                            {ss1aWed?.map((ar, index) => (
+                            {ss1bWed?.map((ar, index) => (
                               <td
                                 key={index}
                                 className="w-fit border-1 text-base border-neutral-800"
@@ -4820,7 +4945,7 @@ const AllClassesPioneer = () => {
                             <td className="w-fit text-base border-1 border-neutral-800">
                               Thursday
                             </td>
-                            {ss1aThur?.map((ar, index) => (
+                            {ss1bThur?.map((ar, index) => (
                               <td
                                 key={index}
                                 className="w-fit border-1 text-base border-neutral-800"
@@ -4833,7 +4958,7 @@ const AllClassesPioneer = () => {
                             <td className="w-fit text-base border-1 border-neutral-800">
                               Friday
                             </td>
-                            {ss1aFri?.map((ar, index) => (
+                            {ss1bFri?.map((ar, index) => (
                               <td
                                 key={index}
                                 className="w-fit border-1 text-base border-neutral-800"
@@ -4846,1396 +4971,1278 @@ const AllClassesPioneer = () => {
                       </table>
                     </div>
                   )}
-                {classNum?.some((arr) => {
-                  if (arr.classNaming === "SSS 1B") return true;
-                }) && (
-                  <div
-                    className="m-auto relative top-20 mb-16"
-                    style={{ width: "60%" }}
-                  >
+                  {classNum?.some((arr) => {
+                    if (arr.classNaming === "SSS 1C") return true;
+                  }) && (
                     <div
-                      className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
-                      onClick={() => {
-                        setRefresh(refresh + 1);
-                      }}
-                      style={{
-                        fontFamily: "Arial, Helvetica, sans-serif",
-                        background: currentColor,
-                        fontWeight: "bolder",
-                      }}
+                      className="m-auto relative top-20 mb-16"
+                      style={{ width: "60%" }}
                     >
-                      Complete Timetable
+                      <div
+                        className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
+                        onClick={() => {
+                          setRefresh(refresh + 1);
+                        }}
+                        style={{
+                          fontFamily: "Arial, Helvetica, sans-serif",
+                          background: currentColor,
+                          fontWeight: "bolder",
+                        }}
+                      >
+                        Complete Timetable
+                      </div>
+                      <div className="absolute -left-48 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold pt-2 pb-2">
+                        {artClass
+                          ?.filter((arr) => arr.classNaming === "SSS 1C")[0]
+                          ?.courses.map((subject) => (
+                            <p
+                              key={subject.id}
+                              style={{ fontFamily: "serif" }}
+                              className="text-black"
+                            >
+                              {subject.subName}
+                            </p>
+                          ))}
+                      </div>
+                      <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
+                        SSS 1C
+                      </div>
+                      <table className="dark:bg-main-bg">
+                        <thead>
+                          <tr>
+                            {defaultTime.map((time, index) => (
+                              <th
+                                key={index}
+                                className="w-fit border-1 border-neutral-800 text-sm pt-3"
+                              >
+                                {time}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Monday
+                            </td>
+                            {ss1cMon?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Tuesday
+                            </td>
+                            {ss1cTue?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Wednesday
+                            </td>
+                            {ss1cWed?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Thursday
+                            </td>
+                            {ss1cThur?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Friday
+                            </td>
+                            {ss1cFri?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
-                    <div className="absolute -left-48 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold pt-2 pb-2">
-                      {classNum
-                        ?.filter((arr) => arr.classNaming === "SSS 1B")[0]
-                        ?.courses.map((subject) => (
-                          <p
-                            key={subject.id}
-                            style={{ fontFamily: "serif" }}
-                            className="text-black"
-                          >
-                            {subject.subName}
-                          </p>
-                        ))}
-                    </div>
-                    <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
-                      SSS 1B
-                    </div>
-                    <table className="dark:bg-main-bg">
-                      <thead>
-                        <tr>
-                          {scienceTime.map((time, index) => (
-                            <th
-                              key={index}
-                              className="w-fit border-1 border-neutral-800 text-sm pt-3"
-                            >
-                              {time}
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Monday
-                          </td>
-                          {ss1bMon?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Tuesday
-                          </td>
-                          {ss1bTue?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Wednesday
-                          </td>
-                          {ss1bWed?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Thursday
-                          </td>
-                          {ss1bThur?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Friday
-                          </td>
-                          {ss1bFri?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-                {classNum?.some((arr) => {
-                  if (arr.classNaming === "SSS 1C") return true;
-                }) && (
-                  <div
-                    className="m-auto relative top-20 mb-16"
-                    style={{ width: "60%" }}
-                  >
+                  )}
+                  {classNum?.some((arr) => {
+                    if (arr.classNaming === "SSS 1D") return true;
+                  }) && (
                     <div
-                      className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
-                      onClick={() => {
-                        setRefresh(refresh + 1);
-                      }}
-                      style={{
-                        fontFamily: "Arial, Helvetica, sans-serif",
-                        background: currentColor,
-                        fontWeight: "bolder",
-                      }}
+                      className="m-auto relative top-20 mb-16"
+                      style={{ width: "60%" }}
                     >
-                      Complete Timetable
+                      <div
+                        className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
+                        onClick={() => {
+                          setRefresh(refresh + 1);
+                        }}
+                        style={{
+                          fontFamily: "Arial, Helvetica, sans-serif",
+                          background: currentColor,
+                          fontWeight: "bolder",
+                        }}
+                      >
+                        Complete Timetable
+                      </div>
+                      <div className="absolute -left-48 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold pt-2 pb-2">
+                        {commercialClass
+                          ?.filter((arr) => arr.classNaming === "SSS 1D")[0]
+                          ?.courses.map((subject) => (
+                            <p
+                              key={subject.id}
+                              style={{ fontFamily: "serif" }}
+                              className="text-black"
+                            >
+                              {subject.subName}
+                            </p>
+                          ))}
+                      </div>
+                      <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
+                        SSS 1D
+                      </div>
+                      <table className="dark:bg-main-bg">
+                        <thead>
+                          <tr>
+                            {scienceTime.map((time, index) => (
+                              <th
+                                key={index}
+                                className="w-fit border-1 border-neutral-800 text-sm pt-3"
+                              >
+                                {time}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Monday
+                            </td>
+                            {ss1dMon?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Tuesday
+                            </td>
+                            {ss1dTue?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Wednesday
+                            </td>
+                            {ss1dWed?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Thursday
+                            </td>
+                            {ss1dThur?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Friday
+                            </td>
+                            {ss1dFri?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
-                    <div className="absolute -left-48 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold pt-2 pb-2">
-                      {artClass
-                        ?.filter((arr) => arr.classNaming === "SSS 1C")[0]
-                        ?.courses.map((subject) => (
-                          <p
-                            key={subject.id}
-                            style={{ fontFamily: "serif" }}
-                            className="text-black"
-                          >
-                            {subject.subName}
-                          </p>
-                        ))}
-                    </div>
-                    <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
-                      SSS 1C
-                    </div>
-                    <table className="dark:bg-main-bg">
-                      <thead>
-                        <tr>
-                          {defaultTime.map((time, index) => (
-                            <th
-                              key={index}
-                              className="w-fit border-1 border-neutral-800 text-sm pt-3"
-                            >
-                              {time}
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Monday
-                          </td>
-                          {ss1cMon?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Tuesday
-                          </td>
-                          {ss1cTue?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Wednesday
-                          </td>
-                          {ss1cWed?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Thursday
-                          </td>
-                          {ss1cThur?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Friday
-                          </td>
-                          {ss1cFri?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-                {classNum?.some((arr) => {
-                  if (arr.classNaming === "SSS 1D") return true;
-                }) && (
-                  <div
-                    className="m-auto relative top-20 mb-16"
-                    style={{ width: "60%" }}
-                  >
+                  )}
+                  {classNum?.some((arr) => {
+                    if (arr.classNaming === "SSS 2A") return true;
+                  }) && (
                     <div
-                      className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
-                      onClick={() => {
-                        setRefresh(refresh + 1);
-                      }}
-                      style={{
-                        fontFamily: "Arial, Helvetica, sans-serif",
-                        background: currentColor,
-                        fontWeight: "bolder",
-                      }}
+                      className="m-auto relative top-20 mb-16"
+                      style={{ width: "60%" }}
                     >
-                      Complete Timetable
+                      <div
+                        className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
+                        onClick={() => {
+                          setRefresh(refresh + 1);
+                        }}
+                        style={{
+                          fontFamily: "Arial, Helvetica, sans-serif",
+                          background: currentColor,
+                          fontWeight: "bolder",
+                        }}
+                      >
+                        Complete Timetable
+                      </div>
+                      <div className="absolute -left-48 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold pt-2 pb-2">
+                        {classNum
+                          ?.filter((arr) => arr.classNaming === "SSS 2A")[0]
+                          ?.courses.map((subject) => (
+                            <p
+                              key={subject.id}
+                              style={{ fontFamily: "serif" }}
+                              className="text-black"
+                            >
+                              {subject.subName}
+                            </p>
+                          ))}
+                      </div>
+                      <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
+                        SSS 2A
+                      </div>
+                      <table className="dark:bg-main-bg">
+                        <thead>
+                          <tr>
+                            {scienceTime.map((time, index) => (
+                              <th
+                                key={index}
+                                className="w-fit border-1 border-neutral-800 text-sm pt-3"
+                              >
+                                {time}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Monday
+                            </td>
+                            {ss2aMon?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Tuesday
+                            </td>
+                            {ss2aTue?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Wednesday
+                            </td>
+                            {ss2aWed?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Thursday
+                            </td>
+                            {ss2aThur?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Friday
+                            </td>
+                            {ss2aFri?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
-                    <div className="absolute -left-48 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold pt-2 pb-2">
-                      {commercialClass
-                        ?.filter((arr) => arr.classNaming === "SSS 1D")[0]
-                        ?.courses.map((subject) => (
-                          <p
-                            key={subject.id}
-                            style={{ fontFamily: "serif" }}
-                            className="text-black"
-                          >
-                            {subject.subName}
-                          </p>
-                        ))}
-                    </div>
-                    <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
-                      SSS 1D
-                    </div>
-                    <table className="dark:bg-main-bg">
-                      <thead>
-                        <tr>
-                          {scienceTime.map((time, index) => (
-                            <th
-                              key={index}
-                              className="w-fit border-1 border-neutral-800 text-sm pt-3"
-                            >
-                              {time}
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Monday
-                          </td>
-                          {ss1dMon?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Tuesday
-                          </td>
-                          {ss1dTue?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Wednesday
-                          </td>
-                          {ss1dWed?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Thursday
-                          </td>
-                          {ss1dThur?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Friday
-                          </td>
-                          {ss1dFri?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-                {classNum?.some((arr) => {
-                  if (arr.classNaming === "SSS 2A") return true;
-                }) && (
-                  <div
-                    className="m-auto relative top-20 mb-16"
-                    style={{ width: "60%" }}
-                  >
+                  )}
+                  {classNum?.some((arr) => {
+                    if (arr.classNaming === "SSS 2B") return true;
+                  }) && (
                     <div
-                      className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
-                      onClick={() => {
-                        setRefresh(refresh + 1);
-                      }}
-                      style={{
-                        fontFamily: "Arial, Helvetica, sans-serif",
-                        background: currentColor,
-                        fontWeight: "bolder",
-                      }}
+                      className="m-auto relative top-20 mb-16"
+                      style={{ width: "60%" }}
                     >
-                      Complete Timetable
+                      <div
+                        className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
+                        onClick={() => {
+                          setRefresh(refresh + 1);
+                        }}
+                        style={{
+                          fontFamily: "Arial, Helvetica, sans-serif",
+                          background: currentColor,
+                          fontWeight: "bolder",
+                        }}
+                      >
+                        Complete Timetable
+                      </div>
+                      <div className="absolute -left-48 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold pt-2 pb-2">
+                        {classNum
+                          ?.filter((arr) => arr.classNaming === "SSS 2B")[0]
+                          ?.courses.map((subject) => (
+                            <p
+                              key={subject.id}
+                              style={{ fontFamily: "serif" }}
+                              className="text-black"
+                            >
+                              {subject.subName}
+                            </p>
+                          ))}
+                      </div>
+                      <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
+                        SSS 2B
+                      </div>
+                      <table className="dark:bg-main-bg">
+                        <thead>
+                          <tr>
+                            {scienceTime.map((time, index) => (
+                              <th
+                                key={index}
+                                className="w-fit border-1 border-neutral-800 text-sm pt-3"
+                              >
+                                {time}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Monday
+                            </td>
+                            {ss2bMon?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Tuesday
+                            </td>
+                            {ss2bTue?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Wednesday
+                            </td>
+                            {ss2bWed?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Thursday
+                            </td>
+                            {ss2bThur?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Friday
+                            </td>
+                            {ss2bFri?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
-                    <div className="absolute -left-48 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold pt-2 pb-2">
-                      {classNum
-                        ?.filter((arr) => arr.classNaming === "SSS 2A")[0]
-                        ?.courses.map((subject) => (
-                          <p
-                            key={subject.id}
-                            style={{ fontFamily: "serif" }}
-                            className="text-black"
-                          >
-                            {subject.subName}
-                          </p>
-                        ))}
-                    </div>
-                    <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
-                      SSS 2A
-                    </div>
-                    <table className="dark:bg-main-bg">
-                      <thead>
-                        <tr>
-                          {scienceTime.map((time, index) => (
-                            <th
-                              key={index}
-                              className="w-fit border-1 border-neutral-800 text-sm pt-3"
-                            >
-                              {time}
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Monday
-                          </td>
-                          {ss2aMon?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Tuesday
-                          </td>
-                          {ss2aTue?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Wednesday
-                          </td>
-                          {ss2aWed?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Thursday
-                          </td>
-                          {ss2aThur?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Friday
-                          </td>
-                          {ss2aFri?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-                {classNum?.some((arr) => {
-                  if (arr.classNaming === "SSS 2B") return true;
-                }) && (
-                  <div
-                    className="m-auto relative top-20 mb-16"
-                    style={{ width: "60%" }}
-                  >
+                  )}
+                  {classNum?.some((arr) => {
+                    if (arr.classNaming === "SSS 2C") return true;
+                  }) && (
                     <div
-                      className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
-                      onClick={() => {
-                        setRefresh(refresh + 1);
-                      }}
-                      style={{
-                        fontFamily: "Arial, Helvetica, sans-serif",
-                        background: currentColor,
-                        fontWeight: "bolder",
-                      }}
+                      className="m-auto relative top-20 mb-16"
+                      style={{ width: "60%" }}
                     >
-                      Complete Timetable
+                      <div
+                        className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
+                        onClick={() => {
+                          setRefresh(refresh + 1);
+                        }}
+                        style={{
+                          fontFamily: "Arial, Helvetica, sans-serif",
+                          background: currentColor,
+                          fontWeight: "bolder",
+                        }}
+                      >
+                        Complete Timetable
+                      </div>
+                      <div className="absolute -left-48 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold pt-2 pb-2">
+                        {artClass
+                          ?.filter((arr) => arr.classNaming === "SSS 2C")[0]
+                          ?.courses.map((subject) => (
+                            <p
+                              key={subject.id}
+                              style={{ fontFamily: "serif" }}
+                              className="text-black"
+                            >
+                              {subject.subName}
+                            </p>
+                          ))}
+                      </div>
+                      <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
+                        SSS 2C
+                      </div>
+                      <table className="dark:bg-main-bg">
+                        <thead>
+                          <tr>
+                            {defaultTime.map((time, index) => (
+                              <th
+                                key={index}
+                                className="w-fit border-1 border-neutral-800 text-sm pt-3"
+                              >
+                                {time}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Monday
+                            </td>
+                            {ss2cMon?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Tuesday
+                            </td>
+                            {ss2cTue?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Wednesday
+                            </td>
+                            {ss2cWed?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Thursday
+                            </td>
+                            {ss2cThur?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Friday
+                            </td>
+                            {ss2cFri?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
-                    <div className="absolute -left-48 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold pt-2 pb-2">
-                      {classNum
-                        ?.filter((arr) => arr.classNaming === "SSS 2B")[0]
-                        ?.courses.map((subject) => (
-                          <p
-                            key={subject.id}
-                            style={{ fontFamily: "serif" }}
-                            className="text-black"
-                          >
-                            {subject.subName}
-                          </p>
-                        ))}
-                    </div>
-                    <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
-                      SSS 2B
-                    </div>
-                    <table className="dark:bg-main-bg">
-                      <thead>
-                        <tr>
-                          {scienceTime.map((time, index) => (
-                            <th
-                              key={index}
-                              className="w-fit border-1 border-neutral-800 text-sm pt-3"
-                            >
-                              {time}
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Monday
-                          </td>
-                          {ss2bMon?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Tuesday
-                          </td>
-                          {ss2bTue?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Wednesday
-                          </td>
-                          {ss2bWed?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Thursday
-                          </td>
-                          {ss2bThur?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Friday
-                          </td>
-                          {ss2bFri?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-                {classNum?.some((arr) => {
-                  if (arr.classNaming === "SSS 2C") return true;
-                }) && (
-                  <div
-                    className="m-auto relative top-20 mb-16"
-                    style={{ width: "60%" }}
-                  >
+                  )}
+                  {classNum?.some((arr) => {
+                    if (arr.classNaming === "SSS 2D") return true;
+                  }) && (
                     <div
-                      className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
-                      onClick={() => {
-                        setRefresh(refresh + 1);
-                      }}
-                      style={{
-                        fontFamily: "Arial, Helvetica, sans-serif",
-                        background: currentColor,
-                        fontWeight: "bolder",
-                      }}
+                      className="m-auto relative top-20 mb-16"
+                      style={{ width: "60%" }}
                     >
-                      Complete Timetable
+                      <div
+                        className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
+                        onClick={() => {
+                          setRefresh(refresh + 1);
+                        }}
+                        style={{
+                          fontFamily: "Arial, Helvetica, sans-serif",
+                          background: currentColor,
+                          fontWeight: "bolder",
+                        }}
+                      >
+                        Complete Timetable
+                      </div>
+                      <div className="absolute -left-48 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold pt-2 pb-2">
+                        {commercialClass
+                          ?.filter((arr) => arr.classNaming === "SSS 2D")[0]
+                          ?.courses.map((subject) => (
+                            <p
+                              key={subject.id}
+                              style={{ fontFamily: "serif" }}
+                              className="text-black"
+                            >
+                              {subject.subName}
+                            </p>
+                          ))}
+                      </div>
+                      <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
+                        SSS 2D
+                      </div>
+                      <table className="dark:bg-main-bg">
+                        <thead>
+                          <tr>
+                            {scienceTime.map((time, index) => (
+                              <th
+                                key={index}
+                                className="w-fit border-1 border-neutral-800 text-sm pt-3"
+                              >
+                                {time}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Monday
+                            </td>
+                            {ss2dMon?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Tuesday
+                            </td>
+                            {ss2dTue?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Wednesday
+                            </td>
+                            {ss2dWed?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Thursday
+                            </td>
+                            {ss2dThur?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Friday
+                            </td>
+                            {ss2dFri?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
-                    <div className="absolute -left-48 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold pt-2 pb-2">
-                      {artClass
-                        ?.filter((arr) => arr.classNaming === "SSS 2C")[0]
-                        ?.courses.map((subject) => (
-                          <p
-                            key={subject.id}
-                            style={{ fontFamily: "serif" }}
-                            className="text-black"
-                          >
-                            {subject.subName}
-                          </p>
-                        ))}
-                    </div>
-                    <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
-                      SSS 2C
-                    </div>
-                    <table className="dark:bg-main-bg">
-                      <thead>
-                        <tr>
-                          {defaultTime.map((time, index) => (
-                            <th
-                              key={index}
-                              className="w-fit border-1 border-neutral-800 text-sm pt-3"
-                            >
-                              {time}
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Monday
-                          </td>
-                          {ss2cMon?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Tuesday
-                          </td>
-                          {ss2cTue?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Wednesday
-                          </td>
-                          {ss2cWed?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Thursday
-                          </td>
-                          {ss2cThur?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Friday
-                          </td>
-                          {ss2cFri?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-                {classNum?.some((arr) => {
-                  if (arr.classNaming === "SSS 2D") return true;
-                }) && (
-                  <div
-                    className="m-auto relative top-20 mb-16"
-                    style={{ width: "60%" }}
-                  >
+                  )}
+                  {classNum?.some((arr) => {
+                    if (arr.classNaming === "SSS 3A") return true;
+                  }) && (
                     <div
-                      className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
-                      onClick={() => {
-                        setRefresh(refresh + 1);
-                      }}
-                      style={{
-                        fontFamily: "Arial, Helvetica, sans-serif",
-                        background: currentColor,
-                        fontWeight: "bolder",
-                      }}
+                      className="m-auto relative top-20 MB-16"
+                      style={{ width: "60%" }}
                     >
-                      Complete Timetable
+                      <div
+                        className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
+                        onClick={() => {
+                          setRefresh(refresh + 1);
+                        }}
+                        style={{
+                          fontFamily: "Arial, Helvetica, sans-serif",
+                          background: currentColor,
+                          fontWeight: "bolder",
+                        }}
+                      >
+                        Complete Timetable
+                      </div>
+                      <div className="absolute -left-48 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold pt-2 pb-2">
+                        {classNum
+                          ?.filter((arr) => arr.classNaming === "SSS 3A")[0]
+                          ?.courses.map((subject) => (
+                            <p
+                              key={subject.id}
+                              style={{ fontFamily: "serif" }}
+                              className="text-black"
+                            >
+                              {subject.subName}
+                            </p>
+                          ))}
+                      </div>
+                      <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
+                        SSS 3A
+                      </div>
+                      <table className="dark:bg-main-bg">
+                        <thead>
+                          <tr>
+                            {scienceTime.map((time, index) => (
+                              <th
+                                key={index}
+                                className="w-fit border-1 border-neutral-800 text-sm pt-3"
+                              >
+                                {time}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Monday
+                            </td>
+                            {ss3aMon?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Tuesday
+                            </td>
+                            {ss3aTue?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Wednesday
+                            </td>
+                            {ss3aWed?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Thursday
+                            </td>
+                            {ss3aThur?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Friday
+                            </td>
+                            {ss3aFri?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
-                    <div className="absolute -left-48 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold pt-2 pb-2">
-                      {commercialClass
-                        ?.filter((arr) => arr.classNaming === "SSS 2D")[0]
-                        ?.courses.map((subject) => (
-                          <p
-                            key={subject.id}
-                            style={{ fontFamily: "serif" }}
-                            className="text-black"
-                          >
-                            {subject.subName}
-                          </p>
-                        ))}
-                    </div>
-                    <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
-                      SSS 2D
-                    </div>
-                    <table className="dark:bg-main-bg">
-                      <thead>
-                        <tr>
-                          {scienceTime.map((time, index) => (
-                            <th
-                              key={index}
-                              className="w-fit border-1 border-neutral-800 text-sm pt-3"
-                            >
-                              {time}
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Monday
-                          </td>
-                          {ss2dMon?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Tuesday
-                          </td>
-                          {ss2dTue?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Wednesday
-                          </td>
-                          {ss2dWed?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Thursday
-                          </td>
-                          {ss2dThur?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Friday
-                          </td>
-                          {ss2dFri?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-                {classNum?.some((arr) => {
-                  if (arr.classNaming === "SSS 3A") return true;
-                }) && (
-                  <div
-                    className="m-auto relative top-20 MB-16"
-                    style={{ width: "60%" }}
-                  >
+                  )}
+                  {classNum?.some((arr) => {
+                    if (arr.classNaming === "SSS 3B") return true;
+                  }) && (
                     <div
-                      className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
-                      onClick={() => {
-                        setRefresh(refresh + 1);
-                      }}
-                      style={{
-                        fontFamily: "Arial, Helvetica, sans-serif",
-                        background: currentColor,
-                        fontWeight: "bolder",
-                      }}
+                      className="m-auto relative top-20 mb-16"
+                      style={{ width: "60%" }}
                     >
-                      Complete Timetable
+                      <div
+                        className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
+                        onClick={() => {
+                          setRefresh(refresh + 1);
+                        }}
+                        style={{
+                          fontFamily: "Arial, Helvetica, sans-serif",
+                          background: currentColor,
+                          fontWeight: "bolder",
+                        }}
+                      >
+                        Complete Timetable
+                      </div>
+                      <div className="absolute -left-48 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold pt-2 pb-2">
+                        {classNum
+                          ?.filter((arr) => arr.classNaming === "SSS 3B")[0]
+                          ?.courses.map((subject) => (
+                            <p
+                              key={subject.id}
+                              style={{ fontFamily: "serif" }}
+                              className="text-black"
+                            >
+                              {subject.subName}
+                            </p>
+                          ))}
+                      </div>
+                      <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
+                        SSS 3B
+                      </div>
+                      <table className="dark:bg-main-bg">
+                        <thead>
+                          <tr>
+                            {scienceTime?.map((time, index) => (
+                              <th
+                                key={index}
+                                className="w-fit border-1 border-neutral-800 text-sm pt-3"
+                              >
+                                {time}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Monday
+                            </td>
+                            {ss3bMon?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Tuesday
+                            </td>
+                            {ss3bTue?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Wednesday
+                            </td>
+                            {ss3bWed?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Thursday
+                            </td>
+                            {ss3bThur?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Friday
+                            </td>
+                            {ss3bFri?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
-                    <div className="absolute -left-48 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold pt-2 pb-2">
-                      {classNum
-                        ?.filter((arr) => arr.classNaming === "SSS 3A")[0]
-                        ?.courses.map((subject) => (
-                          <p
-                            key={subject.id}
-                            style={{ fontFamily: "serif" }}
-                            className="text-black"
-                          >
-                            {subject.subName}
-                          </p>
-                        ))}
-                    </div>
-                    <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
-                      SSS 3A
-                    </div>
-                    <table className="dark:bg-main-bg">
-                      <thead>
-                        <tr>
-                          {scienceTime.map((time, index) => (
-                            <th
-                              key={index}
-                              className="w-fit border-1 border-neutral-800 text-sm pt-3"
-                            >
-                              {time}
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Monday
-                          </td>
-                          {ss3aMon?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Tuesday
-                          </td>
-                          {ss3aTue?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Wednesday
-                          </td>
-                          {ss3aWed?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Thursday
-                          </td>
-                          {ss3aThur?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Friday
-                          </td>
-                          {ss3aFri?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-                {classNum?.some((arr) => {
-                  if (arr.classNaming === "SSS 3B") return true;
-                }) && (
-                  <div
-                    className="m-auto relative top-20 mb-16"
-                    style={{ width: "60%" }}
-                  >
+                  )}
+                  {classNum?.some((arr) => {
+                    if (arr.classNaming === "SSS 3C") return true;
+                  }) && (
                     <div
-                      className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
-                      onClick={() => {
-                        setRefresh(refresh + 1);
-                      }}
-                      style={{
-                        fontFamily: "Arial, Helvetica, sans-serif",
-                        background: currentColor,
-                        fontWeight: "bolder",
-                      }}
+                      className="m-auto relative top-20 mb-16"
+                      style={{ width: "60%" }}
                     >
-                      Complete Timetable
+                      <div
+                        className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
+                        onClick={() => {
+                          setRefresh(refresh + 1);
+                        }}
+                        style={{
+                          fontFamily: "Arial, Helvetica, sans-serif",
+                          background: currentColor,
+                          fontWeight: "bolder",
+                        }}
+                      >
+                        Complete Timetable
+                      </div>
+                      <div className="absolute -left-48 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold pt-2 pb-2">
+                        {artClass
+                          ?.filter((arr) => arr.classNaming === "SSS 3C")[0]
+                          ?.courses.map((subject) => (
+                            <p
+                              key={subject.id}
+                              style={{ fontFamily: "serif" }}
+                              className="text-black"
+                            >
+                              {subject.subName}
+                            </p>
+                          ))}
+                      </div>
+                      <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
+                        SSS 3C
+                      </div>
+                      <table className="dark:bg-main-bg">
+                        <thead>
+                          <tr>
+                            {defaultTime.map((time, index) => (
+                              <th
+                                key={index}
+                                className="w-fit border-1 border-neutral-800 text-sm pt-3"
+                              >
+                                {time}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Monday
+                            </td>
+                            {ss3cMon?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Tuesday
+                            </td>
+                            {ss3cTue?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Wednesday
+                            </td>
+                            {ss3cWed?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Thursday
+                            </td>
+                            {ss3cThur?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Friday
+                            </td>
+                            {ss3cFri?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
-                    <div className="absolute -left-48 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold pt-2 pb-2">
-                      {classNum
-                        ?.filter((arr) => arr.classNaming === "SSS 3B")[0]
-                        ?.courses.map((subject) => (
-                          <p
-                            key={subject.id}
-                            style={{ fontFamily: "serif" }}
-                            className="text-black"
-                          >
-                            {subject.subName}
-                          </p>
-                        ))}
-                    </div>
-                    <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
-                      SSS 3B
-                    </div>
-                    <table className="dark:bg-main-bg">
-                      <thead>
-                        <tr>
-                          {scienceTime?.map((time, index) => (
-                            <th
-                              key={index}
-                              className="w-fit border-1 border-neutral-800 text-sm pt-3"
-                            >
-                              {time}
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Monday
-                          </td>
-                          {ss3bMon?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Tuesday
-                          </td>
-                          {ss3bTue?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Wednesday
-                          </td>
-                          {ss3bWed?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Thursday
-                          </td>
-                          {ss3bThur?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Friday
-                          </td>
-                          {ss3bFri?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-                {classNum?.some((arr) => {
-                  if (arr.classNaming === "SSS 3C") return true;
-                }) && (
-                  <div
-                    className="m-auto relative top-20 mb-16"
-                    style={{ width: "60%" }}
-                  >
+                  )}
+                  {classNum?.some((arr) => {
+                    if (arr.classNaming === "SSS 3D") return true;
+                  }) && (
                     <div
-                      className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
-                      onClick={() => {
-                        setRefresh(refresh + 1);
-                      }}
-                      style={{
-                        fontFamily: "Arial, Helvetica, sans-serif",
-                        background: currentColor,
-                        fontWeight: "bolder",
-                      }}
+                      className="m-auto relative top-20 mb-16"
+                      style={{ width: "60%" }}
                     >
-                      Complete Timetable
+                      <div
+                        className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
+                        onClick={() => {
+                          setRefresh(refresh + 1);
+                        }}
+                        style={{
+                          fontFamily: "Arial, Helvetica, sans-serif",
+                          background: currentColor,
+                          fontWeight: "bolder",
+                        }}
+                      >
+                        Complete Timetable
+                      </div>
+                      <div className="absolute -left-48 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold pt-2 pb-2">
+                        {commercialClass
+                          ?.filter((arr) => arr?.classNaming === "SSS 3D")[0]
+                          ?.courses.map((subject) => (
+                            <p
+                              key={subject.id}
+                              style={{ fontFamily: "serif" }}
+                              className="text-black"
+                            >
+                              {subject.subName}
+                            </p>
+                          ))}
+                      </div>
+                      <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
+                        SSS 3D
+                      </div>
+                      <table className="dark:bg-main-bg">
+                        <thead>
+                          <tr>
+                            {scienceTime.map((time, index) => (
+                              <th
+                                key={index}
+                                className="w-fit border-1 border-neutral-800 text-sm pt-3"
+                              >
+                                {time}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Monday
+                            </td>
+                            {ss3dMon?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Tuesday
+                            </td>
+                            {ss3dTue?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Wednesday
+                            </td>
+                            {ss3dWed?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Thursday
+                            </td>
+                            {ss3dThur?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                          <tr>
+                            <td className="w-fit text-base border-1 border-neutral-800">
+                              Friday
+                            </td>
+                            {ss3dFri?.map((ar, index) => (
+                              <td
+                                key={index}
+                                className="w-fit border-1 text-base border-neutral-800"
+                              >
+                                {ar}
+                              </td>
+                            ))}
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
-                    <div className="absolute -left-48 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold pt-2 pb-2">
-                      {artClass
-                        ?.filter((arr) => arr.classNaming === "SSS 3C")[0]
-                        ?.courses.map((subject) => (
-                          <p
-                            key={subject.id}
-                            style={{ fontFamily: "serif" }}
-                            className="text-black"
-                          >
-                            {subject.subName}
-                          </p>
-                        ))}
-                    </div>
-                    <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
-                      SSS 3C
-                    </div>
-                    <table className="dark:bg-main-bg">
-                      <thead>
-                        <tr>
-                          {defaultTime.map((time, index) => (
-                            <th
-                              key={index}
-                              className="w-fit border-1 border-neutral-800 text-sm pt-3"
-                            >
-                              {time}
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Monday
-                          </td>
-                          {ss3cMon?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Tuesday
-                          </td>
-                          {ss3cTue?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Wednesday
-                          </td>
-                          {ss3cWed?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Thursday
-                          </td>
-                          {ss3cThur?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Friday
-                          </td>
-                          {ss3cFri?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-                {classNum?.some((arr) => {
-                  if (arr.classNaming === "SSS 3D") return true;
-                }) && (
-                  <div
-                    className="m-auto relative top-20 mb-16"
-                    style={{ width: "60%" }}
-                  >
+                  )}
+                </div>
+              ) : (
+                //               [5:11 PM, 11/27/2022] Faith 5: You can check for openings in Bolt Tallinn
+                // [5:11 PM, 11/27/2022] Faith 5: Wise, Tallinn
+                // [5:11 PM, 11/27/2022] Faith 5: Veriff, Tallinn
+                // [5:11 PM, 11/27/2022] Faith 5: Yolo, Tallinn
+                // [5:11 PM, 11/27/2022] Faith 5: You can also check  Ericsson
+                <div className="md:w-800  sm:w-760 lg:w-full relative flex justify-around flex-wrap content-around allClassesContainer">
+                  {classData.map((data, index) => (
                     <div
-                      className="absolute -left-48 flex justify-around items-center top-12 h-14 w-40 border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg text-white font-bold"
-                      onClick={() => {
-                        setRefresh(refresh + 1);
-                      }}
-                      style={{
-                        fontFamily: "Arial, Helvetica, sans-serif",
-                        background: currentColor,
-                        fontWeight: "bolder",
-                      }}
+                      className="min-h-fit h-40 w-1/4 bg-white rounded-xl dark:bg-gray-50 ml-5 shadow-xl allClassesContainerSingleClass"
+                      key={index}
                     >
-                      Complete Timetable
+                      <div className="w-full flex justify-around h-3/5 items-center">
+                        <SiGoogleclassroom className="hover:drop-shadow-xl text-2xl h-9 w-fit p-2 rounded-md bg-black dark:bg-black text-white" />
+                        <p style={{ fontFamily: "cursive" }}>{data}</p>
+                      </div>
+                      <hr />
+                      <Link
+                        to={`/pioneerschool/allclassespioneer/${data}`}
+                        className="m-auto w-fit h-fit pl-5 pr-4 pt-2 pb-2 rounded-xl bg-gray-50 cursor-pointer relative top-3 hover:drop-shadow-xl dark:shadow-md block"
+                        style={{ fontFamily: "serif" }}
+                        onClick={() => {
+                          setClasses(data);
+                          localStorage.setItem(
+                            "pSingleClass",
+                            JSON.stringify(data)
+                          );
+                          // console.log(classes);
+                        }}
+                      >
+                        View <FaEye className="inline-block" />
+                      </Link>
                     </div>
-                    <div className="absolute -left-48 top-28 h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold pt-2 pb-2">
-                      {commercialClass
-                        ?.filter((arr) => arr?.classNaming === "SSS 3D")[0]
-                        ?.courses.map((subject) => (
-                          <p
-                            key={subject.id}
-                            style={{ fontFamily: "serif" }}
-                            className="text-black"
-                          >
-                            {subject.subName}
-                          </p>
-                        ))}
-                    </div>
-                    <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl">
-                      SSS 3D
-                    </div>
-                    <table className="dark:bg-main-bg">
-                      <thead>
-                        <tr>
-                          {scienceTime.map((time, index) => (
-                            <th
-                              key={index}
-                              className="w-fit border-1 border-neutral-800 text-sm pt-3"
-                            >
-                              {time}
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Monday
-                          </td>
-                          {ss3dMon?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Tuesday
-                          </td>
-                          {ss3dTue?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Wednesday
-                          </td>
-                          {ss3dWed?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Thursday
-                          </td>
-                          {ss3dThur?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td className="w-fit text-base border-1 border-neutral-800">
-                            Friday
-                          </td>
-                          {ss3dFri?.map((ar, index) => (
-                            <td
-                              key={index}
-                              className="w-fit border-1 text-base border-neutral-800"
-                            >
-                              {ar}
-                            </td>
-                          ))}
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-              </div>
-            ) : (
-              //               [5:11 PM, 11/27/2022] Faith 5: You can check for openings in Bolt Tallinn
-              // [5:11 PM, 11/27/2022] Faith 5: Wise, Tallinn
-              // [5:11 PM, 11/27/2022] Faith 5: Veriff, Tallinn
-              // [5:11 PM, 11/27/2022] Faith 5: Yolo, Tallinn
-              // [5:11 PM, 11/27/2022] Faith 5: You can also check  Ericsson
-              <div className="md:w-800  sm:w-760 lg:w-full relative flex justify-around flex-wrap content-around allClassesContainer">
-                {classData.map((data, index) => (
-                  <div
-                    className="min-h-fit h-40 w-1/4 bg-white rounded-xl dark:bg-gray-50 ml-5 shadow-xl allClassesContainerSingleClass"
-                    key={index}
-                  >
+                  ))}
+                  <div className="min-h-fit h-40 w-1/4 bg-green-500 rounded-xl ml-5 shadow-xl generateTimetableContainer">
                     <div className="w-full flex justify-around h-3/5 items-center">
-                      <SiGoogleclassroom className="hover:drop-shadow-xl text-2xl h-9 w-fit p-2 rounded-md bg-black dark:bg-black text-white" />
-                      <p style={{ fontFamily: "cursive" }}>{data}</p>
+                      <BiNotepad
+                        className="drop-shadow-xl bg-green-400 text-2xl w-fit p-2 rounded-md text-black h-12 hover:h-14 cursor-pointer"
+                        style={{ color: "white" }}
+                      />
+                      <p
+                        style={{
+                          fontFamily: "serif",
+                          fontWeight: "bolder",
+                          fontSize: "1.5rem",
+                        }}
+                        className="text-white"
+                      >
+                        Timetable
+                      </p>
                     </div>
                     <hr />
-                    <Link
-                      to={`/pioneerschool/allclassespioneer/${data}`}
-                      className="m-auto w-fit h-fit pl-5 pr-4 pt-2 pb-2 rounded-xl bg-gray-50 cursor-pointer relative top-3 hover:drop-shadow-xl dark:shadow-md block"
-                      style={{ fontFamily: "serif" }}
-                      onClick={() => {
-                        setClasses(data);
-                        localStorage.setItem(
-                          "pSingleClass",
-                          JSON.stringify(data)
-                        );
-                        // console.log(classes);
-                      }}
-                    >
-                      View <FaEye className="inline-block" />
-                    </Link>
-                  </div>
-                ))}
-                <div className="min-h-fit h-40 w-1/4 bg-green-500 rounded-xl ml-5 shadow-xl generateTimetableContainer">
-                  <div className="w-full flex justify-around h-3/5 items-center">
-                    <BiNotepad
-                      className="drop-shadow-xl bg-green-400 text-2xl w-fit p-2 rounded-md text-black h-12 hover:h-14 cursor-pointer"
-                      style={{ color: "white" }}
-                    />
-                    <p
+                    <div
+                      className="m-auto w-fit h-fit pl-5 pr-4 pt-2 pb-2 rounded-xl bg-green-400 text-white hover:text-black cursor-pointer relative top-3 drop-shadow-xl dark:shadow-md block"
                       style={{
-                        fontFamily: "serif",
-                        fontWeight: "bolder",
-                        fontSize: "1.5rem",
+                        fontFamily: "cursive",
+                        fontWeight: "bold",
+                        fontSize: "1.1rem",
                       }}
-                      className="text-white"
+                      onClick={() => {
+                        setShowTimetable(true);
+                        setTimeout(() => {
+                          alert(
+                            `Click "Complete Timetable" Multiple times to complete subjects`
+                          );
+                        }, 1000);
+                      }}
                     >
-                      Timetable
-                    </p>
-                  </div>
-                  <hr />
-                  <div
-                    className="m-auto w-fit h-fit pl-5 pr-4 pt-2 pb-2 rounded-xl bg-green-400 text-white hover:text-black cursor-pointer relative top-3 drop-shadow-xl dark:shadow-md block"
-                    style={{
-                      fontFamily: "cursive",
-                      fontWeight: "bold",
-                      fontSize: "1.1rem",
-                    }}
-                    onClick={() => {
-                      setShowTimetable(true);
-                      setTimeout(() => {
-                        alert(
-                          `Click "Complete Timetable" Multiple times to complete subjects`
-                        );
-                      }, 1000);
-                    }}
-                  >
-                    Generate <FaEye className="inline-block" />
+                      Generate <FaEye className="inline-block" />
+                    </div>
                   </div>
                 </div>
+              )
+            ) : (
+              <div className="relative top-12 m-auto w-fit">
+                No Class Yet, Please Create Class
               </div>
-            )
-          ) : (
-            <div className="relative top-12 m-auto w-fit">
-              No Class Yet, Please Create Class
-            </div>
-          )}
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

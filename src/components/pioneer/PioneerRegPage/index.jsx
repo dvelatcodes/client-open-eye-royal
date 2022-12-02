@@ -9,6 +9,7 @@ import {
   loginPioneer,
 } from "../../../features/auth/authSlice";
 import { useStateContext } from "../../../contexts/ContextProvider";
+import IsLoading from "../../isLoading/IsLoading";
 
 // import Button from "../../Buttons";
 
@@ -25,7 +26,7 @@ const PioneerRegPage = () => {
   // redux panels
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isSuccess, isError, message, user } = useSelector(
+  const { isSuccess, isError, message, user, isLoading } = useSelector(
     (state) => state.auth
   );
 
@@ -227,18 +228,136 @@ const PioneerRegPage = () => {
   };
   return (
     <div className="pioneerRegContainer">
-      <form
-        className="pioneerRegForm"
-        onSubmit={(e) => {
-          e.preventDefault();
-        }}
-      >
-        {loginIsActive ? (
-          <>
-            <ul
-              className="studentRegForm-ul"
-              style={{ height: "fit-content", minHeight: "fit-content" }}
-            >
+      {isLoading ? (
+        <IsLoading />
+      ) : (
+        <form
+          className="pioneerRegForm"
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
+        >
+          {loginIsActive ? (
+            <>
+              <ul
+                className="studentRegForm-ul"
+                style={{ height: "fit-content", minHeight: "fit-content" }}
+              >
+                <li className="pioneerRegForm-li mb-3">
+                  <label htmlFor="email" className="text-white font-bold">
+                    Gmail
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="enter email"
+                    value={email}
+                    onInput={onChange}
+                    onKeyUp={checkEmail}
+                  />
+                  <p
+                    className={pThird ? "green" : "red"}
+                    style={{ display: display3 }}
+                  >
+                    {pThird ? "valid" : "invalid"}
+                  </p>
+                </li>
+                <li className="pioneerRegForm-li mb-3">
+                  <label htmlFor="password" className="text-white font-bold">
+                    Password
+                  </label>
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="enter your password"
+                    value={password}
+                    onInput={onChange}
+                    onKeyUp={checkPassword}
+                  />
+                  <p
+                    className={pFourth ? "green" : "red"}
+                    style={{ display: display4 }}
+                  >
+                    {pFourth
+                      ? strength === "weak"
+                        ? "weak"
+                        : strength === "strong"
+                        ? "strong"
+                        : "valid"
+                      : strength === "specialCharacter"
+                      ? "special characters not allowed"
+                      : "invalid"}
+                  </p>
+                </li>
+                {/*  */}
+                <button
+                  type="button"
+                  className="text-white w-fit h-fit pt-10 pb-10 pl-7 pr-7 border-2 border-white font-bold hover:text-green-400 hover:border-green-400"
+                  style={{
+                    cursor: cursorIsActive ? "not-allowed" : "pointer",
+                  }}
+                  onClick={() => {
+                    loginPioneerNow();
+                  }}
+                >
+                  Login
+                </button>
+                {/*  */}
+                <button
+                  type="button"
+                  className="text-white w-fit h-fit pt-10 pb-10 pl-7 pr-7 border-2 border-white font-bold hover:text-green-400 hover:border-green-400 mt-4"
+                  style={{
+                    cursor: cursorIsActive ? "not-allowed" : "pointer",
+                  }}
+                  onClick={() => {
+                    setLoginIsActive(false);
+                  }}
+                >
+                  No Account? <br /> Sign-Up
+                </button>
+              </ul>
+            </>
+          ) : (
+            <ul className="pioneerRegForm-ul">
+              <li className="pioneerRegForm-li mb-3">
+                <label htmlFor="firstName" className="text-white font-bold">
+                  First-Name
+                </label>
+                <input
+                  type="text"
+                  name="firstName"
+                  // className="border-2 border-white bor"
+                  placeholder="enter first name"
+                  value={firstName}
+                  onChange={onChange}
+                  onKeyUp={checkFirst}
+                />
+                <p
+                  className={pFirst ? "green" : "red"}
+                  style={{ display: display1 }}
+                >
+                  {pFirst ? "valid" : "invalid"}
+                </p>
+              </li>
+              <li className="pioneerRegForm-li mb-3">
+                <label htmlFor="lastName" className="text-white font-bold">
+                  Last-Name
+                </label>
+                <input
+                  type="text"
+                  name="lastName"
+                  placeholder="enter last name"
+                  value={lastName}
+                  onInput={onChange}
+                  onKeyUp={checkSecond}
+                />
+                <p
+                  className={pSecond ? "green" : "red"}
+                  style={{ display: display2 }}
+                >
+                  {pSecond ? "valid" : "invalid"}
+                </p>
+              </li>
               <li className="pioneerRegForm-li mb-3">
                 <label htmlFor="email" className="text-white font-bold">
                   Gmail
@@ -285,184 +404,70 @@ const PioneerRegPage = () => {
                     : "invalid"}
                 </p>
               </li>
-              {/*  */}
+              <li className="pioneerRegForm-li mb-3">
+                <label htmlFor="Phone Number" className="text-white font-bold">
+                  Phone Number
+                </label>
+                <input
+                  type="tel"
+                  name="phoneNumber"
+                  placeholder="enter your phone number"
+                  value={phoneNumber}
+                  onInput={onChange}
+                  onKeyUp={checkDial}
+                />
+                <p
+                  className={pFifth ? "green" : "red"}
+                  style={{ display: display5 }}
+                >
+                  {pFifth ? "valid" : "invalid"}
+                </p>
+              </li>
+              <li className="pioneerRegForm-li mb-3">
+                <label htmlFor="schoolName" className="text-white font-bold">
+                  School-Name
+                </label>
+                <input
+                  type="text"
+                  name="schoolName"
+                  placeholder="enter school name"
+                  value={schoolName}
+                  onInput={onChange}
+                  onKeyUp={checkSchName}
+                />
+                <p
+                  className={pSixth ? "green" : "red"}
+                  style={{ display: display6 }}
+                >
+                  {pSixth ? "valid" : "invalid"}
+                </p>
+              </li>
               <button
                 type="button"
                 className="text-white w-fit h-fit pt-10 pb-10 pl-7 pr-7 border-2 border-white font-bold hover:text-green-400 hover:border-green-400"
                 style={{
                   cursor: cursorIsActive ? "not-allowed" : "pointer",
                 }}
-                onClick={() => {
-                  loginPioneerNow();
-                }}
+                onClick={submitPioneer}
               >
-                Login
+                Sign Up
               </button>
-              {/*  */}
               <button
                 type="button"
-                className="text-white w-fit h-fit pt-10 pb-10 pl-7 pr-7 border-2 border-white font-bold hover:text-green-400 hover:border-green-400 mt-4"
+                className=" rounded-3xl mt-4 font-bold btnToNavigateToLoginPioneer"
                 style={{
                   cursor: cursorIsActive ? "not-allowed" : "pointer",
                 }}
                 onClick={() => {
-                  setLoginIsActive(false);
+                  setLoginIsActive(true);
                 }}
               >
-                No Account? <br /> Sign-Up
+                Have an Account? Login
               </button>
             </ul>
-          </>
-        ) : (
-          <ul className="pioneerRegForm-ul">
-            <li className="pioneerRegForm-li mb-3">
-              <label htmlFor="firstName" className="text-white font-bold">
-                First-Name
-              </label>
-              <input
-                type="text"
-                name="firstName"
-                // className="border-2 border-white bor"
-                placeholder="enter first name"
-                value={firstName}
-                onChange={onChange}
-                onKeyUp={checkFirst}
-              />
-              <p
-                className={pFirst ? "green" : "red"}
-                style={{ display: display1 }}
-              >
-                {pFirst ? "valid" : "invalid"}
-              </p>
-            </li>
-            <li className="pioneerRegForm-li mb-3">
-              <label htmlFor="lastName" className="text-white font-bold">
-                Last-Name
-              </label>
-              <input
-                type="text"
-                name="lastName"
-                placeholder="enter last name"
-                value={lastName}
-                onInput={onChange}
-                onKeyUp={checkSecond}
-              />
-              <p
-                className={pSecond ? "green" : "red"}
-                style={{ display: display2 }}
-              >
-                {pSecond ? "valid" : "invalid"}
-              </p>
-            </li>
-            <li className="pioneerRegForm-li mb-3">
-              <label htmlFor="email" className="text-white font-bold">
-                Gmail
-              </label>
-              <input
-                type="email"
-                name="email"
-                placeholder="enter email"
-                value={email}
-                onInput={onChange}
-                onKeyUp={checkEmail}
-              />
-              <p
-                className={pThird ? "green" : "red"}
-                style={{ display: display3 }}
-              >
-                {pThird ? "valid" : "invalid"}
-              </p>
-            </li>
-            <li className="pioneerRegForm-li mb-3">
-              <label htmlFor="password" className="text-white font-bold">
-                Password
-              </label>
-              <input
-                type="password"
-                name="password"
-                placeholder="enter your password"
-                value={password}
-                onInput={onChange}
-                onKeyUp={checkPassword}
-              />
-              <p
-                className={pFourth ? "green" : "red"}
-                style={{ display: display4 }}
-              >
-                {pFourth
-                  ? strength === "weak"
-                    ? "weak"
-                    : strength === "strong"
-                    ? "strong"
-                    : "valid"
-                  : strength === "specialCharacter"
-                  ? "special characters not allowed"
-                  : "invalid"}
-              </p>
-            </li>
-            <li className="pioneerRegForm-li mb-3">
-              <label htmlFor="Phone Number" className="text-white font-bold">
-                Phone Number
-              </label>
-              <input
-                type="tel"
-                name="phoneNumber"
-                placeholder="enter your phone number"
-                value={phoneNumber}
-                onInput={onChange}
-                onKeyUp={checkDial}
-              />
-              <p
-                className={pFifth ? "green" : "red"}
-                style={{ display: display5 }}
-              >
-                {pFifth ? "valid" : "invalid"}
-              </p>
-            </li>
-            <li className="pioneerRegForm-li mb-3">
-              <label htmlFor="schoolName" className="text-white font-bold">
-                School-Name
-              </label>
-              <input
-                type="text"
-                name="schoolName"
-                placeholder="enter school name"
-                value={schoolName}
-                onInput={onChange}
-                onKeyUp={checkSchName}
-              />
-              <p
-                className={pSixth ? "green" : "red"}
-                style={{ display: display6 }}
-              >
-                {pSixth ? "valid" : "invalid"}
-              </p>
-            </li>
-            <button
-              type="button"
-              className="text-white w-fit h-fit pt-10 pb-10 pl-7 pr-7 border-2 border-white font-bold hover:text-green-400 hover:border-green-400"
-              style={{
-                cursor: cursorIsActive ? "not-allowed" : "pointer",
-              }}
-              onClick={submitPioneer}
-            >
-              Sign Up
-            </button>
-            <button
-              type="button"
-              className=" rounded-3xl mt-4 font-bold btnToNavigateToLoginPioneer"
-              style={{
-                cursor: cursorIsActive ? "not-allowed" : "pointer",
-              }}
-              onClick={() => {
-                setLoginIsActive(true);
-              }}
-            >
-              Have an Account? Login
-            </button>
-          </ul>
-        )}
-      </form>
+          )}
+        </form>
+      )}
     </div>
   );
 };

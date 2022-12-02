@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./index.scss";
 import { useStateContext } from "../../../contexts/ContextProvider";
+import IsLoading from "../../isLoading/IsLoading";
 // import Button from "../../Buttons";
 
 export const SelectClass = ({
@@ -120,7 +121,7 @@ const StudentRegPage = () => {
   const [loginActive, setLoginActive] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isSuccess, studentUser, isError, message } = useSelector(
+  const { isSuccess, studentUser, isError, message, isLoading } = useSelector(
     (state) => state.auth
   );
   // input fields
@@ -364,15 +365,118 @@ const StudentRegPage = () => {
   };
   return (
     <>
-      <form
-        className="studentRegForm"
-        onSubmit={(e) => {
-          e.preventDefault();
-        }}
-      >
-        {loginActive ? (
-          <>
-            <ul className="studentRegForm-ul pt-20">
+      {isLoading ? (
+        <IsLoading />
+      ) : (
+        <form
+          className="studentRegForm"
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
+        >
+          {loginActive ? (
+            <>
+              <ul className="studentRegForm-ul pt-20">
+                <li className="studentRegForm-li mb-3">
+                  <input
+                    type="email"
+                    name="studentEmail"
+                    placeholder="enter email"
+                    value={studentEmail}
+                    onInput={onChange}
+                    onKeyUp={checkStEmail}
+                  />
+                  <p
+                    className={stFourth ? "green" : "red"}
+                    style={{ display: display4 }}
+                  >
+                    {stFourth ? "valid" : "invalid"}
+                  </p>
+                </li>
+                <li className="studentRegForm-li mb-3">
+                  <input
+                    type="password"
+                    name="studentPassword"
+                    placeholder="enter your password"
+                    value={studentPassword}
+                    onInput={onChange}
+                    onKeyUp={checkStPassword}
+                  />
+                  <p
+                    className={stFifth ? "green" : "red"}
+                    style={{ display: display5 }}
+                  >
+                    {stFifth
+                      ? stStrength === "weak"
+                        ? "weak"
+                        : stStrength === "strong"
+                        ? "strong"
+                        : "valid"
+                      : stStrength === "specialCharacter"
+                      ? "special characters not allowed"
+                      : "invalid"}
+                  </p>
+                </li>
+                <button
+                  type="button"
+                  className="studentbtn text-white rounded-3xl font-bold"
+                  style={{
+                    cursor: cursorLoginIsActive ? "not-allowed" : "pointer",
+                  }}
+                  onClick={() => {
+                    loginPioneerStudent();
+                  }}
+                >
+                  Login
+                </button>
+                <button
+                  type="button"
+                  className="studentbtn2 rounded-3xl mt-4 font-semibold"
+                  style={{
+                    cursor: cursorStudentIsActive ? "not-allowed" : "pointer",
+                  }}
+                  onClick={() => {
+                    setLoginActive(false);
+                  }}
+                >
+                  No Account? <br /> Sign-Up
+                </button>
+              </ul>
+            </>
+          ) : (
+            <ul className="studentRegForm-ul">
+              <li className="studentRegForm-li mt-12 mb-3">
+                <input
+                  type="text"
+                  name="studentFirstName"
+                  placeholder="enter first name"
+                  value={studentFirstName}
+                  onChange={onChange}
+                  onKeyUp={checkStFirstName}
+                />
+                <p
+                  className={stSecond ? "green" : "red"}
+                  style={{ display: display2 }}
+                >
+                  {stSecond ? "valid" : "invalid"}
+                </p>
+              </li>
+              <li className="studentRegForm-li mb-3">
+                <input
+                  type="text"
+                  name="studentLastName"
+                  placeholder="enter last name"
+                  value={studentLastName}
+                  onInput={onChange}
+                  onKeyUp={checkStLast}
+                />
+                <p
+                  className={stThird ? "green" : "red"}
+                  style={{ display: display3 }}
+                >
+                  {stThird ? "valid" : "invalid"}
+                </p>
+              </li>
               <li className="studentRegForm-li mb-3">
                 <input
                   type="email"
@@ -413,181 +517,82 @@ const StudentRegPage = () => {
                     : "invalid"}
                 </p>
               </li>
+              <li className="studentRegForm-li mb-3">
+                <input
+                  type="tel"
+                  name="studentPhoneNumber"
+                  placeholder="enter your phone number"
+                  value={studentPhoneNumber}
+                  onInput={onChange}
+                  onKeyUp={checkStDial}
+                />
+                <p
+                  className={stSixth ? "green" : "red"}
+                  style={{ display: display6 }}
+                >
+                  {stSixth ? "valid" : "invalid"}
+                </p>
+              </li>
+              <li className="studentRegForm-li mb-3">
+                <h4 className="male">
+                  <p className="text-white font-bold">Male</p>
+                  <input
+                    type="radio"
+                    data-id="male"
+                    name="gender"
+                    value={male}
+                    id="Male"
+                    onInput={changeSex}
+                    onClick={changeAll}
+                  />
+                </h4>
+                <h4 className="female">
+                  <p className="text-white font-bold">Female</p>
+                  <input
+                    type="radio"
+                    data-id="female"
+                    name="gender"
+                    value={female}
+                    id="Female"
+                    onInput={changeSex}
+                    onClick={changeAll}
+                  />
+                </h4>
+                <p
+                  className={stSeven ? "green" : "red"}
+                  style={{ display: display7 }}
+                >
+                  {stSeven ? "valid" : "invalid"}
+                </p>
+              </li>
               <button
                 type="button"
                 className="studentbtn text-white rounded-3xl font-bold"
                 style={{
-                  cursor: cursorLoginIsActive ? "not-allowed" : "pointer",
+                  cursor: cursorStudentIsActive ? "not-allowed" : "pointer",
                 }}
                 onClick={() => {
-                  loginPioneerStudent();
+                  submitStudent();
                 }}
               >
-                Login
+                Sign Up
               </button>
               <button
                 type="button"
-                className="studentbtn2 rounded-3xl mt-4 font-semibold"
+                className="studentbtn2 rounded-3xl mt-4 font-bold"
                 style={{
                   cursor: cursorStudentIsActive ? "not-allowed" : "pointer",
                 }}
                 onClick={() => {
-                  setLoginActive(false);
+                  setLoginActive(true);
                 }}
               >
-                No Account? <br /> Sign-Up
+                Have an Account? Login
               </button>
             </ul>
-          </>
-        ) : (
-          <ul className="studentRegForm-ul">
-            <li className="studentRegForm-li mt-12 mb-3">
-              <input
-                type="text"
-                name="studentFirstName"
-                placeholder="enter first name"
-                value={studentFirstName}
-                onChange={onChange}
-                onKeyUp={checkStFirstName}
-              />
-              <p
-                className={stSecond ? "green" : "red"}
-                style={{ display: display2 }}
-              >
-                {stSecond ? "valid" : "invalid"}
-              </p>
-            </li>
-            <li className="studentRegForm-li mb-3">
-              <input
-                type="text"
-                name="studentLastName"
-                placeholder="enter last name"
-                value={studentLastName}
-                onInput={onChange}
-                onKeyUp={checkStLast}
-              />
-              <p
-                className={stThird ? "green" : "red"}
-                style={{ display: display3 }}
-              >
-                {stThird ? "valid" : "invalid"}
-              </p>
-            </li>
-            <li className="studentRegForm-li mb-3">
-              <input
-                type="email"
-                name="studentEmail"
-                placeholder="enter email"
-                value={studentEmail}
-                onInput={onChange}
-                onKeyUp={checkStEmail}
-              />
-              <p
-                className={stFourth ? "green" : "red"}
-                style={{ display: display4 }}
-              >
-                {stFourth ? "valid" : "invalid"}
-              </p>
-            </li>
-            <li className="studentRegForm-li mb-3">
-              <input
-                type="password"
-                name="studentPassword"
-                placeholder="enter your password"
-                value={studentPassword}
-                onInput={onChange}
-                onKeyUp={checkStPassword}
-              />
-              <p
-                className={stFifth ? "green" : "red"}
-                style={{ display: display5 }}
-              >
-                {stFifth
-                  ? stStrength === "weak"
-                    ? "weak"
-                    : stStrength === "strong"
-                    ? "strong"
-                    : "valid"
-                  : stStrength === "specialCharacter"
-                  ? "special characters not allowed"
-                  : "invalid"}
-              </p>
-            </li>
-            <li className="studentRegForm-li mb-3">
-              <input
-                type="tel"
-                name="studentPhoneNumber"
-                placeholder="enter your phone number"
-                value={studentPhoneNumber}
-                onInput={onChange}
-                onKeyUp={checkStDial}
-              />
-              <p
-                className={stSixth ? "green" : "red"}
-                style={{ display: display6 }}
-              >
-                {stSixth ? "valid" : "invalid"}
-              </p>
-            </li>
-            <li className="studentRegForm-li mb-3">
-              <h4 className="male">
-                <p className="text-white font-bold">Male</p>
-                <input
-                  type="radio"
-                  data-id="male"
-                  name="gender"
-                  value={male}
-                  id="Male"
-                  onInput={changeSex}
-                  onClick={changeAll}
-                />
-              </h4>
-              <h4 className="female">
-                <p className="text-white font-bold">Female</p>
-                <input
-                  type="radio"
-                  data-id="female"
-                  name="gender"
-                  value={female}
-                  id="Female"
-                  onInput={changeSex}
-                  onClick={changeAll}
-                />
-              </h4>
-              <p
-                className={stSeven ? "green" : "red"}
-                style={{ display: display7 }}
-              >
-                {stSeven ? "valid" : "invalid"}
-              </p>
-            </li>
-            <button
-              type="button"
-              className="studentbtn text-white rounded-3xl font-bold"
-              style={{
-                cursor: cursorStudentIsActive ? "not-allowed" : "pointer",
-              }}
-              onClick={() => {
-                submitStudent();
-              }}
-            >
-              Sign Up
-            </button>
-            <button
-              type="button"
-              className="studentbtn2 rounded-3xl mt-4 font-bold"
-              style={{
-                cursor: cursorStudentIsActive ? "not-allowed" : "pointer",
-              }}
-              onClick={() => {
-                setLoginActive(true);
-              }}
-            >
-              Have an Account? Login
-            </button>
-          </ul>
-        )}
-      </form>
+          )}
+        </form>
+      )}
     </>
   );
 };

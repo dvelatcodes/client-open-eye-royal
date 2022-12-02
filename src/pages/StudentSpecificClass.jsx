@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getStudentSpecificClass, reset } from "../features/auth/authSlice";
 import "./studentSpecificClass.scss";
+import IsLoading from "../components/isLoading/IsLoading";
 
 const StudentSpecificClass = () => {
   const {
@@ -80,61 +81,65 @@ const StudentSpecificClass = () => {
   }, []);
   return (
     <div className={currentMode === "Dark" ? "dark heads" : " heads"}>
-      <div className="flex  bg-neutral-700 relative  dark:bg-main-dark-bg subHead">
-        {themeSettings ? (
-          ""
-        ) : (
-          <DashboardFractionStudent
-            activeMenu={activeMenu}
-            onClick={() => setThemeSettings(true)}
-          />
-        )}
-        {themeSettings && <ThemeSettings />}
-        <div
-          className={`dark:bg-main-dark-bg bg-main-bg w-full min-h-screen ${
-            activeMenu ? "md:ml-0" : "flex-2"
-          }`}
-        >
-          <div className="fixed md:static inline-block bg-main-dark dark:bg-main-dark-bg navbar w-full">
-            {themeSettings ? "" : <Navbar name={studentName || ""} />}
-          </div>
-          {schName === null ? (
-            <>
-              <div className="m-auto w-fit font-bold italic noClassMessage">
-                You Don't Have a Class Yet, Please Click on Available Schools
-                for Screening
-              </div>
-            </>
+      {isLoading ? (
+        <IsLoading />
+      ) : (
+        <div className="flex  bg-neutral-700 relative  dark:bg-main-dark-bg subHead">
+          {themeSettings ? (
+            ""
           ) : (
-            <>
-              <div className="h-fit pt-9 pb-9 w-fit pl-8 pr-8 bg-white rounded-xl dark:bg-gray-50 m-auto shadow-2xl top-20 relative">
-                <div className="w-full flex justify-around items-center mb-6">
-                  <SiGoogleclassroom
-                    className="hover:drop-shadow-xl text-2xl h-9 w-fit p-2 rounded-md bg-black dark:bg-black text-white mr-16"
-                    style={{ background: currentColor }}
-                  />
-                  <p style={{ fontFamily: "cursive", fontWeight: "bold" }}>
-                    {schName.classNaming}
-                  </p>
-                </div>
-                <div className="w-full flex justify-around items-center mb-6">
-                  <GiMaterialsScience className="hover:drop-shadow-xl text-2xl h-9 w-fit p-2 rounded-md bg-black dark:bg-black text-white mr-5" />
-                  <p style={{ fontFamily: "cursive" }}>
-                    {schName.classCategory}
-                  </p>
-                </div>
-                <div className="w-full flex justify-around items-center">
-                  <div className="mr-10" style={{ fontFamily: "cursive" }}>
-                    <GoArrowUp className="hover:drop-shadow-xl text-2xl h-9 w-fit p-2 rounded-md bg-green-400 dark:bg-black text-white inline-block" />
-                    <span className="ml-1">{schName.courses.length}</span>
-                  </div>
-                  <p style={{ fontFamily: "cursive" }}>Subjects</p>
-                </div>
-              </div>
-            </>
+            <DashboardFractionStudent
+              activeMenu={activeMenu}
+              onClick={() => setThemeSettings(true)}
+            />
           )}
+          {themeSettings && <ThemeSettings />}
+          <div
+            className={`dark:bg-main-dark-bg bg-main-bg w-full min-h-screen ${
+              activeMenu ? "md:ml-0" : "flex-2"
+            }`}
+          >
+            <div className="fixed md:static inline-block bg-main-dark dark:bg-main-dark-bg navbar w-full">
+              {themeSettings ? "" : <Navbar name={studentName || ""} />}
+            </div>
+            {schName === null ? (
+              <>
+                <div className="m-auto w-fit font-bold italic noClassMessage">
+                  You Don't Have a Class Yet, Please Click on Available Schools
+                  for Screening
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="h-fit pt-9 pb-9 w-fit pl-8 pr-8 bg-white rounded-xl dark:bg-gray-50 m-auto shadow-2xl top-20 relative">
+                  <div className="w-full flex justify-around items-center mb-6">
+                    <SiGoogleclassroom
+                      className="hover:drop-shadow-xl text-2xl h-9 w-fit p-2 rounded-md bg-black dark:bg-black text-white mr-16"
+                      style={{ background: currentColor }}
+                    />
+                    <p style={{ fontFamily: "cursive", fontWeight: "bold" }}>
+                      {schName.classNaming}
+                    </p>
+                  </div>
+                  <div className="w-full flex justify-around items-center mb-6">
+                    <GiMaterialsScience className="hover:drop-shadow-xl text-2xl h-9 w-fit p-2 rounded-md bg-black dark:bg-black text-white mr-5" />
+                    <p style={{ fontFamily: "cursive" }}>
+                      {schName.classCategory}
+                    </p>
+                  </div>
+                  <div className="w-full flex justify-around items-center">
+                    <div className="mr-10" style={{ fontFamily: "cursive" }}>
+                      <GoArrowUp className="hover:drop-shadow-xl text-2xl h-9 w-fit p-2 rounded-md bg-green-400 dark:bg-black text-white inline-block" />
+                      <span className="ml-1">{schName.courses.length}</span>
+                    </div>
+                    <p style={{ fontFamily: "cursive" }}>Subjects</p>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

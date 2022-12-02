@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getStudentTimetable, reset } from "../features/auth/authSlice";
 import "./studentTimetable.scss";
+import IsLoading from "../components/isLoading/IsLoading";
 
 const StudentTimetable = () => {
   const {
@@ -75,137 +76,141 @@ const StudentTimetable = () => {
   }, []);
   return (
     <div className={currentMode === "Dark" ? "dark" : ""}>
-      <div className="flex  bg-main-bg relative  dark:bg-main-dark-bg studentTimetableContainer">
-        {themeSettings ? (
-          ""
-        ) : (
-          <DashboardFractionStudent
-            activeMenu={activeMenu}
-            onClick={() => setThemeSettings(true)}
-          />
-        )}
-        {themeSettings && <ThemeSettings />}
-        <div
-          className={`dark:bg-main-dark-bg bg-main-bg studentTimetableChildContainer w-full min-h-screen ${
-            activeMenu ? "md:ml-0" : "flex-2"
-          }`}
-        >
-          <div className="fixed md:static inline-block bg-main-dark dark:bg-main-dark-bg navbar w-full">
-            {themeSettings ? "" : <Navbar name={studentName || ""} />}
-          </div>
-          {schName === null ? (
-            <>
-              <div className="m-auto w-fit font-bold italic">
-                You Don't Have a Class Yet, Please Click on Available Schools
-                for Screening
-              </div>
-            </>
+      {isLoading ? (
+        <IsLoading />
+      ) : (
+        <div className="flex  bg-main-bg relative  dark:bg-main-dark-bg studentTimetableContainer">
+          {themeSettings ? (
+            ""
           ) : (
-            <>
-              <div
-                className="m-auto relative bg-main-bg reals"
-                style={{ width: "fit-content" }}
-              >
-                <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl dark:text-white timeTableClass">
-                  {schName.className}
-                </div>
-                <div className="absolute left-0 right-0 flex -bottom-20 m-auto h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold bg-black timeTableSubjects">
-                  {schName.classType.map((ars) => (
-                    <p
-                      key={ars.id}
-                      style={{ fontFamily: "serif" }}
-                      className="text-white dark:text-black mr-3"
-                    >
-                      {ars.subName}
-                    </p>
-                  ))}
-                </div>
-                <table className="dark:bg-main-bg">
-                  <thead>
-                    <tr>
-                      {schName.time.map((time, index) => (
-                        <th
-                          key={index}
-                          className="w-fit border-1 border-neutral-800 text-sm pt-3"
-                        >
-                          {time}
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td className="w-fit text-base border-1 border-neutral-800">
-                        Monday
-                      </td>
-                      {schName.monday.map((ar, index) => (
-                        <td
-                          key={index}
-                          className="w-fit border-1 text-base border-neutral-800"
-                        >
-                          {ar}
-                        </td>
-                      ))}
-                    </tr>
-                    <tr>
-                      <td className="w-fit text-base border-1 border-neutral-800">
-                        Tuesday
-                      </td>
-                      {schName.tuesday.map((ar, index) => (
-                        <td
-                          key={index}
-                          className="w-fit border-1 text-base border-neutral-800"
-                        >
-                          {ar}
-                        </td>
-                      ))}
-                    </tr>
-                    <tr>
-                      <td className="w-fit text-base border-1 border-neutral-800">
-                        Wednesday
-                      </td>
-                      {schName.wednesday.map((ar, index) => (
-                        <td
-                          key={index}
-                          className="w-fit border-1 text-base border-neutral-800"
-                        >
-                          {ar}
-                        </td>
-                      ))}
-                    </tr>
-                    <tr>
-                      <td className="w-fit text-base border-1 border-neutral-800">
-                        Thursday
-                      </td>
-                      {schName.thursday.map((ar, index) => (
-                        <td
-                          key={index}
-                          className="w-fit border-1 text-base border-neutral-800"
-                        >
-                          {ar}
-                        </td>
-                      ))}
-                    </tr>
-                    <tr>
-                      <td className="w-fit text-base border-1 border-neutral-800">
-                        Friday
-                      </td>
-                      {schName.friday.map((ar, index) => (
-                        <td
-                          key={index}
-                          className="w-fit border-1 text-base border-neutral-800"
-                        >
-                          {ar}
-                        </td>
-                      ))}
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </>
+            <DashboardFractionStudent
+              activeMenu={activeMenu}
+              onClick={() => setThemeSettings(true)}
+            />
           )}
+          {themeSettings && <ThemeSettings />}
+          <div
+            className={`dark:bg-main-dark-bg bg-main-bg studentTimetableChildContainer w-full min-h-screen ${
+              activeMenu ? "md:ml-0" : "flex-2"
+            }`}
+          >
+            <div className="fixed md:static inline-block bg-main-dark dark:bg-main-dark-bg navbar w-full">
+              {themeSettings ? "" : <Navbar name={studentName || ""} />}
+            </div>
+            {schName === null ? (
+              <>
+                <div className="m-auto w-fit font-bold italic">
+                  You Don't Have a Class Yet, Please Click on Available Schools
+                  for Screening
+                </div>
+              </>
+            ) : (
+              <>
+                <div
+                  className="m-auto relative bg-main-bg reals"
+                  style={{ width: "fit-content" }}
+                >
+                  <div className="relative left-0 right-0 top-0 m-auto w-fit font-extrabold text-2xl dark:text-white timeTableClass">
+                    {schName.className}
+                  </div>
+                  <div className="absolute left-0 right-0 flex -bottom-20 m-auto h-fit w-fit border-1 rounded-xl cursor-pointer shadow-2xl dark:bg-main-bg  font-semibold bg-black timeTableSubjects">
+                    {schName.classType.map((ars) => (
+                      <p
+                        key={ars.id}
+                        style={{ fontFamily: "serif" }}
+                        className="text-white dark:text-black mr-3"
+                      >
+                        {ars.subName}
+                      </p>
+                    ))}
+                  </div>
+                  <table className="dark:bg-main-bg">
+                    <thead>
+                      <tr>
+                        {schName.time.map((time, index) => (
+                          <th
+                            key={index}
+                            className="w-fit border-1 border-neutral-800 text-sm pt-3"
+                          >
+                            {time}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td className="w-fit text-base border-1 border-neutral-800">
+                          Monday
+                        </td>
+                        {schName.monday.map((ar, index) => (
+                          <td
+                            key={index}
+                            className="w-fit border-1 text-base border-neutral-800"
+                          >
+                            {ar}
+                          </td>
+                        ))}
+                      </tr>
+                      <tr>
+                        <td className="w-fit text-base border-1 border-neutral-800">
+                          Tuesday
+                        </td>
+                        {schName.tuesday.map((ar, index) => (
+                          <td
+                            key={index}
+                            className="w-fit border-1 text-base border-neutral-800"
+                          >
+                            {ar}
+                          </td>
+                        ))}
+                      </tr>
+                      <tr>
+                        <td className="w-fit text-base border-1 border-neutral-800">
+                          Wednesday
+                        </td>
+                        {schName.wednesday.map((ar, index) => (
+                          <td
+                            key={index}
+                            className="w-fit border-1 text-base border-neutral-800"
+                          >
+                            {ar}
+                          </td>
+                        ))}
+                      </tr>
+                      <tr>
+                        <td className="w-fit text-base border-1 border-neutral-800">
+                          Thursday
+                        </td>
+                        {schName.thursday.map((ar, index) => (
+                          <td
+                            key={index}
+                            className="w-fit border-1 text-base border-neutral-800"
+                          >
+                            {ar}
+                          </td>
+                        ))}
+                      </tr>
+                      <tr>
+                        <td className="w-fit text-base border-1 border-neutral-800">
+                          Friday
+                        </td>
+                        {schName.friday.map((ar, index) => (
+                          <td
+                            key={index}
+                            className="w-fit border-1 text-base border-neutral-800"
+                          >
+                            {ar}
+                          </td>
+                        ))}
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </>
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

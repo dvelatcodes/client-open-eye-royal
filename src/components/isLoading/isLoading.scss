@@ -1,0 +1,79 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.isLoadingContainer{
+    max-width: 1440px;
+    width: 100vw;
+    margin: auto;
+    height: 100vh;
+    background: rgb(235, 235, 235);
+    // background: white;
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.isLoadingName{
+    position: absolute;
+    width: fit-content;
+    height: fit-content;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    font-size: 1.6rem;
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+// .lineContainer{
+//     width: fit-content;
+//     height: fit-content;
+//     position: relative;
+//     margin: auto;
+//     left: 0;
+//     right: 0;
+//     top: 0;
+//     bottom: 0;
+// }
+
+.isLoadingOuterLine{
+    position: absolute;
+    width: 17rem;
+    height: 0.4rem;
+    margin: auto;
+    top: 0;
+    bottom: -4rem;
+    left: 0;
+    right: 0;
+    background: white;
+    box-shadow: inset 5px 5px 5px rgba(0,0,0,0.05),
+    5px 15px 5px rgba(0,0,0,0.05),
+    5px 17px 8px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+.isLoadingInnerLine{
+    width: 17rem;
+    height: 0.4rem;
+    background: rgb(255, 82, 80);
+    animation: move 7s ease-in-out infinite;
+}
+
+@keyframes move {
+    0%{
+        transform: translateX(-17rem);
+    }
+    50%{
+        transform: translateX(17rem);
+    }
+    100%{
+        transform: translateX(-17rem);
+    }
+}

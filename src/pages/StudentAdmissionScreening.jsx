@@ -20,6 +20,7 @@ import {
   studentAdmittedClass,
 } from "../features/auth/authSlice";
 import "./studentAdmissionScreening.scss";
+import IsLoading from "../components/isLoading/IsLoading";
 
 const StudentAdmissionScreening = () => {
   // show questions
@@ -398,185 +399,203 @@ const StudentAdmissionScreening = () => {
           : "studentScreenContainer"
       }
     >
-      <div className="flex  bg-neutral-700 relative  dark:bg-main-dark-bg">
-        {themeSettings ? (
-          ""
-        ) : (
-          <DashboardFractionStudent
-            activeMenu={activeMenu}
-            onClick={() => setThemeSettings(true)}
-          />
-        )}
-        {themeSettings && <ThemeSettings />}
-        <div
-          className={`dark:bg-main-dark-bg  bg-main-bg studentScreenContainerRight w-full min-h-screen ${
-            activeMenu ? "md:ml-0" : "flex-2"
-          }`}
-        >
-          <div className="fixed md:static inline-block bg-main-dark dark:bg-main-dark-bg navbar w-full">
-            {themeSettings ? "" : <Navbar name={studentName || ""} />}
-          </div>
-          {showQuestions ? (
-            <>
-              <div
-                className="md:w-800 md:mt-7 sm:mt-7 sm:w-760 lg:w-full relative flex justify-around flex-wrap content-around screeningContainer"
-                // style={{ minHeight: "70vh" }}
-              >
-                {showResult ? (
-                  <div className="m-auto top-0 relative w-fit h-fit showScreeningScoreContainer">
-                    <p className="text-2xl font-bold dark:text-white">
-                      Your score is
-                    </p>
-                    <p className="text-2xl font-bold dark:text-white">
-                      {result.length} over 19
-                    </p>
-                    <p className="dark:text-white">
-                      {result.length >= 9
-                        ? "You Passed!, ....proceeding to school"
-                        : "You failed!!!, you can rewrite test"}
-                    </p>
-                  </div>
-                ) : (
-                  <div className="m-auto w-fit h-fit studentScreeningQuestions">
-                    <div className="w-fit m-auto h-fit pl-4 pr-4 pt-4 pb-4 rounded-lg shadow-2xl bg-white">
-                      <span
-                        className="font-bold text-2xl"
-                        style={{ fontFamily: "serif" }}
-                      >
-                        {("0" + Math.floor((time / 60000) % 60)).slice(-2)}
-                      </span>
-                      <span className="ml-2 mr-2">:</span>
-                      <span
-                        className="font-bold text-2xl"
-                        style={{ fontFamily: "serif" }}
-                      >
-                        {("0" + Math.floor((time / 1000) % 60)).slice(-2)}
-                      </span>
-                    </div>
-
-                    <div className="m-auto top-8 relative w-fit">
-                      <span className="dark:text-white">
-                        {studentQuestions[runnerChecker].question}
-                      </span>
-                      <ul>
-                        {studentQuestions[runnerChecker].options.map(
-                          (ans, index) => (
-                            <li
-                              key={index}
-                              className="font-bold text-2xl flex items-center"
-                              style={{ fontFamily: "serif" }}
-                            >
-                              <input
-                                type="radio"
-                                name="clicker"
-                                className="mr-2 w-8 h-9 dark:text-white"
-                                checked={ans.checked}
-                                onChange={(e) => {
-                                  studentQuestions[
-                                    runnerChecker
-                                  ].options[0].checked = false;
-                                  studentQuestions[
-                                    runnerChecker
-                                  ].options[1].checked = false;
-                                  studentQuestions[
-                                    runnerChecker
-                                  ].options[2].checked = false;
-                                  studentQuestions[
-                                    runnerChecker
-                                  ].options[3].checked = false;
-                                  ans.checked = e.target.checked;
-                                }}
-                              />
-                              <div
-                                className="font-bold text-2xl dark:text-white"
-                                style={{ fontFamily: "serif" }}
-                              >
-                                {ans.value}
-                              </div>
-                            </li>
-                          )
-                        )}
-                      </ul>
-                    </div>
-                    {runnerChecker === 18 && (
-                      <button
-                        className=" w-fit h-fit pl-8 pr-8 pt-4 pb-4 rounded-xl cursor-pointer relative top-10 -right-24 hover:drop-shadow-xl dark:shadow-md block font-extrabold"
-                        style={{
-                          fontFamily: "serif",
-                          background: currentColor,
-                        }}
-                        onClick={() => {
-                          setShowResult(true);
-                          submitAnswer();
-                        }}
-                      >
-                        Submit
-                        <GrEdit className="inline-block" />
-                      </button>
-                    )}
-                  </div>
-                )}
-              </div>
-            </>
-          ) : schName === null ? (
-            <div className="w-screen">
-              <div className="m-auto w-fit initialWelcome">
-                Please Refresh Page
-              </div>
-            </div>
+      {isLoading ? (
+        <IsLoading />
+      ) : (
+        <div className="flex  bg-neutral-700 relative  dark:bg-main-dark-bg">
+          {themeSettings ? (
+            ""
           ) : (
-            <>
-              <div className="w-fit m-auto relative top-3 font-bold text-2xl pickClassHeading dark:text-white">
-                Pick desired Class and click Write test for{" "}
-                {schName && schName[0].schoolNaming} school
-              </div>
-              <div
-                className="md:w-800 md:mt-7 sm:mt-7 sm:w-760 lg:w-full relative flex justify-around flex-wrap content-around pickClassContainer"
-                style={{ minHeight: "70vh" }}
-              >
-                {schName && (
-                  <div className="h-fit w-fit bg-white pickClassBox rounded-xl dark:bg-gray-50 ml-5 shadow-xl pt-8 pb-8 pl-8 pr-8">
-                    <div className="w-full flex justify-around h-3/5 items-center mb-4">
-                      <SiGoogleclassroom className="hover:drop-shadow-xl text-2xl h-9 w-fit p-2 rounded-md bg-black dark:bg-black text-white" />
-                      <p style={{ fontFamily: "cursive" }}>
-                        {schName[0].schoolNaming}
+            <DashboardFractionStudent
+              activeMenu={activeMenu}
+              onClick={() => setThemeSettings(true)}
+            />
+          )}
+          {themeSettings && <ThemeSettings />}
+          <div
+            className={`dark:bg-main-dark-bg  bg-main-bg studentScreenContainerRight w-full min-h-screen ${
+              activeMenu ? "md:ml-0" : "flex-2"
+            }`}
+          >
+            <div className="fixed md:static inline-block bg-main-dark dark:bg-main-dark-bg navbar w-full">
+              {themeSettings ? "" : <Navbar name={studentName || ""} />}
+            </div>
+            {showQuestions ? (
+              <>
+                <div
+                  className="md:w-800 md:mt-7 sm:mt-7 sm:w-760 lg:w-full relative flex justify-around flex-wrap content-around screeningContainer"
+                  // style={{ minHeight: "70vh" }}
+                >
+                  {showResult ? (
+                    <div className="m-auto top-0 relative w-fit h-fit showScreeningScoreContainer">
+                      <p className="text-2xl font-bold dark:text-white">
+                        Your score is
+                      </p>
+                      <p className="text-2xl font-bold dark:text-white">
+                        {result.length} over 19
+                      </p>
+                      <p className="dark:text-white">
+                        {result.length >= 9
+                          ? "You Passed!, ....proceeding to school"
+                          : "You failed!!!, you can rewrite test"}
                       </p>
                     </div>
-                    <div className="w-full flex justify-around h-fit items-center mb-4 numberOfClasses">
-                      <p style={{ fontFamily: "cursive" }}>{schName.length}</p>
-                      <p style={{ fontFamily: "cursive" }}>Classes</p>
+                  ) : (
+                    <div className="m-auto w-fit h-fit studentScreeningQuestions">
+                      <div className="w-fit m-auto h-fit pl-4 pr-4 pt-4 pb-4 rounded-lg shadow-2xl bg-white">
+                        <span
+                          className="font-bold text-2xl"
+                          style={{ fontFamily: "serif" }}
+                        >
+                          {("0" + Math.floor((time / 60000) % 60)).slice(-2)}
+                        </span>
+                        <span className="ml-2 mr-2">:</span>
+                        <span
+                          className="font-bold text-2xl"
+                          style={{ fontFamily: "serif" }}
+                        >
+                          {("0" + Math.floor((time / 1000) % 60)).slice(-2)}
+                        </span>
+                      </div>
+
+                      <div className="m-auto top-8 relative w-fit">
+                        <span className="dark:text-white">
+                          {studentQuestions[runnerChecker].question}
+                        </span>
+                        <ul>
+                          {studentQuestions[runnerChecker].options.map(
+                            (ans, index) => (
+                              <li
+                                key={index}
+                                className="font-bold text-2xl flex items-center"
+                                style={{ fontFamily: "serif" }}
+                              >
+                                <input
+                                  type="radio"
+                                  name="clicker"
+                                  className="mr-2 w-8 h-9 dark:text-white"
+                                  checked={ans.checked}
+                                  onChange={(e) => {
+                                    studentQuestions[
+                                      runnerChecker
+                                    ].options[0].checked = false;
+                                    studentQuestions[
+                                      runnerChecker
+                                    ].options[1].checked = false;
+                                    studentQuestions[
+                                      runnerChecker
+                                    ].options[2].checked = false;
+                                    studentQuestions[
+                                      runnerChecker
+                                    ].options[3].checked = false;
+                                    ans.checked = e.target.checked;
+                                  }}
+                                />
+                                <div
+                                  className="font-bold text-2xl dark:text-white"
+                                  style={{ fontFamily: "serif" }}
+                                >
+                                  {ans.value}
+                                </div>
+                              </li>
+                            )
+                          )}
+                        </ul>
+                      </div>
+                      {runnerChecker === 18 && (
+                        <button
+                          className=" w-fit h-fit pl-8 pr-8 pt-4 pb-4 rounded-xl cursor-pointer relative top-10 -right-24 hover:drop-shadow-xl dark:shadow-md block font-extrabold"
+                          style={{
+                            fontFamily: "serif",
+                            background: currentColor,
+                          }}
+                          onClick={() => {
+                            setShowResult(true);
+                            submitAnswer();
+                          }}
+                        >
+                          Submit
+                          <GrEdit className="inline-block" />
+                        </button>
+                      )}
                     </div>
-                    <select
-                      className="mb-4 hover:drop-shadow-xl dark:shadow-md pickClass"
-                      onChange={(e) => {
-                        setStudentPickedClass(e.target.value);
-                      }}
-                    >
-                      <option value="">Pick Class</option>
-                      {schName.map((arr) => (
-                        <option value={arr.classNaming} key={arr._id}>
-                          {arr.classNaming}
-                        </option>
-                      ))}
-                    </select>
-                    <hr />
-                    <button
-                      className="m-auto w-fit h-fit pl-5 pr-4 pt-2 pb-2 rounded-xl bg-gray-50 cursor-pointer relative top-3 hover:drop-shadow-xl dark:shadow-md block"
-                      style={{ fontFamily: "serif" }}
-                      onClick={() => {
-                        showTests();
-                      }}
-                    >
-                      Write Test
-                      <GrEdit className="inline-block" />
-                    </button>
-                  </div>
-                )}
+                  )}
+                </div>
+              </>
+            ) : schName === null ? (
+              <div className="w-screen">
+                <div
+                  className="m-auto w-fit initialWelcome font-bold"
+                  style={{
+                    fontFamily: "serif",
+                  }}
+                >
+                  Please Refresh Page
+                </div>
               </div>
-            </>
-          )}
+            ) : (
+              <>
+                <div className="w-fit m-auto relative top-3 font-bold text-2xl pickClassHeading dark:text-white">
+                  Pick desired Class and click Write test for{" "}
+                  <span
+                    style={{
+                      color: currentColor,
+                    }}
+                  >
+                    {schName && schName[0].schoolNaming}
+                  </span>{" "}
+                  school
+                </div>
+                <div
+                  className="md:w-800 md:mt-7 sm:mt-7 sm:w-760 lg:w-full relative flex justify-around flex-wrap content-around pickClassContainer"
+                  style={{ minHeight: "70vh" }}
+                >
+                  {schName && (
+                    <div className="h-fit w-fit bg-white pickClassBox rounded-xl dark:bg-gray-50 ml-5 shadow-xl pt-8 pb-8 pl-8 pr-8">
+                      <div className="w-full flex justify-around h-3/5 items-center mb-4">
+                        <SiGoogleclassroom className="hover:drop-shadow-xl text-2xl h-9 w-fit p-2 rounded-md bg-black dark:bg-black text-white" />
+                        <p style={{ fontFamily: "cursive" }}>
+                          {schName[0].schoolNaming}
+                        </p>
+                      </div>
+                      <div className="w-full flex justify-around h-fit items-center mb-4 numberOfClasses">
+                        <p style={{ fontFamily: "cursive" }}>
+                          {schName.length}
+                        </p>
+                        <p style={{ fontFamily: "cursive" }}>Classes</p>
+                      </div>
+                      <select
+                        className="mb-4 hover:drop-shadow-xl dark:shadow-md pickClass"
+                        onChange={(e) => {
+                          setStudentPickedClass(e.target.value);
+                        }}
+                      >
+                        <option value="">Pick Class</option>
+                        {schName.map((arr) => (
+                          <option value={arr.classNaming} key={arr._id}>
+                            {arr.classNaming}
+                          </option>
+                        ))}
+                      </select>
+                      <hr />
+                      <button
+                        className="m-auto w-fit h-fit pl-5 pr-4 pt-2 pb-2 rounded-xl bg-gray-50 cursor-pointer relative top-3 hover:drop-shadow-xl dark:shadow-md block"
+                        style={{ fontFamily: "serif" }}
+                        onClick={() => {
+                          showTests();
+                        }}
+                      >
+                        Write Test
+                        <GrEdit className="inline-block" />
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </>
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
