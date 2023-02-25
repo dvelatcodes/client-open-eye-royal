@@ -381,7 +381,7 @@ const StudentAdmissionScreening = () => {
       setTimeout(() => {
         const info = {
           pioneerId: schoolStudentSelected,
-          studentId: user.studentId,
+          studentId: user._id,
           studentClass: studentPickedClass,
         };
         dispatch(studentAdmittedClass(info));

@@ -111,6 +111,7 @@ const getPioneerNigerClass = async ({ _id, schSection }) => {
 // getStudentScreenPioneer
 // getStudentScreenPioneer
 const getStudentScreenPioneer = async ({ schoolStudentSelected }) => {
+  console.log("school", schoolStudentSelected);
   const response = await API.get(
     `/getStudentScreenPioneer?schoolStudentSelected=${schoolStudentSelected}`
   );
