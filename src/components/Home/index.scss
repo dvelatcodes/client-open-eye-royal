@@ -20,6 +20,8 @@ body{
         background-image: url("../../Assets/Images/janko-ferlic-black\ and\ white.jpg");
         background-size: contain;
         width: 100vw;
+        max-width: 1440px;
+        margin: auto;
         height: 100vh;
         position: relative;
         @media screen and (max-width : 376px) {
@@ -94,6 +96,7 @@ body{
         bottom: 0;
         width: 100vw;
         max-width: 1440px;
+        margin: auto;
         height: 50vh;
         @media screen and (max-width : 376px) {
             // bottom: 2rem;
@@ -102,6 +105,8 @@ body{
             .header-up-container{
                 position: relative;
                 width: 100vw;
+                max-width: 1440px;
+                margin: auto;
                 height: 24vh;
                 
                 @media screen and (max-width : 376px) {
@@ -167,6 +172,7 @@ body{
             .header-down{
                 width: 100vw;
                 max-width: 1440px;
+                margin: auto;
                 height: 26vh;
                 position: relative;
                 cursor: pointer;
