@@ -33,6 +33,8 @@ body{
         background-image: url("../../Assets/Images/janko-ferlic-sfL_QOnmy00-unsplash.jpg");
         background-size: contain;
         width: 100vw;
+        max-width: 1440px;
+        margin: auto;
         height: 100vh;
         position: relative;
         @media screen and (max-width : 376px) {
